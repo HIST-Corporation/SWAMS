@@ -1,0 +1,483 @@
+openapi: 3.1.0
+info:
+  title: SWAMS — Smart Workflow & Attendance Management System
+  description: >
+    Backend API. JavaScript-only Express modular monolith. Scope model: `self` (staff),
+    `team` (team_lead), `department` (manager), `organization` (hr/owner), `platform`
+    (console). All workforce routes require a valid Bearer access token; routes are
+    scope-aware on the server (contract request 30). `POST /auth/login` returns
+    `{ accessToken, session }`; protected routes send
+    `Authorization: Bearer <accessToken>`.
+  version: 0.1.0
+  contact:
+    name: SWAMS backend team
+    email: engineering@himaldigital.com.np
+servers:
+  - url: http://localhost:4000/api/v1
+    description: local development
+  - url: https://api.swams.dev/api/v1
+    description: production
+security:
+  - bearerAuth: []
+paths:
+  # --- Public / bootstrap -------------------------------------------------
+  /health:
+    get:
+      summary: Unauthenticated liveness + readiness probe (DB roundtrip)
+      responses:
+        '200':
+          description: Service healthy
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  status: { type: string, enum: [ok, degraded] }
+                  db: { type: string, enum: [up, down] }
+                  uptimeSeconds: { type: integer }
+                  time: { type: string, format: date-time }
+
+  # --- Auth --------------------------------------------------------------
+  /auth/login:
+    post:
+      summary: Sign in a workforce user; returns access token + session
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              type: object
+              required: [email, password]
+              properties:
+                email: { type: string, format: email }
+                password: { type: string }
+                portal: { type: string, enum: [staff, hr] }
+      responses:
+        '200': { description: 'Logged in', content: { application/json: { schema: { $ref: '#/components/schemas/TokenPair' } } } }
+        '401': { $ref: '#/components/responses/Unauthorized' }
+        '400': { $ref: '#/components/responses/BadRequest' }
+  /auth/refresh:
+    post:
+      summary: Refresh the access token with the httpOnly refresh cookie
+      responses:
+        '200': { description: 'Refreshed', content: { application/json: { schema: { $ref: '#/components/schemas/TokenPair' } } } }
+        '401': { $ref: '#/components/responses/Unauthorized' }
+  /auth/logout:
+    post:
+      summary: Invalidate the refresh token + clear the cookie
+      responses:
+        '204': { description: 'Logged out' }
+  /auth/forgot-password:
+    post:
+      summary: Enumeration-safe password reset request (202)
+      responses:
+        '202': { description: 'Reset email requested' }
+
+  # --- Platform console (separate realm, own cookie, no workforce scopes) -
+  /platform/console:
+    get:
+      summary: Platform console shell (separate auth realm)
+      responses:
+        '200': { description: 'Console shell' }
+
+  # --- Dashboard ----------------------------------------------------------
+  /org/dashboard:
+    get:
+      summary: Scoped org board (HR/owner → organization; manager → department; team_lead → team; staff → 403)
+      responses:
+        '200': { description: 'Scoped dashboard', content: { application/json: { schema: { $ref: '#/components/schemas/Dashboard' } } } }
+        '403': { $ref: '#/components/responses/Forbidden' }
+  /presence:
+    get:
+      summary: 'Team now' presence strip (scope-aware)
+      responses:
+        '200': { description: 'Presence rows', content: { application/json: { schema: { $ref: '#/components/schemas/Presence' } } } }
+  /org/overview:
+    get:
+      summary: Headcount / on-site / pending queue counters
+      responses:
+        '200': { description: 'Counters', content: { application/json: { schema: { $ref: '#/components/schemas/Overview' } } } }
+  /staff/board:
+    get:
+      summary: Persona's own work queue (staff only)
+      responses:
+        '200': { description: 'Board rows', content: { application/json: { schema: { $ref: '#/components/schemas/TaskBoard' } } } }
+        '403': { $ref: '#/components/responses/Forbidden' }
+
+  # --- Reports ------------------------------------------------------------
+  /reports:
+    get:
+      summary: Attendance/leave/tasks report rows for a period
+      parameters:
+        - in: query, name: type, required: true, schema: { type: string, enum: [attendance, leave, tasks] }
+        - in: query, name: from, required: true, schema: { type: string, format: date }
+        - in: query, name: to, required: true, schema: { type: string, format: date }
+      responses:
+        '200': { description: 'Report', content: { application/json: { schema: { $ref: '#/components/schemas/Report' } } } }
+        '422': { $ref: '#/components/responses/Unprocessable' }
+  /reports.csv:
+    get:
+      summary: CSV export of the same table (RFC-4180)
+      parameters:
+        - in: query, name: type, required: true, schema: { type: string, enum: [attendance, leave, tasks] }
+        - in: query, name: from, required: true, schema: { type: string, format: date }
+        - in: query, name: to, required: true, schema: { type: string, format: date }
+      responses:
+        '200': { description: 'CSV body', content: { text/csv: { schema: { type: string } } } }
+        '422': { $ref: '#/components/responses/Unprocessable' }
+  /reports/analytics:
+    get:
+      summary: Daily attendance-rate series + summary for a period
+      parameters:
+        - in: query, name: period, required: true, schema: { type: string, enum: [week, month, year] }
+      responses:
+        '200': { description: 'Analytics', content: { application/json: { schema: { $ref: '#/components/schemas/Analytics' } } } }
+        '422': { $ref: '#/components/responses/Unprocessable' }
+
+  # --- Notifications -----------------------------------------------------
+  /notifications:
+    get:
+      summary: Signed-in user's bell (audience never leaked)
+      responses:
+        '200': { description: 'Rows', content: { application/json: { schema: { $ref: '#/components/schemas/Notifications' } } } }
+    post:
+      summary: Create one bell entry (key must be `callRequested` or 422)
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              type: object
+              properties:
+                key: { type: string }
+                params: { type: object, additionalProperties: true }
+                link: { type: string }
+      responses:
+        '201': { description: 'Created', content: { application/json: { schema: { $ref: '#/components/schemas/NotificationRecord' } } } }
+        '422': { $ref: '#/components/responses/Unprocessable' }
+  /notifications/read-all:
+    post:
+      summary: Mark all unread for the session user
+      responses:
+        '200': { description: 'ACK', content: { application/json: { schema: { type: object, properties: { updated: { type: integer } } } } } }
+  /notifications/{id}/read:
+    post:
+      summary: Mark one notification read
+      parameters:
+        - in: path, name: id, required: true, schema: { type: string }
+      responses:
+        '200': { description: 'Record', content: { application/json: { schema: { $ref: '#/components/schemas/NotificationRecord' } } } }
+        '404': { $ref: '#/components/responses/NotFound' }
+
+  # --- Audit --------------------------------------------------------------
+  /audit:
+    get:
+      summary: Append-only audit trail (audit.read permission required)
+      parameters:
+        - in: query, name: action
+        - in: query, name: actor
+        - in: query, name: page
+        - in: query, name: perPage
+      responses:
+        '200': { description: 'Paginated audit log', content: { application/json: { schema: { $ref: '#/components/schemas/AuditLogPage' } } } }
+        '403': { $ref: '#/components/responses/Forbidden' }
+
+  # --- Tasks --------------------------------------------------------------
+  /tasks:
+    get:
+      summary: Task board (scope-aware; staff may only see own/reviewed rows)
+      responses:
+        '200': { description: 'Board', content: { application/json: { schema: { $ref: '#/components/schemas/TaskBoard' } } } }
+
+  # --- Attendance ---------------------------------------------------------
+  /attendance/team:
+    get:
+      summary: Scope-aware team month calendar board
+      parameters:
+        - in: query, name: date
+      responses:
+        '200': { description: 'Team calendar', content: { application/json: { schema: { $ref: '#/components/schemas/TeamCalendar' } } } }
+        '403': { $ref: '#/components/responses/Forbidden' }
+components:
+  securitySchemes:
+    bearerAuth:
+      type: http
+      scheme: bearer
+      bearerFormat: JWT
+  responses:
+    Unauthorized:
+      description: Missing or invalid token
+      content: { application/json: { schema: { $ref: '#/components/schemas/Error' } } }
+    Forbidden:
+      description: Out of scope / denied
+      content: { application/json: { schema: { $ref: '#/components/schemas/Error' } } }
+    BadRequest:
+      description: Malformed input
+      content: { application/json: { schema: { $ref: '#/components/schemas/Error' } } }
+    NotFound:
+      description: Route or resource not found
+      content: { application/json: { schema: { $ref: '#/components/schemas/Error' } } }
+    Unprocessable:
+      description: Invalid query parameter
+      content: { application/json: { schema: { $ref: '#/components/schemas/Error' } } }
+  schemas:
+    TokenPair:
+      type: object
+      properties:
+        accessToken: { type: string }
+        session: { $ref: '#/components/schemas/Session' }
+    Session:
+      type: object
+      properties:
+        userId: { type: string }
+        role: { type: string }
+        orgId: { type: string, nullable: true }
+        scope: { type: string, enum: [self, team, department, organization, platform] }
+    Error:
+      type: object
+      properties:
+        code: { type: string }
+        message: { type: string }
+        details: { type: object, nullable: true }
+        requestId: { type: string, nullable: true }
+    Presence:
+      type: object
+      properties:
+        rows:
+          type: array
+          items: { $ref: '#/components/schemas/PresenceRow' }
+    PresenceRow:
+      type: object
+      properties:
+        id: { type: string }
+        name: { type: string }
+        initials: { type: string }
+        site: { type: string, nullable: true }
+        presence: { type: string, enum: [in, late, out, leave] }
+        online: { type: string, enum: [online, offline] }
+    Overview:
+      type: object
+      properties:
+        headcount: { type: integer }
+        onSite: { type: integer }
+        pending: { type: integer }
+    Dashboard:
+      type: object
+      properties:
+        asOf: { type: string, format: date }
+        scope: { type: string, enum: [organization, team, department] }
+        kpi:
+          type: object
+          properties:
+            present: { type: integer }
+            rate: { type: number }
+            headcount: { type: integer }
+            onLeave: { type: integer }
+            pendingLeave: { type: integer }
+            absent: { type: integer }
+            unexcused: { type: integer }
+        trend: { $ref: '#/components/schemas/Trend' }
+        departments: { type: array, items: { $ref: '#/components/schemas/DepartmentRate' } }
+        benchmarks: { type: array, items: { $ref: '#/components/schemas/Benchmark' } }
+        insights: { type: array, items: { type: object } }
+        meetings: { type: array, items: { $ref: '#/components/schemas/Meeting' } }
+    Trend:
+      type: object
+      properties:
+        target: { type: number }
+        points:
+          type: array
+          items: { $ref: '#/components/schemas/TrendPoint' }
+    TrendPoint:
+      type: object
+      properties:
+        date: { type: string, format: date }
+        rate: { type: number }
+    DepartmentRate:
+      type: object
+      properties:
+        id: { type: string }
+        name: { type: string }
+        rate: { type: number }
+        tone: { type: string }
+    Benchmark:
+      type: object
+      properties:
+        metric: { type: string }
+        swams: { type: number }
+        industry: { type: number }
+        unit: { type: string }
+        status: { type: string }
+        delta: { type: number }
+    Meeting:
+      type: object
+      properties:
+        id: { type: string }
+        time: { type: string }
+        title: { type: string }
+        audience: { type: string }
+        tone: { type: string }
+    Report:
+      type: object
+      properties:
+        type: { type: string }
+        from: { type: string, format: date }
+        to: { type: string, format: date }
+        rows: { type: array, items: { $ref: '#/components/schemas/ReportRow' } }
+        summary:
+          type: object
+          additionalProperties: true
+    ReportRow:
+      oneOf:
+        - $ref: '#/components/schemas/ReportAttendanceRow'
+        - $ref: '#/components/schemas/ReportLeaveRow'
+        - $ref: '#/components/schemas/ReportTasksRow'
+    ReportAttendanceRow:
+      type: object
+      properties:
+        employee: { type: string }
+        present: { type: integer }
+        late: { type: integer }
+        absent: { type: integer }
+        onLeave: { type: integer }
+        workedMinutes: { type: integer }
+    ReportLeaveRow:
+      type: object
+      properties:
+        employee: { type: string }
+        annual: { type: integer }
+        sick: { type: integer }
+        unpaid: { type: integer }
+        special: { type: integer }
+        totalDays: { type: integer }
+    ReportTasksRow:
+      type: object
+      properties:
+        employee: { type: string }
+        done: { type: integer }
+        open: { type: integer }
+        overdue: { type: integer }
+    Analytics:
+      type: object
+      properties:
+        period: { type: string }
+        points:
+          type: array
+          items: { $ref: '#/components/schemas/AnalyticsPoint' }
+        summary:
+          type: object
+          properties:
+            rate: { type: number }
+            workedMinutes: { type: integer }
+            presentDays: { type: integer }
+            lateDays: { type: integer }
+        breakdown:
+          type: object
+          properties:
+            present: { type: integer }
+            late: { type: integer }
+            absent: { type: integer }
+            leave: { type: integer }
+    AnalyticsPoint:
+      type: object
+      properties:
+        date: { type: string, format: date }
+        rate: { type: number }
+        minutes: { type: integer }
+    Notifications:
+      type: object
+      properties:
+        rows:
+          type: array
+          items: { $ref: '#/components/schemas/NotificationRecord' }
+    NotificationRecord:
+      type: object
+      properties:
+        id: { type: string }
+        kind: { type: string, nullable: true }
+        key: { type: string }
+        params: { type: object, additionalProperties: true }
+        link: { type: string, nullable: true }
+        createdAt: { type: string, format: date-time }
+    NotificationPayload:
+      type: object
+      properties:
+        record: { $ref: '#/components/schemas/NotificationRecord' }
+    AuditLogPage:
+      type: object
+      properties:
+        rows:
+          type: array
+          items: { $ref: '#/components/schemas/AuditLogEntry' }
+        page: { type: integer }
+        perPage: { type: integer }
+        total: { type: integer }
+        totalPages: { type: integer }
+    AuditLogEntry:
+      type: object
+      properties:
+        id: { type: string }
+        actor: { type: string }
+        entity: { type: string }
+        action: { type: string }
+        createdAt: { type: string, format: date-time }
+    TaskBoard:
+      type: object
+      properties:
+        rows:
+          type: array
+          items: { $ref: '#/components/schemas/Task' }
+        completed:
+          type: array
+          items: { $ref: '#/components/schemas/Task' }
+        lanes:
+          type: array
+          items: { $ref: '#/components/schemas/TaskLane' }
+        revisions:
+          type: array
+          items: { $ref: '#/components/schemas/TaskRevision' }
+        scope: { type: string }
+        canManage: { type: boolean }
+    Task:
+      type: object
+      properties:
+        id: { type: string }
+        title: { type: string }
+        lane: { type: string }
+        due: { type: string, format: date, nullable: true }
+        assignee: { type: string, nullable: true }
+        reviewer: { type: string, nullable: true }
+        status: { type: string }
+        updatedAt: { type: string, format: date-time }
+        closedAt: { type: string, format: date-time, nullable: true }
+    TaskLane:
+      type: object
+      properties:
+        id: { type: string }
+        name: { type: string, nullable: true }
+        wipLimit: { type: integer, nullable: true }
+    TaskRevision:
+      type: object
+      properties:
+        id: { type: string }
+        taskId: { type: string }
+        issue: { type: string }
+        suggestion: { type: string }
+        severity: { type: string }
+        reviewer: { type: string }
+        createdAt: { type: string, format: date-time }
+    TeamCalendar:
+      type: object
+      properties:
+        summary: { type: object, additionalProperties: true }
+        rows:
+          type: array
+          items: { $ref: '#/components/schemas/TeamCalendarRow' }
+    TeamCalendarRow:
+      type: object
+      properties:
+        userId: { type: string }
+        name: { type: string }
+        date: { type: string, format: date }
+        status: { type: string }
+        workedMinutes: { type: integer }
