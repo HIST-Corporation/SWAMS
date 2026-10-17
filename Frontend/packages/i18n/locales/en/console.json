@@ -1,0 +1,71 @@
+{
+  "brand": "SWAMS Console",
+  "tagline": "Platform administration",
+  "fixtureBadge": "Development fixtures",
+  "fixtureBody": "This console runs on labelled development fixtures — there is no platform backend yet. Every organization, account and status below is sample data, never live tenants.",
+  "auth": {
+    "title": "Platform sign-in",
+    "subtitle": "Separate from the staff app — platform administrators only.",
+    "email": "Admin email",
+    "password": "Password",
+    "signIn": "Sign in",
+    "signingIn": "Signing in…",
+    "demoHint": "Demo admin: admin@swams.com / password (autofilled).",
+    "error": "That demo account didn't match. Try the autofilled credentials.",
+    "realmNote": "The console has its own auth realm — signing into the staff app never grants console access."
+  },
+  "nav": {
+    "label": "Console sections",
+    "overview": "Overview",
+    "organizations": "Organizations",
+    "accounts": "Admin accounts",
+    "health": "System health"
+  },
+  "overview": {
+    "title": "Platform overview",
+    "orgs": "Organizations",
+    "orgsHint": "Registered tenants",
+    "active": "Active",
+    "activeHint": "In good standing",
+    "admins": "Platform admins",
+    "adminsHint": "Console accounts",
+    "incidents": "Open incidents",
+    "incidentsHint": "Last 30 days"
+  },
+  "orgs": {
+    "title": "Organizations",
+    "name": "Organization",
+    "plan": "Plan",
+    "seats": "Seats",
+    "status": "Status",
+    "created": "Created",
+    "empty": "No organizations match."
+  },
+  "accounts": {
+    "title": "Platform admin accounts",
+    "name": "Name",
+    "email": "Email",
+    "level": "Level",
+    "last": "Last seen",
+    "empty": "No admin accounts."
+  },
+  "health": {
+    "title": "System health",
+    "service": "Service",
+    "status": "Status",
+    "uptime": "Uptime (30d)",
+    "ok": "Operational",
+    "degraded": "Degraded"
+  },
+  "status": {
+    "active": "Active",
+    "trial": "Trial",
+    "suspended": "Suspended"
+  },
+  "level": {
+    "owner": "Owner",
+    "support": "Support"
+  },
+  "signOut": "Sign out",
+  "language": "Language"
+}

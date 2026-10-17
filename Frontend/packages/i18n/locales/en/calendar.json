@@ -1,0 +1,43 @@
+{
+  "title": "Calendar",
+  "subtitle": "Leave, holidays and meetings on one month grid.",
+  "prevMonth": "Previous month",
+  "nextMonth": "Next month",
+  "today": "Today",
+  "weekday": "Weekday",
+  "day": "Day",
+  "dayButton": "{{date}}",
+  "dayWithEvents": "{{date}}: {{events}}",
+  "noEventsDay": "No events on this day.",
+  "monthEmpty": "Nothing is booked this month.",
+  "eventsHeading": "Events on {{date}}",
+  "eventsCount_one": "1 event",
+  "eventsCount_other": "{{count}} events",
+  "moreEvents": "+{{count}}",
+  "loadError": "Couldn't load the calendar.",
+  "weeklyOff": "Weekly off",
+  "agenda": {
+    "title": "This month",
+    "filteredEmpty": "Nothing matches the kinds you've switched on."
+  },
+  "filter": {
+    "showAll": "Show all"
+  },
+  "kind": {
+    "leave": "Leave",
+    "holiday": "Holiday",
+    "meeting": "Meeting"
+  },
+  "holidays": {
+    "title": "Public holidays",
+    "applies_one": "{{site}} ({{region}}) observes 1 holiday this month.",
+    "applies_other": "{{site}} ({{region}}) observes {{count}} holidays this month.",
+    "none": "No holidays fall in this month for your location.",
+    "national": "National",
+    "regional": "Regional",
+    "other_one": "1 holiday in another region",
+    "other_other": "{{count}} holidays in other regions",
+    "sample": "Sample holiday list — the public-holiday endpoint is still a contract request."
+  },
+  "legend": "Legend"
+}

@@ -1,0 +1,63 @@
+{
+  "subtitle": "प्रत्यक्ष उपलब्धता, कार्य भार र सहकार्य",
+  "allDepartments": "सबै विभागहरू",
+  "filterLabel": "विभाग अनुसार छान्नुहोस्",
+  "departments": {
+    "engineering": "इन्जिनियरिङ",
+    "executive": "कार्यकारी",
+    "hr": "मानव स्रोत",
+    "design": "डिजाइन",
+    "marketing": "मार्केटिङ",
+    "finance": "वित्त",
+    "support": "सपोर्ट"
+  },
+  "roles": {
+    "ceo": "मुख्य कार्यकारी अधिकृत",
+    "engineeringManager": "इन्जिनियरिङ व्यवस्थापक",
+    "frontendLead": "फ्रन्टइन्ड लिड",
+    "frontendEngineer": "फ्रन्टइन्ड इन्जिनियर",
+    "backendEngineer": "ब्याकइन्ड इन्जिनियर",
+    "qaEngineer": "गुणस्तर आश्वासन इन्जिनियर",
+    "devopsEngineer": "डेभअप्स इन्जिनियर",
+    "hrManager": "मानव स्रोत व्यवस्थापक",
+    "hrOfficer": "मानव स्रोत अधिकृत",
+    "productDesigner": "उत्पाद डिजाइनर",
+    "marketingLead": "मार्केटिङ लिड",
+    "financeOfficer": "वित्त अधिकृत",
+    "supportSpecialist": "सपोर्ट विशेषज्ञ"
+  },
+  "status": {
+    "online": "अनलाइन",
+    "busy": "व्यस्त",
+    "away": "टाढा",
+    "do_not_disturb": "नछल्नुहोस्",
+    "offline": "अफलाइन"
+  },
+  "openTasks": "खुला कार्यहरू",
+  "emptyTitle": "यहाँ अहिलेसम्म कोही छैन",
+  "emptyBody": "यस विभागमा कुनै सदस्य भेटिएन। अर्को विभाग खोज्नुहोस् वा सबैलाई हेर्नुहोस्।",
+  "meta": "{{status}} · {{dept}}",
+  "meetup": {
+    "title": "टोली भेटघाट",
+    "subtitle": "टोलीको उपलब्धता मतदान गरी समूह भेटघाट तालिका बनाउनुहोस्",
+    "createPoll": "मतदान बनाउनुहोस्",
+    "pollTitle": "दोस्रो तिमाही टोली ऑफसाइट योजना",
+    "pollMeta": "मतदान मे १८ मा सकिन्छ · १२ मध्ये ८ जनाले मत दिए",
+    "voting": "मतदान चालु",
+    "votes_one": "{{count}} मत",
+    "votes_other": "{{count}} मत",
+    "confirmDate": "उत्तम मिति निश्चित गर्नुहोस्",
+    "pastTitle": "अघिल्ला भेटघाटहरू",
+    "column": {
+      "event": "कार्यक्रम",
+      "date": "मिति",
+      "attendees": "सहभागी",
+      "status": "स्थिति"
+    },
+    "done": "सकियो",
+    "events": {
+      "q1Lunch": "पहिलो तिमाही टोली खाजा",
+      "holidayParty": "बिदाको पार्टी"
+    }
+  }
+}

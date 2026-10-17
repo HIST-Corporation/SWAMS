@@ -1,0 +1,66 @@
+{
+  "title": "Reports",
+  "subtitle": "Operational summaries for the selected period.",
+  "type": "Report",
+  "typeNames": {
+    "attendance": "Attendance",
+    "leave": "Leave",
+    "tasks": "Tasks"
+  },
+  "from": "From",
+  "to": "To",
+  "export": "Export CSV",
+  "exporting": "Preparing…",
+  "exportStarted": "Your download has started.",
+  "exportFailed": "Couldn't prepare the CSV. Try again.",
+  "rangeError": "The start date must be on or before the end date.",
+  "analytics": {
+    "title": "Progress analytics",
+    "subtitle": "Week, month and year progress at a glance.",
+    "periodLabel": "Period",
+    "period": {
+      "week": "Week",
+      "month": "Month",
+      "year": "Year"
+    },
+    "kpi": {
+      "rate": "Attendance rate",
+      "hours": "Hours worked",
+      "present": "Days present",
+      "late": "Late days"
+    },
+    "trendTitle": "Attendance rate",
+    "hoursTitle": "Hours worked",
+    "breakdownTitle": "Day breakdown",
+    "trendTable": "Attendance rate per bucket",
+    "hoursTable": "Hours worked per bucket",
+    "colBucket": "Period",
+    "colRate": "Rate",
+    "colHours": "Hours",
+    "none": "Not recorded",
+    "emptyTitle": "Not enough data yet",
+    "emptyBody": "The analytics appear here once the period has closed days."
+  },
+  "emptyTitle": "No rows in this period",
+  "emptyBody": "Try a wider date range.",
+  "loadError": "Couldn't load the report.",
+  "summaryTitle": "Totals",
+  "meta": "{{count}} rows · {{from}} to {{to}}",
+  "columns": {
+    "employee": "Employee",
+    "present": "Present",
+    "late": "Late",
+    "absent": "Absent",
+    "onLeave": "On leave",
+    "worked": "Worked",
+    "annual": "Annual",
+    "sick": "Sick",
+    "unpaid": "Unpaid",
+    "special": "Special",
+    "totalDays": "Total days",
+    "done": "Done",
+    "open": "Open",
+    "overdue": "Overdue",
+    "headcount": "People"
+  }
+}

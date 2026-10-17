@@ -1,0 +1,62 @@
+{
+  "name": "swams-frontend",
+  "private": true,
+  "version": "0.1.0",
+  "type": "module",
+  "description": "SWAMS — Smart Workflow and Attendance Management System (frontend monorepo)",
+  "packageManager": "pnpm@11.22.0",
+  "engines": {
+    "node": ">=20.11"
+  },
+  "scripts": {
+    "dev": "turbo run dev",
+    "build": "turbo run build",
+    "test": "vitest run",
+    "test:watch": "vitest",
+    "lint": "eslint . && node scripts/check-js-only.mjs && node scripts/check-boundaries.mjs",
+    "lint:fix": "eslint . --fix",
+    "format": "prettier --write .",
+    "format:check": "prettier --check .",
+    "check:cruiser": "depcruise --config .dependency-cruiser.cjs --ts-pre-compilation-deps false apps packages",
+    "knip": "knip",
+    "storybook": "STORYBOOK_DISABLE_TELEMETRY=1 pnpm --filter @swams/ui storybook",
+    "storybook:build": "STORYBOOK_DISABLE_TELEMETRY=1 pnpm --filter @swams/ui build-storybook",
+    "e2e": "pnpm --filter @swams/web e2e",
+    "gen:feature": "node scripts/gen-feature.mjs",
+    "gen:component": "node scripts/gen-component.mjs",
+    "prepare": "node scripts/prepare.mjs"
+  },
+  "lint-staged": {
+    "*.{js,jsx,mjs,cjs}": [
+      "eslint --fix --max-warnings 0",
+      "prettier --write"
+    ],
+    "*.{json,md,yml,yaml,css,html}": [
+      "prettier --write"
+    ]
+  },
+  "devDependencies": {
+    "@commitlint/cli": "^21.2.3",
+    "@commitlint/config-conventional": "^21.2.3",
+    "@eslint/js": "^9.39.5",
+    "@testing-library/dom": "^10.4.2",
+    "@testing-library/jest-dom": "^7.0.1",
+    "@testing-library/react": "^16.3.3",
+    "@testing-library/user-event": "^14.6.7",
+    "dependency-cruiser": "^18.5.0",
+    "eslint": "^9.39.5",
+    "eslint-config-prettier": "^10.1.8",
+    "eslint-plugin-jsx-a11y": "^6.10.2",
+    "eslint-plugin-react": "^7.37.5",
+    "eslint-plugin-react-hooks": "^7.1.1",
+    "globals": "^17.13.0",
+    "husky": "^9.1.7",
+    "jsdom": "^30.1.2",
+    "knip": "^6.40.0",
+    "lint-staged": "^17.6.0",
+    "msw": "^3.0.2",
+    "prettier": "^3.9.9",
+    "turbo": "^2.11.7",
+    "vitest": "^5.0.3"
+  }
+}

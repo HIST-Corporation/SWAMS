@@ -1,0 +1,292 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+@layer base {
+  html {
+    font-family: var(--font-ui);
+    background: var(--bg);
+    color: var(--text);
+    line-height: var(--line-height-body);
+    -webkit-font-smoothing: antialiased;
+    scroll-behavior: smooth;
+  }
+
+  body {
+    margin: 0;
+    min-height: 100dvh;
+    background: var(--bg);
+    color: var(--text);
+  }
+
+  h1,
+  h2,
+  h3 {
+    line-height: var(--line-height-heading);
+  }
+
+  ::selection {
+    background: var(--selection-bg);
+    color: var(--selection-text);
+  }
+
+  :focus-visible {
+    outline: 2px solid var(--primary);
+    outline-offset: 2px;
+  }
+
+  /* Time, money, tables: tabular numerals everywhere (Section 8.2). */
+  .tabular {
+    font-variant-numeric: tabular-nums;
+  }
+}
+
+/* Landing building blocks: tokens only, no raw colors or sizes (Section 6.2),
+   kept in one place so every section measures and reads the same.
+   The motion kit below mirrors apps/web's landing vocabulary (Section 9.5) —
+   original SWAMS animation (aurora, float, pop, shimmer, pulse, gradient pan)
+   shared so both landings feel like one product. */
+@layer components {
+  .mk-wrap {
+    @apply mx-auto w-full max-w-[1180px] px-4 md:px-6;
+  }
+
+  .mk-section {
+    @apply py-14 md:py-20;
+  }
+
+  .mk-kicker {
+    @apply text-sm font-semibold text-primary;
+  }
+
+  .mk-title {
+    @apply mt-3 text-xl font-bold md:text-2xl;
+  }
+
+  .mk-lead {
+    @apply mt-3 max-w-[62ch] text-md text-text-muted;
+  }
+
+  .mk-btn {
+    @apply inline-flex h-11 items-center justify-center gap-2 rounded-button px-5 text-base font-semibold transition-opacity duration-feedback ease-standard disabled:pointer-events-none disabled:opacity-55;
+  }
+
+  .mk-btn--primary {
+    @apply bg-primary text-on-primary hover:opacity-90;
+  }
+
+  .mk-btn--secondary {
+    @apply border border-border bg-surface text-text hover:bg-surface-sunken;
+  }
+
+  .mk-skip {
+    @apply sr-only focus:not-sr-only focus:fixed focus:left-4 focus:top-4 focus:z-toast focus:rounded-input focus:border focus:border-border focus:bg-surface focus:px-4 focus:py-2;
+  }
+
+  /* Drifting colour cloud behind a section (decorative). */
+  .mkt-aurora {
+    position: absolute;
+    border-radius: 9999px;
+    filter: blur(72px);
+    will-change: transform, opacity;
+    animation: swams-aurora 20s ease-in-out infinite;
+  }
+
+  .mkt-float {
+    animation: swams-float 6s ease-in-out infinite;
+  }
+
+  .mkt-float-tilt {
+    animation: swams-float-tilt 9s ease-in-out infinite;
+  }
+
+  .mkt-glow {
+    animation: swams-glow 7s ease-in-out infinite;
+  }
+
+  /* Entrance pop — visible by default (fill `both`), so reduced motion just
+     skips the travel rather than hiding the content. Pair with an inline
+     delay to stagger a list. */
+  .mkt-pop {
+    animation: swams-pop 0.55s var(--ease-standard) both;
+  }
+
+  /* A one-shot light sweep across a card on hover. */
+  .mkt-sheen {
+    position: relative;
+    overflow: hidden;
+    isolation: isolate;
+  }
+
+  .mkt-sheen::after {
+    content: '';
+    position: absolute;
+    top: 0;
+    bottom: 0;
+    left: 0;
+    width: 45%;
+    pointer-events: none;
+    background: linear-gradient(90deg, transparent, rgb(255 255 255 / 0.16), transparent);
+    transform: translateX(-130%) skewX(-14deg);
+  }
+
+  .mkt-sheen:hover::after {
+    animation: swams-shimmer 0.9s var(--ease-standard);
+  }
+
+  /* Pop-out card: lift, glow ring and a stronger shadow on hover/focus. */
+  .mkt-pop-card {
+    transition:
+      transform var(--duration-feedback) var(--ease-standard),
+      box-shadow var(--duration-feedback) var(--ease-standard),
+      border-color var(--duration-feedback) var(--ease-standard);
+    will-change: transform;
+  }
+
+  .mkt-pop-card:hover,
+  .mkt-pop-card:focus-within {
+    transform: translateY(-6px) scale(1.015);
+    box-shadow: var(--shadow-2);
+    border-color: var(--primary);
+  }
+
+  /* Pulsing ring for the "live" accent. */
+  .mkt-pulse {
+    animation: swams-pulse-ring 2.4s var(--ease-standard) infinite;
+  }
+
+  /* Panning gradient text for an accent word. */
+  .mkt-gradient-text {
+    background: linear-gradient(90deg, var(--primary), var(--accent), var(--primary));
+    background-size: 200% auto;
+    -webkit-background-clip: text;
+    background-clip: text;
+    color: transparent;
+    animation: swams-gradient-pan 6s linear infinite;
+  }
+
+  /* A glowing call-to-action: lift + coloured glow on hover. */
+  .mkt-cta {
+    transition:
+      transform var(--duration-feedback) var(--ease-standard),
+      box-shadow var(--duration-feedback) var(--ease-standard);
+  }
+
+  .mkt-cta:hover {
+    transform: translateY(-2px);
+    box-shadow: 0 12px 28px -8px rgb(var(--primary-rgb) / 0.6);
+  }
+
+  /* Mini bar-chart column that grows in (decorative). */
+  .mkt-bar {
+    transform-origin: bottom;
+    animation: swams-rise 0.7s var(--ease-standard) both;
+  }
+}
+
+@keyframes swams-aurora {
+  0% {
+    transform: translate3d(-8%, 0, 0) scale(1);
+  }
+  50% {
+    transform: translate3d(8%, 3%, 0) scale(1.18);
+  }
+  100% {
+    transform: translate3d(-8%, 0, 0) scale(1);
+  }
+}
+
+@keyframes swams-float {
+  0%,
+  100% {
+    transform: translateY(0);
+  }
+  50% {
+    transform: translateY(-10px);
+  }
+}
+
+@keyframes swams-float-tilt {
+  0%,
+  100% {
+    transform: translateY(0) rotate(0deg);
+  }
+  50% {
+    transform: translateY(-14px) rotate(-1.25deg);
+  }
+}
+
+@keyframes swams-glow {
+  0%,
+  100% {
+    opacity: 0.45;
+    transform: scale(1);
+  }
+  50% {
+    opacity: 0.85;
+    transform: scale(1.09);
+  }
+}
+
+@keyframes swams-shimmer {
+  0% {
+    transform: translateX(-130%) skewX(-14deg);
+  }
+  100% {
+    transform: translateX(240%) skewX(-14deg);
+  }
+}
+
+@keyframes swams-pop {
+  0% {
+    opacity: 0;
+    transform: translateY(14px) scale(0.96);
+  }
+  100% {
+    opacity: 1;
+    transform: translateY(0) scale(1);
+  }
+}
+
+@keyframes swams-pulse-ring {
+  0% {
+    box-shadow: 0 0 0 0 rgb(var(--primary-rgb) / 0.5);
+  }
+  70% {
+    box-shadow: 0 0 0 14px rgb(var(--primary-rgb) / 0);
+  }
+  100% {
+    box-shadow: 0 0 0 0 rgb(var(--primary-rgb) / 0);
+  }
+}
+
+@keyframes swams-gradient-pan {
+  0% {
+    background-position: 0% 50%;
+  }
+  100% {
+    background-position: 200% 50%;
+  }
+}
+
+@keyframes swams-rise {
+  0% {
+    transform: scaleY(0.25);
+  }
+  100% {
+    transform: scaleY(1);
+  }
+}
+
+/* Motion only answers an action (Section 9.5) — and never runs when the
+   visitor asks for less of it. */
+@media (prefers-reduced-motion: reduce) {
+  *,
+  *::before,
+  *::after {
+    animation-duration: 0.01ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: 0.01ms !important;
+    scroll-behavior: auto !important;
+  }
+}

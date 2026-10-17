@@ -1,0 +1,46 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover" />
+    <meta name="color-scheme" content="light dark" />
+    <meta name="theme-color" content="#F6F7FB" />
+    <link rel="apple-touch-icon" href="/icons/icon.svg" />
+    <meta name="mobile-web-app-capable" content="yes" />
+    <meta
+      name="description"
+      content="SWAMS — smart workflow and attendance management for Nepal's SMEs."
+    />
+    <title>SWAMS</title>
+    <!--
+      Pre-paint theme script (Section 8.3): runs before CSS, sets data-theme +
+      color-scheme + theme-color so there is no flash of the wrong theme.
+      This is the only inline script allowed by CSP (hashed/kept tiny on purpose).
+    -->
+    <script>
+      (function () {
+        try {
+          var pref = localStorage.getItem('swams.theme') || 'system';
+          var dark =
+            pref === 'dark' ||
+            (pref === 'system' &&
+              window.matchMedia &&
+              window.matchMedia('(prefers-color-scheme: dark)').matches);
+          var theme = dark ? 'dark' : 'light';
+          var root = document.documentElement;
+          root.setAttribute('data-theme', theme);
+          root.style.colorScheme = theme;
+          var meta = document.querySelector('meta[name="theme-color"]');
+          if (meta) meta.setAttribute('content', theme === 'dark' ? '#0D0F14' : '#F6F7FB');
+        } catch (e) {
+          /* storage blocked: fall back to light tokens */
+        }
+      })();
+    </script>
+  </head>
+  <body>
+    <div id="root"></div>
+    <noscript>SWAMS needs JavaScript to run. Please enable it and reload.</noscript>
+    <script type="module" src="/src/main.jsx"></script>
+  </body>
+</html>

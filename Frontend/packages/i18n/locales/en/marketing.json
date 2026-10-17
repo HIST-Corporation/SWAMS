@@ -1,0 +1,223 @@
+{
+  "nav": {
+    "brandWord": "SWAMS.",
+    "features": "Features",
+    "workflow": "How it works",
+    "roles": "For HR and Staff",
+    "pricing": "Pricing",
+    "demo": "Live demo",
+    "signIn": "Sign in",
+    "signInHint": "Already have an account?",
+    "primary": "Primary",
+    "skip": "Skip to content"
+  },
+  "language": {
+    "en": "English",
+    "ne": "नेपाली"
+  },
+  "hero": {
+    "kicker": "Built for Nepal's growing teams",
+    "title": "Attendance, tasks, and teams. Running from one login.",
+    "titleLead": "Attendance, tasks, and teams.",
+    "titleAccent": "Running from one login.",
+    "lead": "SWAMS (Smart Workspace and Attendance Management System) replaces scattered spreadsheets, group chats and paper leave forms with one workspace your whole team already wants to open.",
+    "emailLabel": "Work email",
+    "emailPlaceholder": "you@company.com",
+    "signup": "Sign up for free",
+    "ctaModules": "See what's inside",
+    "factModules": { "value": "8", "label": "Core modules, 1 login" },
+    "factInstalls": { "value": "0", "label": "Installs, browser-based" },
+    "factViews": { "value": "2", "label": "Views: HR and Staff dashboards" },
+    "industriesLabel": "Designed for teams across",
+    "industries": [
+      "Retail & distribution",
+      "Manufacturing",
+      "Hospitality",
+      "Logistics",
+      "Professional services"
+    ]
+  },
+  "demo": {
+    "label": "Clock-in demo",
+    "hint": "It behaves like the real app. Sample data, no signup.",
+    "personLabel": "Demo person",
+    "person": "Anita Thapa",
+    "siteLabel": "Work site",
+    "site": "Baneshwor",
+    "shiftLabel": "Shift",
+    "shift": "General 09:00–17:30",
+    "shiftLength": "Shift 8h 30m",
+    "clockIn": "Clock in",
+    "clockOut": "Clock out",
+    "checking": "Checking your location and device…",
+    "checkedInAt": "Checked in at {{time}}",
+    "onClock": "Time on the clock",
+    "policyNote": "Location is read only when you clock in or out.",
+    "saved": "Punch saved",
+    "savedBody": "{{site}} · {{time}} — this is what your team sees after every punch.",
+    "worked": "You worked {{worked}} today.",
+    "overtime": "Overtime so far: {{overtime}}.",
+    "again": "Run it again"
+  },
+  "preview": {
+    "windowLabel": "SWAMS workspace preview",
+    "live": "Live",
+    "tiles": {
+      "present": { "label": "Present today", "caption": "across 4 sites" },
+      "leave": { "label": "On leave", "caption": "2 approved today" },
+      "tasks": { "label": "Tasks done", "caption": "this week" }
+    },
+    "boardLabel": "Today's board",
+    "lanes": {
+      "todo": "To do",
+      "doing": "In progress",
+      "done": "Done"
+    },
+    "cards": {
+      "review": "Review payroll export",
+      "onboard": "Onboard 3 new hires",
+      "standup": "Post standup notes",
+      "approve": "Approve leave — Ramesh",
+      "geofence": "Update Baneshwor geofence"
+    },
+    "weekLabel": "Attendance this week",
+    "days": ["Mon", "Tue", "Wed", "Thu", "Fri"],
+    "presenceLabel": "Team presence",
+    "sampleNote": "Sample workspace — the live demo signs you into the real thing."
+  },
+  "code": {
+    "kicker": "Built for the way teams work",
+    "title": "One API behind every module.",
+    "lead": "Attendance, tasks and leave share the same data, so the numbers on a dashboard are always the ones your team actually worked. The demo runs on the same shapes — explore it from the terminal.",
+    "terminalLabel": "terminal — swams-cli",
+    "prompt": "$ ",
+    "points": [
+      "One REST client for attendance, tasks and leave",
+      "Optimistic punches that queue offline and sync later",
+      "Role-scoped responses — staff never see another team's data"
+    ],
+    "lines": {
+      "punch": "swams attendance punch --user priya@swams.com --site Baneshwor",
+      "punchOut": "→ punched in at 09:02 · shift 09:00–17:30 · saved offline-safe",
+      "team": "swams attendance team --dept Engineering --range today",
+      "teamOut": "→ 12 present · 1 on leave · 2 late (flagged for review)",
+      "note": "# every command maps to a screen in the live demo"
+    }
+  },
+  "modules": {
+    "kicker": "Everything, one workspace",
+    "title": "Every module your operations team asks for.",
+    "lead": "No bolted-together tools. Attendance, work and communication live in the same place, with data that stays in sync automatically.",
+    "items": {
+      "attendance": {
+        "title": "Attendance & geofencing",
+        "body": "Clock in and out with location awareness, shift tracking, overtime, and a manager approval queue for corrections."
+      },
+      "tasks": {
+        "title": "Kanban task boards",
+        "body": "Drag tasks through To Do, In Progress, Review and Revision, with per-person workload visible at a glance."
+      },
+      "leave": {
+        "title": "Leave management",
+        "body": "Requests, balances and approvals in one thread. No more chasing signatures over chat."
+      },
+      "calendar": {
+        "title": "Team calendar",
+        "body": "Shifts, leave, holidays and deadlines on one calendar, in BS or AD — the view your team plans the week from."
+      },
+      "messaging": {
+        "title": "Team messaging",
+        "body": "Direct messages and channels, right next to the work they're about."
+      },
+      "video": {
+        "title": "Video meetings",
+        "body": "Standups and reviews with in-call chat, screen share and notes. No separate app to install."
+      },
+      "dashboards": {
+        "title": "Role-based dashboards",
+        "body": "HR sees org-wide analytics and approvals. Staff see their own day. Same platform, right lens for each."
+      },
+      "ai": {
+        "title": "AI-powered insights",
+        "body": "Anomaly flags on attendance, workload summaries and report generation. No data team required."
+      }
+    }
+  },
+  "steps": {
+    "kicker": "How it works",
+    "title": "Three steps, no onboarding headache.",
+    "items": {
+      "signIn": {
+        "title": "Sign in, clock in",
+        "body": "One login per person. Attendance starts the moment they sign in — no separate biometric device to buy."
+      },
+      "work": {
+        "title": "Work where the data lives",
+        "body": "Tasks, leave and messages sit next to attendance, so status updates don't need a second tool."
+      },
+      "pattern": {
+        "title": "See the pattern, not just the log",
+        "body": "Dashboards turn raw check-ins and task history into the weekly view managers actually act on."
+      }
+    }
+  },
+  "roles": {
+    "kicker": "One platform, two purpose-built views.",
+    "hr": {
+      "label": "HR & Admin",
+      "title": "Run the whole org from one screen",
+      "body": "Approve leave, review attendance exceptions and track team health without exporting a single CSV.",
+      "points": [
+        "Org-wide attendance and analytics",
+        "Leave and correction approvals",
+        "Team directory and department view"
+      ]
+    },
+    "staff": {
+      "label": "Staff & Team Members",
+      "title": "A dashboard for your actual day",
+      "body": "Frontend, backend, QA or DevOps: the same shell adapts to each role's tasks and metrics.",
+      "points": [
+        "My tasks, my leave, my session",
+        "Direct messages and meetings",
+        "One-click video call for standups"
+      ]
+    }
+  },
+  "pricing": {
+    "kicker": "Pricing",
+    "title": "Priced for SME teams, not enterprise budgets.",
+    "note": "Indicative pricing. Final plans are confirmed after a short discovery call for your team size.",
+    "perUser": "/ user / mo",
+    "tryFree": "Try it free",
+    "starter": {
+      "name": "Starter",
+      "price": "NPR 499",
+      "upTo": "Best for teams up to 25",
+      "points": ["Attendance and leave management", "Task boards and messaging", "Email support"]
+    },
+    "growth": {
+      "name": "Growth",
+      "price": "NPR 899",
+      "upTo": "Best for teams up to 200, multi-department",
+      "points": [
+        "Everything in Starter",
+        "Video meetings and AI insights",
+        "Role-based dashboards and analytics",
+        "Priority support"
+      ]
+    }
+  },
+  "cta": {
+    "button": "Try live demo",
+    "title": "See SWAMS running before you commit to anything.",
+    "body": "The live demo is the actual product. HR and staff dashboards both included, no signup required."
+  },
+  "footer": {
+    "tagline": "Smart Workspace and Attendance Management System. One workspace for attendance, work and teams.",
+    "product": "Product",
+    "roles": "Roles",
+    "rights": "© 2026 SWAMS",
+    "demoNote": "Demo environment — sample data shown throughout."
+  }
+}

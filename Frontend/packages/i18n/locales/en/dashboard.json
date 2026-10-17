@@ -1,0 +1,239 @@
+{
+  "week": {
+    "title": "This week",
+    "hint": "{{count}} days recorded",
+    "hint_one": "{{count}} day recorded",
+    "hint_other": "{{count}} days recorded",
+    "empty": "No days recorded this week.",
+    "vsLastWeekMore": "{{delta}} more than last week",
+    "vsLastWeekLess": "{{delta}} less than last week"
+  },
+  "leave": {
+    "title": "Leave left",
+    "hint": "Annual balance",
+    "days_one": "{{count}} day",
+    "days_other": "{{count}} days",
+    "usedOf": "{{used}} of {{entitled}} days used"
+  },
+  "kpi": {
+    "presentToday": "Present today",
+    "totalEmployees": "Total employees",
+    "onLeave": "On leave",
+    "notIn": "Not in yet",
+    "thisWeek": "This week",
+    "onSiteToday": "On site today",
+    "absent": "Absent",
+    "attendanceRate": "Attendance rate",
+    "rateLong": "{{value}} attendance today",
+    "headcountUp_one": "1 more person than last month",
+    "headcountUp_other": "{{count}} more people than last month",
+    "headcountDown_one": "1 fewer person than last month",
+    "headcountDown_other": "{{count}} fewer people than last month",
+    "pendingLeave_one": "{{count}} pending",
+    "pendingLeave_other": "{{count}} pending",
+    "unexcused_one": "{{count}} unexcused",
+    "unexcused_other": "{{count}} unexcused"
+  },
+  "workforce": {
+    "title": "Workforce overview",
+    "expected": "{{present}} of {{expected}} in today",
+    "emptyTitle": "Nobody has clocked in yet",
+    "emptyBody": "Presence appears here as soon as people start clocking in."
+  },
+  "stat": {
+    "dueToday": "Due today",
+    "dueTodayHint_one": "{{count}} task with a today deadline",
+    "dueTodayHint_other": "{{count}} tasks with a today deadline"
+  },
+  "chart": {
+    "title": "Hours this week",
+    "total": "{{value}} recorded",
+    "emptyTitle": "No hours recorded this week",
+    "emptyBody": "Clock in to start this week's record. Days you have not recorded show as gaps.",
+    "tableCaption": "Hours worked each day this week",
+    "colDay": "Day",
+    "colHours": "Hours worked",
+    "none": "Not recorded"
+  },
+  "needs": {
+    "title": "Needs you",
+    "countTitle": "Needs you ({{count}})",
+    "corrections_one": "1 correction request is waiting for review",
+    "corrections_other": "{{count}} correction requests are waiting for review",
+    "needsInfo_one": "1 of your correction requests needs more info",
+    "needsInfo_other": "{{count}} of your correction requests need more info",
+    "openQueue": "Open the correction queue",
+    "emptyTitle": "Nothing needs you today",
+    "emptyBody": "New tasks and requests show up here as they arrive."
+  },
+  "tasks": {
+    "title": "Today's tasks",
+    "dueOn": "Due {{when}}",
+    "emptyTitle": "Nothing due today",
+    "emptyBody": "Tasks assigned to you with a today deadline appear here.",
+    "status": {
+      "todo": "To do",
+      "in_progress": "In progress",
+      "done": "Done"
+    }
+  },
+  "teamNow": {
+    "title": "Team now",
+    "summary": "{{present}} of {{total}} in today",
+    "emptyTitle": "Nobody on the roster yet",
+    "empty": "Presence appears here as soon as people start clocking in."
+  },
+  "board": {
+    "title": "Your board",
+    "count": {
+      "open": "Open",
+      "review": "In review",
+      "blocked": "Blocked",
+      "done": "Done"
+    },
+    "queueEmptyTitle": "Your queue is clear",
+    "queueEmptyBody": "Work assigned to you appears here as soon as it lands.",
+    "podTitle": "Your pod",
+    "podEmpty": "No teammates are assigned to you yet.",
+    "podIn": "{{count}} of {{total}} in today",
+    "dueToday": "Due today",
+    "dueOn": "Due {{when}}",
+    "noDue": "No date",
+    "kind": {
+      "review": "Review",
+      "test": "Test",
+      "deploy": "Deploy",
+      "bug": "Bug",
+      "doc": "Doc",
+      "design": "Design",
+      "ops": "Ops"
+    },
+    "priority": {
+      "high": "High",
+      "medium": "Medium",
+      "low": "Low"
+    },
+    "status": {
+      "open": "Open",
+      "review": "In review",
+      "blocked": "Blocked",
+      "done": "Done"
+    },
+    "sampleNote": "Sample work queue — a labelled demo fixture until assignments are served by the API (contract request 26)."
+  },
+  "presence": {
+    "in": "In",
+    "late": "Late",
+    "leave": "On leave",
+    "out": "Out",
+    "meterLabel": "Team presence today: {{total}} people"
+  },
+  "hero": {
+    "meta": "{{headcount}} people on the team, {{onSite}} on site today"
+  },
+  "events": {
+    "title": "Coming up",
+    "emptyTitle": "Nothing scheduled",
+    "emptyBody": "Meetings, leave and holidays appear here as they're booked.",
+    "today": "Today",
+    "kind": {
+      "meeting": "Meeting",
+      "leave": "Leave",
+      "holiday": "Holiday"
+    }
+  },
+  "teamToday": {
+    "title": "Team attendance",
+    "summary": "{{present}} of {{expected}} in today",
+    "present": "In",
+    "late": "Late",
+    "onLeave": "On leave",
+    "notIn": "Not in yet",
+    "queue": "Correction queue"
+  },
+  "trend": {
+    "title": "Attendance trend",
+    "target": "Target {{value}}",
+    "targetLabel": "Target",
+    "emptyTitle": "No attendance recorded yet",
+    "emptyBody": "Daily rates appear here once a day has closed.",
+    "tableCaption": "Daily attendance rate",
+    "colDay": "Day",
+    "colRate": "Attendance rate"
+  },
+  "dept": {
+    "title": "Department attendance",
+    "colRate": "Attendance rate",
+    "emptyTitle": "No departments yet",
+    "emptyBody": "Department rates appear here once the org chart is set up."
+  },
+  "insight": {
+    "title": "Insights",
+    "emptyTitle": "No insights yet",
+    "emptyBody": "Advisory notes appear here as patterns emerge.",
+    "predict": {
+      "title": "Predicted late arrivals",
+      "body": "{{count}} people are likely to arrive late tomorrow — a Monday pattern. A reminder today may help."
+    },
+    "trend": {
+      "title": "Attendance is improving",
+      "body": "The overall rate is up {{delta}}% on last month; {{team}} leads at {{rate}}%."
+    },
+    "burnout": {
+      "title": "Burnout risk",
+      "body": "{{count}} people logged more than 50 hours this week. A manager check-in is worth considering."
+    }
+  },
+  "meetings": {
+    "title": "Today's meetings",
+    "emptyTitle": "No meetings today",
+    "emptyBody": "Meetings booked for today appear here."
+  },
+  "bench": {
+    "title": "Industry benchmark",
+    "caption": "Our metrics against the industry average",
+    "colMetric": "Metric",
+    "colSwams": "SWAMS",
+    "colIndustry": "Industry",
+    "colStatus": "Status",
+    "delta": "+{{value}}",
+    "unit": {
+      "perMonth": "{{value}}/mo",
+      "perWeek": "{{value}}/wk"
+    },
+    "metric": {
+      "attendanceRate": "Attendance rate",
+      "lateArrivals": "Average late arrivals",
+      "leaveUse": "Leave utilisation",
+      "overtime": "Overtime hours"
+    },
+    "status": {
+      "better": "Better",
+      "low": "Low",
+      "high": "High"
+    },
+    "emptyTitle": "No benchmark yet",
+    "emptyBody": "Benchmarks appear here once the org has a few weeks of data."
+  },
+  "snapshot": {
+    "sectionCompany": "Company figures"
+  },
+  "session": {
+    "title": "Today's session",
+    "notClockedIn": "You are not clocked in yet.",
+    "clockInNow": "Clock in now",
+    "clockedInAt": "Clocked in at {{time}}",
+    "workedSoFar": "{{value}} worked",
+    "expectedOut": "Expected out",
+    "shift": "Shift"
+  },
+  "status": {
+    "label": "Your status",
+    "hint": "Shown to teammates — saved on this device",
+    "online": "Online",
+    "busy": "Busy",
+    "away": "Away",
+    "do_not_disturb": "Do not disturb",
+    "offline": "Offline"
+  }
+}

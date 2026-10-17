@@ -1,0 +1,63 @@
+{
+  "subtitle": "Live availability, task load, and collaboration",
+  "allDepartments": "All Departments",
+  "filterLabel": "Filter by department",
+  "departments": {
+    "engineering": "Engineering",
+    "executive": "Executive",
+    "hr": "HR",
+    "design": "Design",
+    "marketing": "Marketing",
+    "finance": "Finance",
+    "support": "Support"
+  },
+  "roles": {
+    "ceo": "Chief Executive Officer",
+    "engineeringManager": "Engineering Manager",
+    "frontendLead": "Frontend Lead",
+    "frontendEngineer": "Frontend Developer",
+    "backendEngineer": "Backend Engineer",
+    "qaEngineer": "QA Engineer",
+    "devopsEngineer": "DevOps Engineer",
+    "hrManager": "HR Manager",
+    "hrOfficer": "HR Officer",
+    "productDesigner": "Product Designer",
+    "marketingLead": "Marketing Lead",
+    "financeOfficer": "Finance Officer",
+    "supportSpecialist": "Support Specialist"
+  },
+  "status": {
+    "online": "Online",
+    "busy": "Busy",
+    "away": "Away",
+    "do_not_disturb": "Do not disturb",
+    "offline": "Offline"
+  },
+  "openTasks": "Open tasks",
+  "emptyTitle": "No one here yet",
+  "emptyBody": "No team members match this department. Try another department or view everyone.",
+  "meta": "{{status}} · {{dept}}",
+  "meetup": {
+    "title": "Team Meetup",
+    "subtitle": "Poll team availability and schedule group meetups",
+    "createPoll": "Create Poll",
+    "pollTitle": "Q2 Team Offsite Planning",
+    "pollMeta": "Vote closes May 18 · 8 of 12 voted",
+    "voting": "Voting",
+    "votes_one": "{{count}} vote",
+    "votes_other": "{{count}} votes",
+    "confirmDate": "Confirm Best Date",
+    "pastTitle": "Past Meetups",
+    "column": {
+      "event": "Event",
+      "date": "Date",
+      "attendees": "Attendees",
+      "status": "Status"
+    },
+    "done": "Done",
+    "events": {
+      "q1Lunch": "Q1 Team Lunch",
+      "holidayParty": "Holiday Party"
+    }
+  }
+}

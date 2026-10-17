@@ -1,0 +1,16 @@
+{
+  "name": "@swams/permissions",
+  "version": "0.1.0",
+  "private": true,
+  "type": "module",
+  "description": "Frontend authorization keys, default bundles and can() (Section 4.1). UX only — the server is the real gate.",
+  "exports": {
+    ".": "./src/index.js"
+  },
+  "files": [
+    "src"
+  ],
+  "scripts": {
+    "test": "vitest run --passWithNoTests"
+  }
+}

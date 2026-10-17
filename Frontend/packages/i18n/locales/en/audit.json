@@ -1,0 +1,36 @@
+{
+  "title": "Audit log",
+  "subtitle": "Who changed what, and when.",
+  "actorFilter": "Actor",
+  "actorPlaceholder": "Filter by name…",
+  "actionFilter": "Action",
+  "allActions": "All actions",
+  "prev": "Previous",
+  "next": "Next",
+  "pageOf": "Page {{page}} of {{pages}}",
+  "showing": "Showing {{from}}–{{to}} of {{total}}",
+  "emptyTitle": "No audit entries",
+  "emptyBody": "Activity matching these filters will appear here.",
+  "loadError": "Couldn't load the audit log.",
+  "entity": {
+    "leave": "Leave",
+    "attendance": "Attendance",
+    "team": "Team",
+    "security": "Security",
+    "settings": "Settings"
+  },
+  "action": {
+    "leaveApproved": "Approved a leave request.",
+    "leaveRejected": "Rejected a leave request.",
+    "correctionApproved": "Approved an attendance correction.",
+    "userInvited": "Invited a new team member.",
+    "roleChanged": "Changed a team member's role.",
+    "userDeactivated": "Deactivated a team account.",
+    "passwordChanged": "Changed an account password.",
+    "profileUpdated": "Updated profile preferences."
+  },
+  "when": {
+    "today": "Today, {{time}}",
+    "on": "{{date}}, {{time}}"
+  }
+}

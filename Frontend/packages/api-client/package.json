@@ -1,0 +1,19 @@
+{
+  "name": "@swams/api-client",
+  "version": "0.1.0",
+  "private": true,
+  "type": "module",
+  "description": "Platform-agnostic request layer derived from the OpenAPI contract: axios, request IDs, single-flight refresh, one AppError shape (Section 5, 10).",
+  "exports": {
+    ".": "./src/index.js"
+  },
+  "files": [
+    "src"
+  ],
+  "scripts": {
+    "test": "vitest run --passWithNoTests"
+  },
+  "dependencies": {
+    "axios": "^1.20.0"
+  }
+}

@@ -1,0 +1,21 @@
+{
+  "subtitle": "Direct messages and team channels",
+  "newDm": "New DM",
+  "newGroup": "New Group",
+  "search": "Search conversations…",
+  "sectionDm": "Direct Messages",
+  "teamRailLabel": "Team",
+  "onlineCount_one": "{{count}} online",
+  "onlineCount_other": "{{count}} online",
+  "quickChat": "Message {{name}}",
+  "openChat": "Chat with {{name}}",
+  "unreadCount": "{{count}} unread",
+  "videoCall": "Video call",
+  "scheduleMeeting": "Schedule meeting",
+  "composePlaceholder": "Type a message…",
+  "send": "Send",
+  "localNote": "Sample conversation — messages stay in this browser until the messaging channel arrives.",
+  "emptyThreadTitle": "No messages yet",
+  "emptyThreadBody": "Say hello — anything you send here stays in this browser.",
+  "paused": "Composer paused while Do not disturb is on — switch to Online to reply."
+}

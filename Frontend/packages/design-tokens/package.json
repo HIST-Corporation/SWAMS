@@ -1,0 +1,26 @@
+{
+  "name": "@swams/design-tokens",
+  "version": "0.1.0",
+  "private": true,
+  "type": "module",
+  "description": "Single source of truth for SWAMS visual tokens (Section 8.2). tokens.json → css + tailwind preset + RN theme.",
+  "exports": {
+    "./tokens.json": "./tokens.json",
+    "./css/tokens.css": "./css/tokens.css",
+    "./tailwind-preset": "./tailwind-preset.js",
+    "./rn-theme": "./rn-theme.js",
+    "./contrast": "./src/contrast.js"
+  },
+  "files": [
+    "src",
+    "css",
+    "scripts",
+    "tokens.json",
+    "tailwind-preset.js",
+    "rn-theme.js"
+  ],
+  "scripts": {
+    "build": "node scripts/build.mjs",
+    "test": "vitest run --passWithNoTests"
+  }
+}

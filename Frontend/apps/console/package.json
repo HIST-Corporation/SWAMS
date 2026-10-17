@@ -1,0 +1,28 @@
+{
+  "name": "@swams/console",
+  "version": "0.1.0",
+  "private": true,
+  "type": "module",
+  "description": "Platform admin console (Section 6): separate app, separate deploy and auth realm.",
+  "scripts": {
+    "dev": "vite --port 3001",
+    "build": "vite build",
+    "test": "vitest run --passWithNoTests"
+  },
+  "dependencies": {
+    "@swams/design-tokens": "workspace:*",
+    "@swams/i18n": "workspace:*",
+    "@swams/ui": "workspace:*",
+    "lucide-react": "^1.52.0",
+    "react": "^19.3.0",
+    "react-dom": "^19.3.0",
+    "react-i18next": "^17.0.16"
+  },
+  "devDependencies": {
+    "@vitejs/plugin-react": "^6.1.2",
+    "autoprefixer": "^10.6.1",
+    "postcss": "^8.5.29",
+    "tailwindcss": "^3.4.19",
+    "vite": "^8.3.3"
+  }
+}

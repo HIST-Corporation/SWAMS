@@ -1,0 +1,43 @@
+{
+  "title": "पात्रो",
+  "subtitle": "बिदा, बिदाका दिन र बैठकहरू एउटै मासिक ग्रिडमा।",
+  "prevMonth": "अघिल्लो महिना",
+  "nextMonth": "अर्को महिना",
+  "today": "आज",
+  "weekday": "हप्ताको दिन",
+  "day": "दिन",
+  "dayButton": "{{date}}",
+  "dayWithEvents": "{{date}}: {{events}}",
+  "noEventsDay": "यो दिनमा कुनै कार्यक्रम छैन।",
+  "monthEmpty": "यो महिनामा केही अनुसूचित छैन।",
+  "eventsHeading": "{{date}} का कार्यक्रमहरू",
+  "eventsCount_one": "१ कार्यक्रम",
+  "eventsCount_other": "{{count}} कार्यक्रमहरू",
+  "moreEvents": "+{{count}}",
+  "loadError": "पात्रो लोड गर्न सकिएन।",
+  "weeklyOff": "साप्ताहिक बिदा",
+  "agenda": {
+    "title": "यो महिना",
+    "filteredEmpty": "छानिएका प्रकारहरूमा केही छैन।"
+  },
+  "filter": {
+    "showAll": "सबै देखाउनुहोस्"
+  },
+  "kind": {
+    "leave": "बिदा",
+    "holiday": "बिदाको दिन",
+    "meeting": "बैठक"
+  },
+  "holidays": {
+    "title": "सार्वजनिक बिदाहरू",
+    "applies_one": "{{site}} ({{region}}) ले यो महिना १ बिदा मनाउँछ।",
+    "applies_other": "{{site}} ({{region}}) ले यो महिना {{count}} बिदाहरू मनाउँछ।",
+    "none": "तपाईंको ठाउँका लागि यस महिनामा कुनै बिदा छैन।",
+    "national": "राष्ट्रिय",
+    "regional": "प्रादेशिक",
+    "other_one": "अर्को प्रदेशको १ बिदा",
+    "other_other": "अन्य प्रदेशहरूका {{count}} बिदाहरू",
+    "sample": "नमूना बिदा सूची — सार्वजनिक बिदा एन्डपोइन्ट अझै कन्ट्राक्ट अनुरोधमा छ।"
+  },
+  "legend": "चिन्ह"
+}

@@ -1,0 +1,13 @@
+{
+  "subtitle": "Schedule, track, and manage team meetings",
+  "schedule": "Schedule Meeting",
+  "weekdays": ["Su", "Mo", "Tu", "We", "Th", "Fr", "Sa"],
+  "upcoming": "Upcoming Meetings",
+  "dept": {
+    "engineering": "Engineering",
+    "allDeptHeads": "All Dept Heads",
+    "leadership": "Leadership"
+  },
+  "soon": "Soon",
+  "meta": "{{time}} · {{dept}}"
+}

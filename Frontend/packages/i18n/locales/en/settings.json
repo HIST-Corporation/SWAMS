@@ -1,0 +1,75 @@
+{
+  "title": "Settings",
+  "subtitle": "Preferences for your SWAMS account.",
+  "appearance": {
+    "title": "Appearance",
+    "hint": "Choose how SWAMS looks on this device."
+  },
+  "language": {
+    "title": "Language",
+    "hint": "Interface language for menus, labels and messages.",
+    "en": "English",
+    "ne": "नेपाली"
+  },
+  "saved": "Preference saved.",
+  "saveFailed": "Couldn't save to your profile — the choice is kept on this device.",
+  "roles": {
+    "title": "Roles and permissions",
+    "hint": "What each default role can do in this workspace.",
+    "note": "Read-only reference. The API re-checks every action; changing assignments needs a roles API that is not published yet.",
+    "granted": "Granted",
+    "denied": "Not granted",
+    "permission": "Permission",
+    "role": {
+      "staff": "Staff",
+      "team_lead": "Team lead",
+      "manager": "Manager",
+      "hr": "HR",
+      "owner": "Owner",
+      "super_admin": "Super admin"
+    },
+    "group": {
+      "attendance": "Attendance",
+      "leave": "Leave",
+      "tasks": "Tasks",
+      "projects": "Projects",
+      "team": "Team",
+      "users": "Users",
+      "roles": "Roles",
+      "reports": "Reports",
+      "analytics": "Analytics",
+      "settings": "Settings",
+      "billing": "Billing",
+      "audit": "Audit",
+      "ai": "AI",
+      "meetings": "Meetings",
+      "messages": "Messages"
+    },
+    "description": {
+      "attendance.read": "View attendance records",
+      "attendance.write": "Clock in and out",
+      "attendance.approve": "Approve attendance records",
+      "attendance.correct": "Request attendance corrections",
+      "leave.read": "View leave requests",
+      "leave.create": "Request time off",
+      "leave.approve": "Approve leave requests",
+      "leave.configure": "Configure leave policies",
+      "tasks.read": "View tasks",
+      "tasks.write": "Create and update tasks",
+      "tasks.manage": "Manage all tasks",
+      "projects.manage": "Manage projects",
+      "team.read": "View the team directory",
+      "team.manage": "Manage team members",
+      "users.manage": "Manage user accounts",
+      "roles.manage": "Manage roles and permissions",
+      "reports.read": "View reports",
+      "analytics.read": "View analytics",
+      "settings.manage": "Manage workspace settings",
+      "billing.manage": "Manage billing and plans",
+      "audit.read": "View the audit log",
+      "ai.use": "Use AI assistance",
+      "meetings.manage": "Manage meetings",
+      "messages.moderate": "Moderate messages"
+    }
+  }
+}

@@ -1,0 +1,19 @@
+{
+  "name": "@swams/domain",
+  "version": "0.1.0",
+  "private": true,
+  "type": "module",
+  "description": "Pure domain rules: attendance time math, overtime preview, leave preview, calendar helpers (Section 5). DOM-free: RN-safe.",
+  "exports": {
+    ".": "./src/index.js"
+  },
+  "files": [
+    "src"
+  ],
+  "scripts": {
+    "test": "vitest run --passWithNoTests"
+  },
+  "dependencies": {
+    "@swams/i18n": "workspace:*"
+  }
+}

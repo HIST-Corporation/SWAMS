@@ -1,0 +1,53 @@
+{
+  "title": "Leave",
+  "subtitle": "Request time off and track what your manager has approved.",
+  "types": {
+    "annual": "Annual leave",
+    "sick": "Sick leave",
+    "unpaid": "Unpaid leave",
+    "special": "Special leave"
+  },
+  "days_one": "{{count}} day",
+  "days_other": "{{count}} days",
+  "balanceHint": "{{used}} used · {{pending}} pending",
+  "form": {
+    "title": "Request leave",
+    "intro": "Your manager reviews every request. You'll see the outcome here.",
+    "type": "Leave type",
+    "start": "First day",
+    "end": "Last day",
+    "note": "Note",
+    "noteHint": "Add context your manager should know (optional).",
+    "submit": "Send request",
+    "submitting": "Sending…",
+    "sentBody": "Request sent. Your manager will review it.",
+    "holidayFlag": "Heads up — {{name}} falls on this day.",
+    "policyNote": "Your balance is updated once a request is approved.",
+    "errorBody": "That request didn't send. Nothing was saved."
+  },
+  "list": {
+    "title": "My requests",
+    "meta": "{{range}} · {{days}}",
+    "emptyTitle": "No leave requests yet",
+    "emptyBody": "When you request time off, it will appear here with its status."
+  },
+  "queue": {
+    "title": "Waiting for review",
+    "meta": "{{range}} · {{days}}",
+    "emptyTitle": "Nothing waiting",
+    "emptyBody": "Every leave request has been decided.",
+    "approve": "Approve",
+    "reject": "Reject",
+    "confirmReject": "Confirm rejection",
+    "cancel": "Cancel",
+    "notePlaceholder": "Reason for rejecting…",
+    "noteRequired": "Add a reason before rejecting.",
+    "errorBody": "That decision didn't save. Nothing changed."
+  },
+  "status": {
+    "pending": "In review",
+    "approved": "Approved",
+    "rejected": "Rejected",
+    "cancelled": "Cancelled"
+  }
+}

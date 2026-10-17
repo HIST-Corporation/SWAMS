@@ -1,0 +1,75 @@
+{
+  "nav": {
+    "overview": "Overview",
+    "dashboard": "Dashboard",
+    "attendance": "Attendance",
+    "work": "Work",
+    "tasks": "Task board",
+    "projects": "Projects",
+    "leave": "Leave & requests",
+    "people": "People",
+    "team": "Team",
+    "calendar": "Calendar",
+    "meetings": "Meetings",
+    "video": "Video call",
+    "meetup": "Team meetup",
+    "teamMeetup": "Team meetup",
+    "messages": "Messages",
+    "insights": "Insights",
+    "reports": "Reports",
+    "analytics": "Analytics",
+    "ai": "AI",
+    "admin": "Admin",
+    "settings": "Settings",
+    "billing": "Billing",
+    "audit": "Audit log",
+    "notifications": "Notifications",
+    "more": "More",
+    "home": "Home",
+    "workTab": "Work",
+    "leaveTab": "Leave",
+    "upgradeHint": "Upgrade your plan to use this",
+    "skipToContent": "Skip to content",
+    "primary": "Primary",
+    "footer": {
+      "clock": "Clock in / out"
+    },
+    "role": {
+      "hr": "HR",
+      "manager": "Manager",
+      "teamLead": "Team Lead",
+      "owner": "Executive",
+      "staff": "Staff",
+      "superAdmin": "Platform Admin"
+    },
+    "job": {
+      "ceo": "Chief Executive Officer",
+      "hrManager": "HR Manager",
+      "hrOfficer": "HR Officer",
+      "engineeringManager": "Engineering Manager",
+      "frontendLead": "Frontend Lead",
+      "frontend": "Frontend Developer",
+      "backend": "Backend Developer",
+      "qa": "QA Engineer",
+      "devops": "DevOps Engineer",
+      "design": "Designer",
+      "marketing": "Marketing Lead",
+      "finance": "Finance Officer",
+      "support": "Support Specialist"
+    },
+    "yourAccount": "Your account",
+    "statusMessage": {
+      "label": "Status message",
+      "placeholder": "Add a status…",
+      "clear": "Clear status",
+      "presets": {
+        "available": "Available",
+        "deep_work": "Deep work",
+        "in_a_meeting": "In a meeting",
+        "on_break": "On a break",
+        "focusing": "Focusing",
+        "on_leave": "On leave"
+      }
+    }
+  }
+}

@@ -1,0 +1,226 @@
+{
+  "app": {
+    "name": "SWAMS",
+    "tagline": "Smart workflow and attendance for Nepal's SMEs"
+  },
+  "theme": {
+    "label": "Theme",
+    "light": "Light",
+    "dark": "Dark",
+    "system": "System"
+  },
+  "state": {
+    "loading": "Loading…",
+    "empty": "Nothing here yet",
+    "error": "Something went wrong",
+    "denied": "You don't have access",
+    "offline": "You're offline — changes are saved on this device"
+  },
+  "date": {
+    "today": "Today",
+    "yesterday": "Yesterday",
+    "calendar": {
+      "ad": "AD",
+      "bs": "BS"
+    }
+  },
+  "money": {
+    "currency": "NPR",
+    "prefix": "Rs"
+  },
+  "actions": {
+    "retry": "Try again",
+    "dismiss": "Dismiss",
+    "save": "Save",
+    "close": "Close"
+  },
+  "access": {
+    "title": "You don't have access",
+    "body": "Your HR admin or workspace owner can grant it from Settings → Roles.",
+    "back": "Back to dashboard"
+  },
+  "notFound": {
+    "title": "We couldn't find that page",
+    "body": "The link may be old, or the feature hasn't shipped yet.",
+    "back": "Back to dashboard"
+  },
+  "language": {
+    "label": "Language",
+    "switch": "Switch language"
+  },
+  "home": {
+    "greetingWith": "{{greeting}}, {{name}}",
+    "greetingMorning": "Good morning",
+    "greetingAfternoon": "Good afternoon",
+    "greetingEvening": "Good evening",
+    "tagline": "{{date}} — here's your team overview",
+    "clockAction": "Clock in / out",
+    "export": "Export",
+    "sampleBadge": "Sample company figures",
+    "sampleBody": "The company-wide panels on this page — attendance trend, department rates, insights and the industry benchmark — are served by demo fixtures. The analytics endpoints behind them are contract request 25 and are not built yet; the punch card, tasks and rail below are the live flows.",
+    "summaryTitle": "Today's summary"
+  },
+  "form": {
+    "optional": "optional"
+  },
+  "preview": {
+    "badge": "Preview",
+    "body": "This screen shows sample content — the live feature isn't connected yet.",
+    "callBadge": "Sample call",
+    "callBody": "Participants and chat are demo data and no call is placed. Microphone, camera and screen share are this browser's own devices, streamed nowhere — the provider adapter and the meeting token are still to come."
+  },
+  "details": "Details",
+  "requestId": "Request ID: {{id}}",
+  "auth": {
+    "title": "Sign in to SWAMS",
+    "subtitle": "Attendance, leave and work — for your whole team.",
+    "email": "Work email",
+    "password": "Password",
+    "signIn": "Sign in",
+    "signingIn": "Signing in…",
+    "signOut": "Sign out",
+    "signingOut": "Signing out…",
+    "portalLabel": "Choose your portal",
+    "portalStaff": "Staff",
+    "portalHr": "Administration",
+    "mfaTitle": "Two-step verification",
+    "mfaSubtitle": "Enter the 6-digit code from your authenticator app.",
+    "mfaCode": "Verification code",
+    "mfaHint": "The code refreshes every 30 seconds.",
+    "verify": "Verify and sign in",
+    "useAnotherAccount": "Use another account",
+    "showPassword": "Show password",
+    "hidePassword": "Hide password",
+    "rememberMe": "Remember me",
+    "forgotPassword": "Forgot password?",
+    "forgotTitle": "Reset your password",
+    "forgotSubtitle": "Enter your work email and we'll send you a reset link.",
+    "forgotSubmit": "Send reset link",
+    "forgotSending": "Sending…",
+    "forgotSentTitle": "Check your email",
+    "forgotSent": "If an account exists for {{email}}, a reset link is on its way.",
+    "backToSignIn": "Back to sign in",
+    "demoHint": "New organization?",
+    "setupLink": "Set up your workspace",
+    "demoTitle": "Try the demo",
+    "demoBody": "Mock sign-in is on — any valid email plus a password of 8+ characters works. Use these to explore each portal:",
+    "personaLabel": "Sign in as",
+    "personaHint": "Each role is its own demo account — pick one to see that board.",
+    "personaExecutive": "Executive (CEO)",
+    "personaHrManager": "HR Manager",
+    "personaDeptManager": "Dept. Manager",
+    "personaTeamLead": "Team Lead",
+    "personaFrontend": "Frontend Dev",
+    "personaBackend": "Backend Dev",
+    "personaQa": "QA Engineer",
+    "personaDevops": "DevOps",
+    "demoBeEmail": "james@swams.com",
+    "demoQaEmail": "tina@swams.com",
+    "demoDevopsEmail": "raj@swams.com",
+    "demoCeoEmail": "aarav@swams.com",
+    "demoManagerEmail": "ramesh@swams.com",
+    "demoTeamLeadEmail": "anita@swams.com",
+    "demoMfaLabel": "MFA demo",
+    "demoHrEmail": "sarah@swams.com",
+    "demoStaffEmail": "priya@swams.com",
+    "demoMfaEmail": "mfa@himaldigital.com.np",
+    "demoMfaHint": "Triggers the 6-digit code step — enter any 6 digits.",
+    "demoPassword": "password",
+    "demoAutofill": "Demo credentials are filled in for you — switch role above to sign in as someone else.",
+    "error": {
+      "email": "Enter a valid email address.",
+      "password": "Use at least 8 characters.",
+      "codeFormat": "Enter the 6-digit code.",
+      "signInFailed": "That email or password didn't match. Try again.",
+      "sendFailed": "Couldn't send the reset link. Try again."
+    }
+  },
+  "login": {
+    "brandTagline": "Smart Workspace and Attendance Management System",
+    "version": "v2.4",
+    "brandHeadline": "Smarter HR for modern",
+    "brandHeadlineAccent": "teams.",
+    "brandBody": "Attendance, tasks, leaves, messaging — everything your team needs, in one unified platform.",
+    "featuresLabel": "Platform features",
+    "features": {
+      "attendance": "Smart Attendance",
+      "tasks": "Kanban Tasks",
+      "messaging": "Team Messaging",
+      "insights": "AI Insights",
+      "leave": "Leave Manager",
+      "video": "Video Calls"
+    },
+    "stats": {
+      "employees": "Employees",
+      "attendance": "Attendance",
+      "departments": "Departments"
+    },
+    "welcomeBack": "Welcome back 👋",
+    "welcomeBackSub": "Sign in to access your workspace",
+    "needAccess": "Need access?",
+    "setupLink": "Set up your workspace"
+  },
+  "wizard": {
+    "title": "Set up your organization",
+    "subtitle": "Four quick steps — you can change these later in Settings.",
+    "progress": "Setup progress",
+    "steps": ["Organization", "Sites", "Calendar", "Review"],
+    "firstStep": "Step 1 of 4",
+    "next": "Continue",
+    "back": "Back",
+    "finish": "Finish setup",
+    "step1": "Organization",
+    "step2": "Sites",
+    "step3": "Calendar",
+    "step4": "Review",
+    "orgName": "Organization name",
+    "orgNamePlaceholder": "Himal Digital Pvt. Ltd.",
+    "timezone": "Timezone",
+    "tzKathmandu": "Nepal (Asia/Kathmandu)",
+    "tzKolkata": "India (Asia/Kolkata)",
+    "tzUtc": "UTC",
+    "sites": "Work sites",
+    "sitesHint": "Places where people clock in — add one per office or branch.",
+    "sitePlaceholder": "Baneshwor",
+    "addSite": "Add",
+    "removeSite": "Remove {{site}}",
+    "sitesEmpty": "No sites yet — add your first one above.",
+    "calendar": "Calendar system",
+    "calendarBs": "Bikram Sambat (BS)",
+    "calendarBsHint": "Official calendar of Nepal — shown as the default.",
+    "calendarAd": "Gregorian (AD)",
+    "calendarAdHint": "Standard international calendar.",
+    "fiscalYear": "Fiscal year starts",
+    "fiscalYearHint": "Nepali fiscal year starts in Shrawan (mid-July), e.g. 07-16.",
+    "reviewNote": "Check the details, then finish setup.",
+    "done": {
+      "title": "Your workspace is ready",
+      "body": "{{name}} is set up. Invite your team next.",
+      "continue": "Go to dashboard"
+    },
+    "error": {
+      "nameRequired": "Enter the organization name.",
+      "siteRequired": "Add at least one site.",
+      "fiscalYearFormat": "Use MM-DD, e.g. 07-16.",
+      "submit": "Couldn't save the setup. Try again."
+    }
+  },
+  "palette": {
+    "open": "Search",
+    "placeholder": "Search sections…",
+    "empty": "No matches",
+    "hint": "Type to filter, Enter to open"
+  },
+  "pwa": {
+    "update": {
+      "title": "A new version is ready",
+      "body": "Reload to get the latest SWAMS.",
+      "action": "Reload now"
+    },
+    "install": {
+      "title": "Install SWAMS",
+      "body": "Add it to your home screen for one-tap access — it works offline too.",
+      "action": "Install"
+    }
+  }
+}

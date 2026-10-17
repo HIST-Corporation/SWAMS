@@ -1,0 +1,22 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512" role="img" aria-label="SWAMS">
+  <!--
+    Maskable icon: full-bleed background (the OS applies the mask), glyph kept
+    inside the central ~60% safe zone. Same placeholder mark as icon.svg —
+    Open Decision 11 replaces both.
+  -->
+  <rect width="512" height="512" fill="#3F5BE0" />
+  <g transform="translate(256 256) scale(0.62) translate(-256 -256)"
+     fill="none" stroke="#FFFFFF" stroke-width="22" stroke-linecap="round">
+    <path d="M256 172c-30 0-58 12-78 32" />
+    <path d="M334 204c-18-18-42-30-78-30" />
+    <path d="M198 244a58 58 0 0 1 116 0v28" />
+    <path d="M162 268a94 94 0 0 1 188 0v22" />
+    <path d="M256 300v52" />
+    <path d="M220 344c8 14 22 24 36 24" />
+    <path d="M316 348v-26" />
+    <path d="M196 330v-18" />
+  </g>
+  <g transform="translate(256 256) scale(0.62) translate(-256 -256)">
+    <circle cx="360" cy="330" r="18" fill="#F2A93B" />
+  </g>
+</svg>

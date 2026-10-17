@@ -1,0 +1,46 @@
+{
+  "name": "@swams/web",
+  "version": "0.1.0",
+  "private": true,
+  "type": "module",
+  "description": "SWAMS staff/manager/HR web app: Vite + React 19 PWA (Section 6).",
+  "scripts": {
+    "dev": "vite",
+    "build": "vite build",
+    "preview": "vite preview",
+    "e2e": "playwright test",
+    "test": "vitest run --passWithNoTests"
+  },
+  "dependencies": {
+    "@fontsource/dm-sans": "^5.3.0",
+    "@fontsource/mukta": "^5.3.0",
+    "@swams/api-client": "workspace:*",
+    "@swams/design-tokens": "workspace:*",
+    "@swams/domain": "workspace:*",
+    "@swams/i18n": "workspace:*",
+    "@swams/permissions": "workspace:*",
+    "@swams/ui": "workspace:*",
+    "@swams/validation": "workspace:*",
+    "@tanstack/react-query": "^5.104.1",
+    "@xstate/react": "^6.1.0",
+    "lucide-react": "^1.52.0",
+    "msw": "^3.0.2",
+    "react": "^19.3.0",
+    "react-dom": "^19.3.0",
+    "react-i18next": "^17.0.16",
+    "react-router-dom": "^7.18.4",
+    "recharts": "^3.10.1",
+    "xstate": "^5.33.2",
+    "zustand": "^5.0.15"
+  },
+  "devDependencies": {
+    "@playwright/test": "^1.63.0",
+    "@vitejs/plugin-react": "^6.1.2",
+    "autoprefixer": "^10.6.1",
+    "postcss": "^8.5.29",
+    "tailwindcss": "^3.4.19",
+    "vite": "^8.3.3",
+    "vite-plugin-pwa": "^2.0.0",
+    "workbox-window": "^7.4.1"
+  }
+}

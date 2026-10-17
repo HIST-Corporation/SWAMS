@@ -1,0 +1,17 @@
+node_modules/
+dist/
+build/
+.next/
+out/
+storybook-static/
+.turbo/
+coverage/
+pnpm-lock.yaml
+design-prototype/
+*.min.js
+
+# Generated artifacts — prettier must not touch them or the token sync tests fail.
+packages/design-tokens/css/tokens.css
+packages/design-tokens/rn-theme.js
+packages/ui/storybook-static/
+apps/web/public/mockServiceWorker.js

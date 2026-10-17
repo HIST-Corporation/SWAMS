@@ -1,0 +1,12 @@
+packages:
+  - 'apps/*'
+  - 'packages/*'
+
+strictPeerDependencies: false
+autoInstallPeers: true
+
+# Dependencies that legitimately need their install script (pnpm blocks them by default).
+onlyBuiltDependencies:
+  - esbuild
+allowBuilds:
+  esbuild: true

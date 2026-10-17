@@ -1,0 +1,222 @@
+{
+  "title": "Task board",
+  "subtitle": "Move work across the board with a drag or the keyboard.",
+  "scope": {
+    "self": "Showing only the work referred to you — tasks in your name and reviews assigned to you."
+  },
+  "board": {
+    "instructions": "Focus a card, press Space to lift it, arrow keys to choose a lane, Space to drop, Escape to cancel.",
+    "lifted": "Lifted {{title}}. Use the left and right arrow keys to choose a lane, Space to drop, Escape to cancel.",
+    "moved": "{{title}} → {{lane}}.",
+    "dropped": "Moved {{title}} to {{lane}}.",
+    "cancelled": "Cancelled. {{title}} stays in {{lane}}.",
+    "rolledBack": "Move undone: {{reason}}",
+    "keyboardHelp": "On a card's grip: press Space to lift, the left and right arrow keys to choose a lane, Space to drop, Escape to cancel. You can also open the card and pick a lane there, or use the buttons on the card."
+  },
+  "card": {
+    "open": "Open",
+    "grip": "Move {{title}}: Space to lift, arrow keys to choose a lane, Space to drop, Escape to cancel",
+    "checklist": "{{done}}/{{total}} done",
+    "note": "Note: {{note}}",
+    "delete": "Delete",
+    "close": "Move to completed history"
+  },
+  "actions": {
+    "start": "Start",
+    "sendReview": "Send to review",
+    "approve": "Approve",
+    "pushBack": "Push back"
+  },
+  "quickAdd": "Add a task to {{lane}}",
+  "detail": {
+    "heading": "Task details",
+    "eyebrow": "Task {{id}}",
+    "close": "Close",
+    "fields": {
+      "title": "Title",
+      "description": "Description",
+      "descriptionPlaceholder": "What does done look like?",
+      "lane": "Lane",
+      "laneHint": "Review needs a reviewer, Revision needs a note.",
+      "priority": "Priority",
+      "due": "Due date",
+      "assignee": "Assignee",
+      "reviewer": "Reviewer",
+      "none": "No one",
+      "note": "Note",
+      "noteRequired": "A note is required for revision."
+    },
+    "save": "Save changes",
+    "saving": "Saving…",
+    "saved": "Saved.",
+    "cancel": "Cancel",
+    "dirty": "You have changes that aren't saved yet.",
+    "discard": "Discard changes",
+    "keepEditing": "Keep editing"
+  },
+  "checklist": {
+    "title": "To-do list",
+    "progress": "{{done}} of {{total}} done",
+    "empty": "No items yet.",
+    "addPlaceholder": "Add a to-do item",
+    "add": "Add",
+    "remove": "Remove {{text}}"
+  },
+  "lanes": {
+    "todo": "To do",
+    "in_progress": "In progress",
+    "review": "Review",
+    "revision": "Revision",
+    "done": "Done"
+  },
+  "laneCount_one": "{{count}} task",
+  "laneCount_other": "{{count}} tasks",
+  "wip": {
+    "over": "WIP limit {{limit}} exceeded — finish a card before starting more here."
+  },
+  "priority": {
+    "low": "Low",
+    "normal": "Normal",
+    "high": "High"
+  },
+  "due": "Due {{when}}",
+  "overdue": "Overdue",
+  "unassigned": "Unassigned",
+  "emptyLane": "Nothing here",
+  "newTask": {
+    "open": "New task",
+    "title": "Add a task",
+    "titleLabel": "Title",
+    "titlePlaceholder": "Prepare the monthly report",
+    "lane": "Initial status",
+    "priority": "Priority",
+    "due": "Due date",
+    "assignee": "Assignee",
+    "assigneeNone": "No one yet",
+    "assigneeHint": "Left empty, the task is assigned to you.",
+    "reviewer": "Reviewer",
+    "reviewerNone": "Pick a reviewer",
+    "reviewerHint": "Review needs a reviewer.",
+    "note": "Revision note",
+    "notePlaceholder": "What should change before this is done?",
+    "description": "Description",
+    "descriptionPlaceholder": "Describe the task…",
+    "submit": "Add task",
+    "creating": "Adding…",
+    "created": "Task added to {{lane}}.",
+    "failed": "Couldn't add the task. Nothing was saved.",
+    "cancel": "Cancel"
+  },
+  "note": {
+    "title": "Why is this going back for revision?",
+    "label": "Short note",
+    "placeholder": "What should change before this is done?",
+    "confirm": "Move to revision",
+    "cancel": "Cancel"
+  },
+  "pushBack": {
+    "title": "Push back — request a revision",
+    "task": "Task: {{title}}",
+    "issue": "Issue found",
+    "issuePlaceholder": "Describe what needs to be fixed…",
+    "issueRequired": "Describe what needs to be fixed.",
+    "suggestion": "Suggestion / guidance",
+    "suggestionPlaceholder": "How should it be addressed?",
+    "severity": "Severity",
+    "confirm": "Push back",
+    "cancel": "Cancel"
+  },
+  "severity": {
+    "major": "Major — blocks progress",
+    "minor": "Minor — polish"
+  },
+  "severityShort": {
+    "major": "Major",
+    "minor": "Minor"
+  },
+  "trail": {
+    "title": "Revision history trail",
+    "empty": "No revisions yet.",
+    "none": "—",
+    "columns": {
+      "task": "Task",
+      "issue": "Issue",
+      "suggestion": "Suggestion",
+      "severity": "Severity",
+      "reviewer": "Reviewer",
+      "date": "Date"
+    }
+  },
+  "completed": {
+    "title": "Completed history",
+    "empty": "Nothing closed yet. Close a task from Done and it lands here, openable any time.",
+    "moved": "{{title}} moved to completed history.",
+    "failed": "Couldn't close the task: {{reason}}",
+    "columns": {
+      "task": "Task",
+      "assignee": "Assignee",
+      "priority": "Priority",
+      "closed": "Closed"
+    }
+  },
+  "settings": {
+    "open": "Board settings",
+    "title": "Board columns",
+    "intro": "Add a column for a stage your team runs, rename any column, or set a work-in-progress limit. A blank name keeps the standard label.",
+    "name": "Name",
+    "wip": "WIP limit",
+    "wipHint": "Empty = no limit",
+    "save": "Save",
+    "saving": "Saving…",
+    "close": "Close",
+    "addTitle": "Add a column",
+    "newName": "Column name",
+    "add": "Add column",
+    "added": "Column added.",
+    "updated": "Column updated."
+  },
+
+  "lane": {
+    "reorder": "Move the {{lane}} column: drag, or use the left and right arrow keys"
+  },
+  "tabs": {
+    "deleteTab": "Delete {{tab}}"
+  },
+  "deleteLane": {
+    "confirmTitle": "Delete {{lane}}?",
+    "message": "Deleting the {{lane}} column removes all {{count}} tasks. The {{count}} tasks will move to {{first}}. This cannot be undone.",
+    "cancel": "Cancel",
+    "delete": "Delete",
+    "none": "no other column"
+  },
+  "deleteTask": {
+    "confirmTitle": "Delete this task?",
+    "message": "\"{{title}}\" will be removed. This cannot be undone.",
+    "cancel": "Cancel",
+    "delete": "Delete",
+    "deleted": "Task deleted.",
+    "failed": "Couldn't delete the task. Nothing was changed."
+  },
+
+  "templates": {
+    "title": "Templates",
+    "subtitle": "Start a board from a preset, or save one your way.",
+    "open": "Templates",
+    "cannotManage": "Only managers and HR can apply or save templates.",
+    "preBuilt": "Pre-built boards",
+    "myTemplates": "My templates",
+    "noCustom": "No saved templates yet.",
+    "apply": "Apply",
+    "remove": "Remove",
+    "saveFromCurrent": "Save current board",
+    "saveTitle": "Save this board as a template",
+    "name": "Name",
+    "namePlaceholder": "e.g. Marketing launch",
+    "description": "Description",
+    "descriptionPlaceholder": "Optional — a short note for yourself",
+    "save": "Save template",
+    "saved": "Template saved.",
+    "lanes": "{{count}} columns"
+  }
+
+}

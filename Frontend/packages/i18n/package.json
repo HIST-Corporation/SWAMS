@@ -1,0 +1,23 @@
+{
+  "name": "@swams/i18n",
+  "version": "0.1.0",
+  "private": true,
+  "type": "module",
+  "description": "English + Nepali message catalogs, i18next factory and formatters (BS/AD, NPR lakh grouping). DOM-free: RN-safe.",
+  "exports": {
+    ".": "./src/index.js",
+    "./locales/en/*.json": "./locales/en/*.json",
+    "./locales/ne/*.json": "./locales/ne/*.json"
+  },
+  "files": [
+    "src",
+    "locales"
+  ],
+  "scripts": {
+    "test": "vitest run --passWithNoTests"
+  },
+  "dependencies": {
+    "i18next": "^26.4.2",
+    "react-i18next": "^17.0.16"
+  }
+}

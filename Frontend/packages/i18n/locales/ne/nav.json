@@ -1,0 +1,75 @@
+{
+  "nav": {
+    "overview": "सारांश",
+    "dashboard": "ड्यासबोर्ड",
+    "attendance": "उपस्थिति",
+    "work": "काम",
+    "tasks": "कार्य बोर्ड",
+    "projects": "परियोजनाहरू",
+    "leave": "बिदा र अनुरोधहरू",
+    "people": "मानिसहरू",
+    "team": "टोली",
+    "calendar": "पात्रो",
+    "meetings": "भेटघाटहरू",
+    "video": "भिडियो कल",
+    "meetup": "टोली भेला",
+    "teamMeetup": "टोली भेला",
+    "messages": "सन्देशहरू",
+    "insights": "विश्लेषण",
+    "reports": "प्रतिवेदनहरू",
+    "analytics": "विश्लेषण",
+    "ai": "ए.आई.",
+    "admin": "प्रशासन",
+    "settings": "सेटिङहरू",
+    "billing": "बिलिङ",
+    "audit": "अडिट लग",
+    "notifications": "सूचनाहरू",
+    "more": "थप",
+    "home": "गृहपृष्ठ",
+    "workTab": "काम",
+    "leaveTab": "बिदा",
+    "upgradeHint": "यो प्रयोग गर्न आफ्नो योजना अपग्रेड गर्नुहोस्",
+    "skipToContent": "मुख्य सामग्रीमा जानुहोस्",
+    "primary": "मुख्य",
+    "footer": {
+      "clock": "क्लक इन / आउट"
+    },
+    "role": {
+      "hr": "मानव संसाधन",
+      "manager": "प्रबन्धक",
+      "teamLead": "टोली लिड",
+      "owner": "कार्यकारी",
+      "staff": "कर्मचारी",
+      "superAdmin": "प्लेटफर्म प्रशासक"
+    },
+    "job": {
+      "ceo": "मुख्य कार्यकारी अधिकृत",
+      "hrManager": "मानव संसाधन प्रबन्धक",
+      "hrOfficer": "मानव संसाधन अधिकृत",
+      "engineeringManager": "इन्जिनियरिङ प्रबन्धक",
+      "frontendLead": "फ्रन्टएन्ड लिड",
+      "frontend": "फ्रन्टएन्ड डेभलपर",
+      "backend": "ब्याकएन्ड डेभलपर",
+      "qa": "क्यूए इन्जिनियर",
+      "devops": "डेभअप्स इन्जिनियर",
+      "design": "डिजाइनर",
+      "marketing": "मार्केटिङ लिड",
+      "finance": "वित्त अधिकृत",
+      "support": "सपोर्ट विशेषज्ञ"
+    },
+    "yourAccount": "तपाईंको खाता",
+    "statusMessage": {
+      "label": "स्थिति सन्देश",
+      "placeholder": "स्थिति थप्नुहोस्…",
+      "clear": "स्थिति हटाउनुहोस्",
+      "presets": {
+        "available": "उपलब्ध",
+        "deep_work": "गहिरो काम",
+        "in_a_meeting": "भेटमा",
+        "on_break": "विश्राममा",
+        "focusing": "एकाग्रता",
+        "on_leave": "बिदामा"
+      }
+    }
+  }
+}

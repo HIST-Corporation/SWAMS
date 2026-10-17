@@ -1,0 +1,21 @@
+{
+  "$schema": "https://unpkg.com/knip@latest/schema.json",
+  "entry": [
+    "apps/*/src/main.jsx",
+    "apps/*/src/index.js",
+    "apps/marketing/app/**/*.{js,jsx}",
+    "packages/*/src/index.js",
+    "packages/*/src/main.js",
+    "*.config.{js,mjs,cjs}",
+    "scripts/*.mjs",
+    "tests/**/*.{js,jsx}"
+  ],
+  "project": ["apps/*/src/**/*.{js,jsx}", "packages/*/src/**/*.{js,jsx}"],
+  "ignoreDependencies": [
+    "husky",
+    "lint-staged",
+    "@commitlint/cli",
+    "@commitlint/config-conventional"
+  ],
+  "ignoreBinaries": ["depcruise"]
+}

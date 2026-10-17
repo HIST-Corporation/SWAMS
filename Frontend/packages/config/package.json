@@ -1,0 +1,13 @@
+{
+  "name": "@swams/config",
+  "version": "0.1.0",
+  "private": true,
+  "type": "module",
+  "description": "Shared tooling configs: ESLint flat config (imported by the root eslint.config.js), plus documented homes for prettier/tailwind/vitest config.",
+  "exports": {
+    "./eslint": "./src/eslint.js"
+  },
+  "files": [
+    "src"
+  ]
+}

@@ -1,0 +1,32 @@
+{
+  "bell": "Notifications",
+  "bellWithCount": "Notifications, {{count}} unread",
+  "title": "Notifications",
+  "markAllRead": "Mark all as read",
+  "markRead": "Mark as read",
+  "unread": "Unread",
+  "emptyTitle": "You're all caught up",
+  "emptyBody": "Approvals, reminders and updates will appear here.",
+  "loadError": "Couldn't load notifications.",
+  "paused": "Notifications paused while Do not disturb is on.",
+  "pausedTitle": "Notifications paused",
+  "kind": {
+    "leave": "Leave",
+    "attendance": "Attendance",
+    "meeting": "Meeting",
+    "call": "Call",
+    "system": "Account"
+  },
+  "item": {
+    "leaveRequested": "{{name}} requested time off.",
+    "leaveApproved": "Your time-off request was approved.",
+    "correctionNeedsReview": "A punch is missing a location and needs review.",
+    "meetingReminder": "{{title}} is starting soon.",
+    "callRequested": "{{name}} sent you a call request.",
+    "passwordChanged": "Your account password was changed."
+  },
+  "when": {
+    "today": "Today, {{time}}",
+    "on": "{{date}}, {{time}}"
+  }
+}

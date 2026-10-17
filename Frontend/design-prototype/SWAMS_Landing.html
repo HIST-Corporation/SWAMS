@@ -1,0 +1,501 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width,initial-scale=1.0">
+<title>SWAMS: Smart Workspace and Attendance Management System</title>
+<meta name="description" content="SWAMS brings attendance, tasks, leave, messaging and video meetings into one login built for Nepal's growing teams.">
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css">
+<link href="https://fonts.googleapis.com/css2?family=DM+Sans:ital,opsz,wght@0,9..40,300;0,9..40,400;0,9..40,500;0,9..40,600;0,9..40,700;1,9..40,400&family=Syne:wght@500;600;700;800&family=DM+Mono:wght@400;500&display=swap" rel="stylesheet">
+<style>
+:root{
+  --bg:#0a0c11; --bg2:#10131a; --bg3:#161a24; --surface:#151924; --surface2:#1c2130;
+  --border:rgba(255,255,255,.08); --border2:rgba(255,255,255,.14);
+  --text:#f2f4f9; --text2:#9aa2ba; --text3:#5c6480;
+  --accent:#4f6ef7; --accent2:#818cf8; --violet:#8b6cf0; --purple:#a855f7;
+  --green:#22c55e; --amber:#f59e0b; --gold:#e0b975;
+  --lime:#2E5CFF; --lime-text:#ffffff;
+  --lavender:#2A2755; --lavender-text:#f2f4f9;
+  --r-sm:10px; --r:16px; --r-lg:24px;
+  --shadow-md:0 10px 30px -10px rgba(0,0,0,.5);
+  --shadow-lg:0 24px 70px -20px rgba(0,0,0,.6);
+  --ov1:rgba(255,255,255,.02); --ov2:rgba(255,255,255,.03); --ov3:rgba(255,255,255,.04);
+  --ov4:rgba(255,255,255,.07); --ov5:rgba(255,255,255,.08);
+  --gridline:rgba(255,255,255,1);
+  --nav-mobile-bg:rgba(10,12,17,.98);
+}
+*,*::before,*::after{box-sizing:border-box;margin:0;padding:0;}
+html{scroll-behavior:smooth;}
+body{font-family:'DM Sans',sans-serif;background:var(--bg);color:var(--text);min-height:100dvh;overflow-x:hidden;line-height:1.6;-webkit-font-smoothing:antialiased;}
+h1,h2,h3,.disp{font-family:'Syne',sans-serif;}
+img,svg{display:block;max-width:100%;}
+a{color:inherit;text-decoration:none;}
+::selection{background:rgba(79,110,247,.35);color:#fff;}
+:focus-visible{outline:2px solid var(--accent2);outline-offset:3px;border-radius:4px;}
+@media (prefers-reduced-motion:reduce){*,*::before,*::after{animation-duration:.001ms!important;transition-duration:.001ms!important;}}
+.skip-link{position:absolute;left:-999px;top:0;background:var(--accent);color:#fff;padding:10px 16px;border-radius:0 0 8px 0;z-index:999;}
+.skip-link:focus{left:0;}
+
+.wrap{max-width:1180px;margin:0 auto;padding:0 24px;}
+.eyebrow{display:inline-flex;align-items:center;gap:7px;font-size:12px;font-weight:600;color:var(--accent2);background:rgba(79,110,247,.1);border:1px solid rgba(79,110,247,.22);padding:6px 13px;border-radius:99px;letter-spacing:.2px;}
+.eyebrow.tilt{transform:rotate(-1.5deg);}
+.accent-underline{position:relative;white-space:nowrap;}
+.accent-underline svg{position:absolute;left:-2%;bottom:-.14em;width:104%;height:.3em;overflow:visible;}
+
+/* ambient background */
+body::before{content:'';position:fixed;inset:0;z-index:0;pointer-events:none;
+  background: radial-gradient(900px 620px at 10% -10%, rgba(79,110,247,.10), transparent 62%);
+}
+body::after{
+  content:'';position:fixed;inset:0;z-index:0;pointer-events:none;opacity:.05;mix-blend-mode:overlay;
+  background-image:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='120' height='120'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.85' numOctaves='2' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)'/%3E%3C/svg%3E");
+}
+.wrap,header,main,footer{position:relative;z-index:1;}
+
+/* ── NAV ── */
+header{position:sticky;top:0;z-index:50;backdrop-filter:blur(14px) saturate(140%);background:rgba(10,12,17,.72);border-bottom:1px solid var(--border);}
+.nav{display:flex;align-items:center;justify-content:space-between;padding:15px 0;}
+.brand{display:flex;align-items:center;gap:10px;font-family:'Syne',sans-serif;font-weight:800;font-size:19px;letter-spacing:-.4px;}
+.brand-mark{width:34px;height:34px;border-radius:9px;background:linear-gradient(135deg,var(--accent),var(--accent2));display:flex;align-items:center;justify-content:center;flex-shrink:0;}
+.brand-mark i{color:#fff;font-size:14px;}
+.brand span{color:var(--accent2);}
+.nav-links{display:flex;gap:30px;font-size:13.5px;font-weight:500;color:var(--text2);}
+.nav-links a{transition:color .15s;}
+.nav-links a:hover{color:var(--text);}
+.nav-cta{display:flex;align-items:center;gap:10px;}
+.mobile-toggle{display:none;background:none;border:1px solid var(--border2);color:var(--text);width:38px;height:38px;border-radius:8px;cursor:pointer;}
+
+/* ── BUTTONS ── */
+.btn{display:inline-flex;align-items:center;justify-content:center;gap:8px;padding:11px 20px;border-radius:10px;font-size:14px;font-weight:600;cursor:pointer;border:none;font-family:'DM Sans',sans-serif;transition:transform .15s ease,box-shadow .2s ease,background .2s ease,border-color .2s ease;white-space:nowrap;}
+.btn:active{transform:scale(.97);}
+.btn-primary{background:var(--lime);color:var(--lime-text);box-shadow:0 10px 28px -12px rgba(46,92,255,.35);}
+.btn-primary:hover{background:var(--lime)!important;filter:brightness(1.06);transform:translateY(-2px);box-shadow:0 14px 32px -12px rgba(46,92,255,.45);}
+.btn-ghost{background:var(--ov2);color:var(--text);border:1px solid var(--border2);}
+.btn-ghost:hover{background:var(--ov4);transform:translateY(-2px);}
+.btn-sm{padding:8px 15px;font-size:13px;}
+.btn-lg{padding:15px 28px;font-size:15.5px;}
+
+/* ── HERO ── */
+.hero{padding:88px 0 60px;}
+.hero-grid{display:grid;grid-template-columns:1.05fr .95fr;gap:56px;align-items:center;}
+.hero h1{font-size:clamp(34px,4.6vw,54px);font-weight:800;letter-spacing:-1.4px;line-height:1.08;margin:18px 0 20px;}
+.hero p.lead{font-size:16.5px;color:var(--text2);max-width:480px;margin-bottom:30px;line-height:1.7;}
+.hero-ctas{display:flex;gap:14px;flex-wrap:wrap;margin-bottom:38px;}
+.hero-facts{display:flex;gap:26px;flex-wrap:wrap;}
+.hf{display:flex;flex-direction:column;gap:2px;}
+.hf b{font-family:'Syne',sans-serif;font-size:20px;font-weight:700;color:var(--text);}
+.hf span{font-size:12px;color:var(--text3);}
+
+/* hero visual: real embedded live product, not a mockup */
+.live-preview{position:relative;border-radius:var(--r-lg);overflow:hidden;border:1px solid var(--border2);box-shadow:var(--shadow-lg);background:var(--surface);transform:rotate(.6deg);transition:transform .4s ease;}
+.live-preview:hover{transform:rotate(0deg);}
+.live-preview-frame{position:relative;width:100%;padding-top:68%;overflow:hidden;background:var(--bg);}
+.live-preview-frame iframe{position:absolute;top:0;left:0;width:250%;height:250%;transform:scale(.4);transform-origin:top left;border:none;}
+.live-preview-cta{position:absolute;inset:0;display:flex;align-items:flex-end;justify-content:center;padding-bottom:18px;background:linear-gradient(180deg,transparent 55%,rgba(10,12,17,.6));text-decoration:none;}
+.live-preview-pill{display:inline-flex;align-items:center;gap:8px;background:var(--surface2);border:1px solid var(--border2);padding:9px 18px;border-radius:99px;font-size:13px;font-weight:600;color:var(--text);box-shadow:var(--shadow-md);transition:transform .2s ease;}
+.live-preview:hover .live-preview-pill{transform:translateY(-3px);}
+
+/* ── TRUST STRIP ── */
+.trust{padding:34px 0;border-top:1px solid var(--border);border-bottom:1px solid var(--border);}
+.trust-label{text-align:center;font-size:11.5px;letter-spacing:1.4px;text-transform:uppercase;color:var(--text3);margin-bottom:20px;}
+.trust-row{display:flex;justify-content:center;gap:14px;flex-wrap:wrap;}
+.trust-chip{display:flex;align-items:center;gap:8px;font-size:13px;color:var(--text2);border:1px solid var(--border);padding:9px 16px;border-radius:99px;background:var(--ov1);}
+.trust-chip i{color:var(--accent2);font-size:13px;}
+
+/* ── SECTION HEADS ── */
+section{padding:88px 0;}
+.sec-head{max-width:620px;margin-bottom:48px;}
+.sec-head h2{font-size:clamp(26px,3vw,36px);font-weight:700;letter-spacing:-.8px;margin:14px 0 12px;}
+.sec-head p{color:var(--text2);font-size:15.5px;line-height:1.7;}
+
+/* ── BENTO FEATURES ── */
+.bento{display:grid;grid-template-columns:repeat(6,1fr);gap:16px;}
+.bcard{background:var(--surface);border:1px solid var(--border);border-radius:var(--r);padding:26px;position:relative;overflow:hidden;transition:border-color .2s,box-shadow .2s,transform .2s;}
+.bcard:hover{border-color:var(--border2);box-shadow:var(--shadow-md);transform:translateY(-3px);}
+.bcard .bi{width:42px;height:42px;border-radius:11px;display:flex;align-items:center;justify-content:center;margin-bottom:16px;font-size:18px;color:#fff;}
+.bcard h3{font-size:16.5px;font-weight:700;margin-bottom:8px;letter-spacing:-.2px;}
+.bcard p{font-size:13.5px;color:var(--text2);line-height:1.65;}
+.b1{grid-column:span 3;}.b2{grid-column:span 3;}.b3{grid-column:span 2;}.b4{grid-column:span 2;}.b5{grid-column:span 2;}
+.b6{grid-column:span 3;}.b7{grid-column:span 3;}
+.bcard.feat{background:var(--lavender);border-color:transparent;}
+.bcard.feat h3,.bcard.feat p{color:var(--lavender-text);}
+.bcard.feat p{opacity:.8;}
+
+/* ── HOW IT WORKS ── */
+.steps{display:grid;grid-template-columns:repeat(3,1fr);gap:20px;counter-reset:step;}
+.step{border:1px solid var(--border);border-radius:var(--r);padding:26px;background:var(--surface);position:relative;}
+.step::before{counter-increment:step;content:counter(step,decimal-leading-zero);position:absolute;top:20px;right:22px;font-family:'DM Mono',monospace;font-size:12px;color:var(--text3);}
+.step i{font-size:20px;color:var(--accent2);margin-bottom:14px;display:block;}
+.step h3{font-size:16px;font-weight:700;margin-bottom:8px;}
+.step p{font-size:13.5px;color:var(--text2);line-height:1.65;}
+.step-line{display:none;}
+@media(min-width:769px){.steps{position:relative;}}
+
+/* ── ROLES ── */
+.roles{display:grid;grid-template-columns:1fr 1fr;gap:20px;}
+.role-card{border:1px solid var(--border);border-radius:var(--r-lg);padding:32px;background:var(--surface);}
+.role-card.hr{background:linear-gradient(155deg,rgba(79,110,247,.08),transparent 60%);}
+.role-card.staff{background:linear-gradient(155deg,rgba(168,85,247,.08),transparent 60%);}
+.role-tag{display:inline-flex;align-items:center;gap:7px;font-size:11.5px;font-weight:600;padding:5px 12px;border-radius:99px;margin-bottom:16px;}
+.role-tag.a{background:rgba(79,110,247,.14);color:var(--accent2);}
+.role-tag.b{background:rgba(168,85,247,.14);color:var(--purple);}
+.role-card h3{font-size:20px;margin-bottom:10px;letter-spacing:-.3px;}
+.role-list{margin-top:18px;display:flex;flex-direction:column;gap:11px;}
+.role-list div{display:flex;align-items:center;gap:10px;font-size:13.5px;color:var(--text2);}
+.role-list i{width:18px;color:var(--green);font-size:12px;}
+
+/* ── PRICING ── */
+.pricing{display:grid;grid-template-columns:1fr 1fr;gap:20px;max-width:840px;}
+.price-card{border:1px solid var(--border);border-radius:var(--r-lg);padding:32px;background:var(--surface);display:flex;flex-direction:column;}
+.price-card.hi{border-color:transparent;background:var(--lavender);box-shadow:var(--shadow-md);}
+.price-card.hi .price-name,.price-card.hi .price-amt,.price-card.hi .price-note,.price-card.hi .price-list div{color:var(--lavender-text);}
+.price-card.hi .price-note{opacity:.7;}
+.price-name{font-size:13px;font-weight:600;color:var(--text3);text-transform:uppercase;letter-spacing:1px;margin-bottom:14px;}
+.price-amt{font-family:'Syne',sans-serif;font-size:38px;font-weight:800;letter-spacing:-1px;}
+.price-amt sup{font-size:14px;color:var(--text3);font-family:'DM Sans',sans-serif;font-weight:500;margin-left:4px;}
+.price-note{font-size:12px;color:var(--text3);margin-top:4px;margin-bottom:22px;}
+.price-list{display:flex;flex-direction:column;gap:11px;margin-bottom:26px;flex:1;}
+.price-list div{display:flex;gap:9px;align-items:flex-start;font-size:13.5px;color:var(--text2);}
+.price-list i{color:var(--green);font-size:12px;margin-top:3px;}
+
+/* ── FINAL CTA ── */
+.cta-band{border:none;border-radius:var(--r-lg);padding:60px 48px;text-align:center;background:var(--lavender);position:relative;overflow:hidden;}
+.cta-band h2,.cta-band p{color:var(--lavender-text);}
+.cta-band p{opacity:.75;}
+.cta-band h2{font-size:clamp(24px,3.4vw,34px);margin-bottom:14px;letter-spacing:-.6px;}
+.cta-band p{color:var(--text2);max-width:460px;margin:0 auto 28px;font-size:15px;}
+
+/* ── FOOTER ── */
+footer{border-top:1px solid var(--border);padding:52px 0 30px;}
+.foot-grid{display:grid;grid-template-columns:1.4fr repeat(3,1fr);gap:32px;margin-bottom:36px;}
+.foot-brand p{color:var(--text3);font-size:13px;max-width:260px;margin-top:12px;line-height:1.6;}
+.foot-col h4{font-size:12.5px;color:var(--text3);text-transform:uppercase;letter-spacing:1px;margin-bottom:14px;}
+.foot-col a{display:block;font-size:13.5px;color:var(--text2);margin-bottom:10px;transition:color .15s;}
+.foot-col a:hover{color:var(--text);}
+.foot-bottom{display:flex;justify-content:space-between;align-items:center;padding-top:24px;border-top:1px solid var(--border);font-size:12.5px;color:var(--text3);flex-wrap:wrap;gap:10px;}
+
+/* ── ANIM ── */
+.reveal{opacity:0;transform:translateY(16px);transition:opacity .6s ease,transform .6s ease;}
+.reveal.in{opacity:1;transform:translateY(0);}
+
+/* ── RESPONSIVE ── */
+@media(max-width:860px){
+  .nav-links{display:none;}
+  .mobile-toggle{display:block;}
+  .hero-grid{grid-template-columns:1fr;}
+  .live-preview{transform:none;}
+  .bento{grid-template-columns:repeat(2,1fr);}
+  .b1,.b2,.b3,.b4,.b5,.b6,.b7{grid-column:span 2;}
+  .steps{grid-template-columns:1fr;}
+  .roles{grid-template-columns:1fr;}
+  .pricing{grid-template-columns:1fr;}
+  .foot-grid{grid-template-columns:1fr 1fr;}
+}
+@media(max-width:520px){
+  .hero{padding:64px 0 40px;}
+  .hero-facts{gap:18px;}
+  .bento{grid-template-columns:1fr;}
+  .b1,.b2,.b3,.b4,.b5,.b6,.b7{grid-column:span 1;}
+  .cta-band{padding:40px 22px;}
+  .foot-grid{grid-template-columns:1fr;}
+}
+
+/* ═══ LIGHT THEME ═══ */
+html[data-theme="light"]{
+  --bg:#f6f7fb; --bg2:#eef0f7; --bg3:#e7e9f2; --surface:#ffffff; --surface2:#ffffff;
+  --border:rgba(15,23,42,.09); --border2:rgba(15,23,42,.16);
+  --text:#0f172a; --text2:#4b5568; --text3:#8891a8;
+  --accent:#4f6ef7; --accent2:#3d5ce0; --violet:#7c5ce0; --purple:#9333ea; --gold:#b8863f;
+  --lime:#2748D6; --lime-text:#ffffff;
+  --lavender:#ECE9FE; --lavender-text:#2E2A6B;
+  --shadow-md:0 10px 30px -10px rgba(15,23,42,.14);
+  --shadow-lg:0 24px 70px -20px rgba(15,23,42,.18);
+  --ov1:rgba(15,23,42,.025); --ov2:rgba(15,23,42,.035); --ov3:rgba(15,23,42,.05);
+  --ov4:rgba(15,23,42,.08); --ov5:rgba(15,23,42,.1);
+  --gridline:rgba(15,23,42,1);
+  --nav-mobile-bg:rgba(246,247,251,.98);
+}
+html[data-theme="light"] body::after{opacity:.02;}
+html[data-theme="light"] .brand-mark i{color:#fff;}
+
+.theme-toggle{
+  width:36px;height:36px;border-radius:50%;border:1px solid var(--border2);background:var(--ov3);
+  color:var(--text);display:flex;align-items:center;justify-content:center;cursor:pointer;font-size:14px;
+  transition:transform .2s ease,background .2s ease;
+}
+.theme-toggle:hover{transform:translateY(-2px) rotate(12deg);background:var(--ov5);}
+</style>
+</head>
+<body>
+<a href="#main" class="skip-link">Skip to content</a>
+
+<header>
+  <div class="wrap nav">
+    <a href="#top" class="brand"><div class="brand-mark"><i class="fa-solid fa-fingerprint"></i></div>SWA<span>MS</span></a>
+    <nav class="nav-links" aria-label="Primary">
+      <a href="#features">Features</a>
+      <a href="#workflow">How it works</a>
+      <a href="#roles">Roles</a>
+      <a href="#pricing">Pricing</a>
+    </nav>
+    <div class="nav-cta">
+      <button class="theme-toggle" onclick="toggleTheme()" aria-label="Toggle theme" title="Toggle light/dark theme"><i class="fa-solid fa-moon" id="theme-icon"></i></button>
+      <a href="SWAMS_Unified.html" target="_blank" rel="noopener" class="btn btn-primary btn-sm"><i class="fa-solid fa-play"></i> Try Live Demo</a>
+      <button class="mobile-toggle" aria-label="Menu"><i class="fa-solid fa-bars"></i></button>
+    </div>
+  </div>
+</header>
+
+<main id="main">
+
+  <!-- ══ HERO ══ -->
+  <section class="hero" id="top">
+    <div class="wrap hero-grid">
+      <div>
+        <span class="eyebrow tilt"><i class="fa-solid fa-location-dot"></i> Built for Nepal's growing teams</span>
+        <h1>Attendance, tasks, and teams.<br>Running from <span class="accent-underline">one login<svg viewBox="0 0 200 20" preserveAspectRatio="none" aria-hidden="true"><path d="M3 12.5C40 4 90 3 130 9C155 13 175 15 197 8" stroke="var(--lime)" stroke-width="5" fill="none" stroke-linecap="round"/></svg></span>.</h1>
+        <p class="lead">SWAMS (Smart Workspace and Attendance Management System) replaces scattered spreadsheets, group chats, and paper leave forms with one workspace your whole team already wants to open.</p>
+        <div class="hero-ctas">
+          <a href="SWAMS_Unified.html" target="_blank" rel="noopener" class="btn btn-primary btn-lg"><i class="fa-solid fa-play"></i> Try Live Demo</a>
+          <a href="#features" class="btn btn-ghost btn-lg"><i class="fa-solid fa-arrow-down"></i> See what's inside</a>
+        </div>
+        <div class="hero-facts">
+          <div class="hf"><b>8</b><span>Core modules, 1 login</span></div>
+          <div class="hf"><b>0</b><span>Installs, browser-based</span></div>
+          <div class="hf"><b>2</b><span>Views: HR &amp; Staff dashboards</span></div>
+        </div>
+      </div>
+      <div class="live-preview reveal">
+        <div class="live-preview-frame">
+          <iframe src="SWAMS_Unified.html" title="SWAMS live product, embedded" loading="lazy"></iframe>
+        </div>
+        <a class="live-preview-cta" href="SWAMS_Unified.html" target="_blank" rel="noopener">
+          <span class="live-preview-pill">This is the real product. Open it <i class="fa-solid fa-arrow-up-right-from-square"></i></span>
+        </a>
+      </div>
+    </div>
+  </section>
+
+  <!-- ══ TRUST STRIP ══ -->
+  <section class="trust" style="padding-top:0;">
+    <div class="wrap">
+      <div class="trust-label">Designed for teams across</div>
+      <div class="trust-row">
+        <span class="trust-chip"><i class="fa-solid fa-store"></i> Retail &amp; distribution</span>
+        <span class="trust-chip"><i class="fa-solid fa-industry"></i> Manufacturing</span>
+        <span class="trust-chip"><i class="fa-solid fa-hotel"></i> Hospitality</span>
+        <span class="trust-chip"><i class="fa-solid fa-truck"></i> Logistics</span>
+        <span class="trust-chip"><i class="fa-solid fa-briefcase"></i> Professional services</span>
+      </div>
+    </div>
+  </section>
+
+  <!-- ══ FEATURES (BENTO) ══ -->
+  <section id="features">
+    <div class="wrap">
+      <div class="sec-head reveal">
+        <span class="eyebrow"><i class="fa-solid fa-layer-group"></i> Everything, one workspace</span>
+        <h2>Every module your operations team asks for.</h2>
+        <p>No bolted-together tools. Attendance, work, and communication live in the same place, with data that stays in sync automatically.</p>
+      </div>
+      <div class="bento">
+        <div class="bcard feat b1 reveal">
+          <div class="bi" style="background:linear-gradient(135deg,#4f6ef7,#6c5ce7);"><i class="fa-solid fa-fingerprint"></i></div>
+          <h3>Attendance &amp; geofencing</h3>
+          <p>Clock in/out with location awareness, shift tracking, overtime, and a manager approval queue for corrections.</p>
+        </div>
+        <div class="bcard b2 reveal">
+          <div class="bi" style="background:linear-gradient(135deg,#a855f7,#7c3aed);"><i class="fa-solid fa-list-check"></i></div>
+          <h3>Kanban task boards</h3>
+          <p>Drag tasks through To Do, In Progress, Review, and Revision, with per-person workload visible at a glance.</p>
+        </div>
+        <div class="bcard b3 reveal">
+          <div class="bi" style="background:linear-gradient(135deg,#22c55e,#16a34a);"><i class="fa-solid fa-calendar-xmark"></i></div>
+          <h3>Leave management</h3>
+          <p>Requests, balances, and approvals in one thread. No more chasing signatures over chat.</p>
+        </div>
+        <div class="bcard b4 reveal">
+          <div class="bi" style="background:linear-gradient(135deg,#ec4899,#be185d);"><i class="fa-solid fa-message"></i></div>
+          <h3>Team messaging</h3>
+          <p>Direct messages and channels, right next to the work they're about.</p>
+        </div>
+        <div class="bcard b5 reveal">
+          <div class="bi" style="background:linear-gradient(135deg,#06b6d4,#0891b2);"><i class="fa-solid fa-video"></i></div>
+          <h3>Video meetings</h3>
+          <p>Standups and reviews with in-call chat, screen share, and notes. No separate app to install.</p>
+        </div>
+        <div class="bcard b6 reveal">
+          <div class="bi" style="background:linear-gradient(135deg,#f59e0b,#d97706);"><i class="fa-solid fa-chart-line"></i></div>
+          <h3>Role-based dashboards</h3>
+          <p>HR sees org-wide analytics and approvals. Staff see their own day. Same platform, right lens for each.</p>
+        </div>
+        <div class="bcard b7 reveal">
+          <div class="bi" style="background:linear-gradient(135deg,#818cf8,#4f6ef7);"><i class="fa-solid fa-wand-magic-sparkles"></i></div>
+          <h3>AI-powered insights</h3>
+          <p>Anomaly flags on attendance, workload summaries, and report generation. No data team required.</p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ══ HOW IT WORKS ══ -->
+  <section id="workflow" style="padding-top:0;">
+    <div class="wrap">
+      <div class="sec-head reveal">
+        <h2>Three steps, no onboarding headache.</h2>
+      </div>
+      <div class="steps">
+        <div class="step reveal">
+          <i class="fa-solid fa-right-to-bracket"></i>
+          <h3>Sign in, clock in</h3>
+          <p>One login per person. Attendance starts the moment they sign in, no separate biometric device to buy.</p>
+        </div>
+        <div class="step reveal">
+          <i class="fa-solid fa-people-arrows"></i>
+          <h3>Work where the data lives</h3>
+          <p>Tasks, leave, and messages sit next to attendance, so status updates don't need a second tool.</p>
+        </div>
+        <div class="step reveal">
+          <i class="fa-solid fa-chart-simple"></i>
+          <h3>See the pattern, not just the log</h3>
+          <p>Dashboards turn raw check-ins and task history into the weekly view managers actually act on.</p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ══ ROLES ══ -->
+  <section id="roles" style="padding-top:0;">
+    <div class="wrap">
+      <div class="sec-head reveal">
+        <h2>One platform, two purpose-built views.</h2>
+      </div>
+      <div class="roles">
+        <div class="role-card hr reveal">
+          <span class="role-tag a"><i class="fa-solid fa-shield-halved"></i> HR &amp; Admin</span>
+          <h3>Run the whole org from one screen</h3>
+          <p style="color:var(--text2);font-size:13.5px;">Approve leave, review attendance exceptions, and track team health without exporting a single CSV.</p>
+          <div class="role-list">
+            <div><i class="fa-solid fa-check"></i> Org-wide attendance &amp; analytics</div>
+            <div><i class="fa-solid fa-check"></i> Leave &amp; correction approvals</div>
+            <div><i class="fa-solid fa-check"></i> Team directory &amp; department view</div>
+          </div>
+        </div>
+        <div class="role-card staff reveal">
+          <span class="role-tag b"><i class="fa-solid fa-user"></i> Staff &amp; Team Members</span>
+          <h3>A dashboard for your actual day</h3>
+          <p style="color:var(--text2);font-size:13.5px;">Frontend, backend, QA, or DevOps: the same shell adapts to each role's tasks and metrics.</p>
+          <div class="role-list">
+            <div><i class="fa-solid fa-check"></i> My tasks, my leave, my session</div>
+            <div><i class="fa-solid fa-check"></i> Direct messages &amp; meetings</div>
+            <div><i class="fa-solid fa-check"></i> One-click video call for standups</div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ══ PRICING ══ -->
+  <section id="pricing" style="padding-top:0;">
+    <div class="wrap">
+      <div class="sec-head reveal">
+        <h2>Priced for SME teams, not enterprise budgets.</h2>
+        <p>Indicative pricing. Final plans are confirmed after a short discovery call for your team size.</p>
+      </div>
+      <div class="pricing">
+        <div class="price-card reveal">
+          <div class="price-name">Starter</div>
+          <div class="price-amt">NPR 499<sup>/ user / mo</sup></div>
+          <div class="price-note">Best for teams up to 25</div>
+          <div class="price-list">
+            <div><i class="fa-solid fa-check"></i> Attendance &amp; leave management</div>
+            <div><i class="fa-solid fa-check"></i> Task boards &amp; messaging</div>
+            <div><i class="fa-solid fa-check"></i> Email support</div>
+          </div>
+          <a href="SWAMS_Unified.html" target="_blank" rel="noopener" class="btn btn-ghost" style="width:100%;">Try it free</a>
+        </div>
+        <div class="price-card hi reveal">
+          <div class="price-name">Growth</div>
+          <div class="price-amt">NPR 899<sup>/ user / mo</sup></div>
+          <div class="price-note">Best for teams up to 200, multi-department</div>
+          <div class="price-list">
+            <div><i class="fa-solid fa-check"></i> Everything in Starter</div>
+            <div><i class="fa-solid fa-check"></i> Video meetings &amp; AI insights</div>
+            <div><i class="fa-solid fa-check"></i> Role-based dashboards &amp; analytics</div>
+            <div><i class="fa-solid fa-check"></i> Priority support</div>
+          </div>
+          <a href="SWAMS_Unified.html" target="_blank" rel="noopener" class="btn btn-primary" style="width:100%;">Try it free</a>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ══ FINAL CTA ══ -->
+  <section>
+    <div class="wrap">
+      <div class="cta-band reveal">
+        <h2>See SWAMS running before you commit to anything.</h2>
+        <p>The live demo is the actual product. HR and staff dashboards both included, no signup required.</p>
+        <a href="SWAMS_Unified.html" target="_blank" rel="noopener" class="btn btn-primary btn-lg"><i class="fa-solid fa-play"></i> Try Live Demo</a>
+      </div>
+    </div>
+  </section>
+
+</main>
+
+<footer>
+  <div class="wrap">
+    <div class="foot-grid">
+      <div class="foot-brand">
+        <a href="#top" class="brand"><div class="brand-mark"><i class="fa-solid fa-fingerprint"></i></div>SWA<span>MS</span></a>
+        <p>Smart Workspace and Attendance Management System. One workspace for attendance, work, and teams.</p>
+      </div>
+      <div class="foot-col">
+        <h4>Product</h4>
+        <a href="#features">Features</a>
+        <a href="#workflow">How it works</a>
+        <a href="#pricing">Pricing</a>
+        <a href="SWAMS_Unified.html" target="_blank" rel="noopener">Live demo</a>
+      </div>
+      <div class="foot-col">
+        <h4>Roles</h4>
+        <a href="#roles">HR &amp; Admin</a>
+        <a href="#roles">Staff dashboards</a>
+      </div>
+      <div class="foot-col">
+        <h4>Company</h4>
+        <a href="#top">About</a>
+        <a href="#top">Contact</a>
+      </div>
+    </div>
+    <div class="foot-bottom">
+      <span>© 2026 SWAMS. Built for Nepal's SMEs.</span>
+      <span>Demo environment. Sample data shown throughout.</span>
+    </div>
+  </div>
+</footer>
+
+<script>
+var currentTheme = 'dark';
+function toggleTheme(){
+  currentTheme = currentTheme === 'dark' ? 'light' : 'dark';
+  document.documentElement.setAttribute('data-theme', currentTheme);
+  var icon = document.getElementById('theme-icon');
+  if (icon) icon.className = currentTheme === 'dark' ? 'fa-solid fa-moon' : 'fa-solid fa-sun';
+}
+
+// mobile nav toggle
+document.querySelector('.mobile-toggle')?.addEventListener('click', function(){
+  var nav = document.querySelector('.nav-links');
+  var open = nav.style.display === 'flex';
+  nav.style.cssText = open ? '' : 'display:flex;flex-direction:column;position:absolute;top:64px;left:0;right:0;background:var(--nav-mobile-bg);padding:20px 24px;gap:16px;border-bottom:1px solid var(--border2);';
+});
+
+// scroll-reveal
+var io = new IntersectionObserver(function(entries){
+  entries.forEach(function(e){ if (e.isIntersecting) { e.target.classList.add('in'); io.unobserve(e.target); } });
+}, {threshold:0.12});
+document.querySelectorAll('.reveal').forEach(function(el){ io.observe(el); });
+</script>
+</body>
+</html>

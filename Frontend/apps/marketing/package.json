@@ -1,0 +1,29 @@
+{
+  "name": "@swams/marketing",
+  "version": "0.1.0",
+  "private": true,
+  "type": "module",
+  "description": "SWAMS marketing site: Next.js static export (SSG), en + ne (Section 13).",
+  "scripts": {
+    "dev": "next dev -p 3000",
+    "build": "next build",
+    "start": "next start",
+    "test": "vitest run --passWithNoTests"
+  },
+  "dependencies": {
+    "@fontsource/mukta": "^5.3.0",
+    "@swams/design-tokens": "workspace:*",
+    "@swams/i18n": "workspace:*",
+    "@swams/ui": "workspace:*",
+    "lucide-react": "^1.52.0",
+    "next": "^16.4.0",
+    "react": "^19.3.0",
+    "react-dom": "^19.3.0",
+    "react-i18next": "^17.0.16"
+  },
+  "devDependencies": {
+    "autoprefixer": "^10.6.1",
+    "postcss": "^8.5.29",
+    "tailwindcss": "^3.4.19"
+  }
+}

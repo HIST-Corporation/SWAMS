@@ -1,0 +1,159 @@
+{
+  "title": "Attendance",
+  "today": "Today",
+  "history": "History",
+  "site": "Site",
+  "shift": "Shift",
+  "worked": "Worked",
+  "expected": "Expected",
+  "liveTimer": "Time on the clock",
+  "clockIn": "Clock in",
+  "clockOut": "Clock out",
+  "checkedInAt": "Checked in at {{time}}",
+  "outAt": "Checked out at {{time}}",
+  "takeBreak": "Take a break",
+  "backToWork": "Back to work",
+  "onBreakSince": "On break since {{time}}",
+  "confirmOutTitle": "Clock out for today?",
+  "confirmOutBody": "You worked {{worked}} today. Overtime so far: {{overtime}}.",
+  "notYet": "Not yet",
+  "confirmClockOut": "Clock out",
+  "checking": "Checking your location and device…",
+  "permissionHelpTitle": "We can't confirm your location",
+  "permissionHelpBody": "Allow location for this site, then try again. If you're on a computer, check your browser's site settings.",
+  "tryAgain": "Try again",
+  "punchAnyway": "Punch anyway",
+  "cancel": "Cancel",
+  "queued": "Saved on this device, sending when you're back online",
+  "queuedCount": "{{count}} waiting to sync",
+  "syncing": "Sending…",
+  "syncNow": "Sync now",
+  "needsReviewTitle": "Saved for review",
+  "needsReviewBody": "Your punch was saved. A manager will check it before it is finalised.",
+  "understood": "Got it",
+  "errorTitle": "That punch didn't go through",
+  "errorBody": "Nothing was recorded. You can try again.",
+  "policyNote": "Location is read only when you clock in or out.",
+  "shiftStrip": {
+    "start": "Start",
+    "end": "End",
+    "length": "Shift length",
+    "expectedOut": "Expected out"
+  },
+  "checks": {
+    "location": "Location",
+    "area": "Work site area",
+    "device": "Device"
+  },
+  "checkResult": {
+    "pass": "Passed",
+    "fail": "Flagged",
+    "denied": "Blocked",
+    "unavailable": "Unavailable"
+  },
+  "status": {
+    "present": "Present",
+    "late": "Late",
+    "absent": "Absent",
+    "half_day": "Half day",
+    "leave": "On leave",
+    "holiday": "Holiday"
+  },
+  "exception": {
+    "late_arrival": "Late arrival",
+    "no_punch": "No punch recorded",
+    "outside_area": "Punched outside the site",
+    "no_location": "Location missing",
+    "location_denied": "Location blocked",
+    "location_unsupported": "Location unavailable on this device"
+  },
+  "column": {
+    "date": "Date",
+    "in": "In",
+    "out": "Out",
+    "worked": "Worked",
+    "status": "Status",
+    "exception": "Exception"
+  },
+  "empty": {
+    "title": "No attendance yet",
+    "body": "Once you clock in, your days appear here."
+  },
+  "loadMore": "Load more days",
+  "corrections": {
+    "title": "Corrections",
+    "intro": "Ask for a missed or wrong punch to be fixed. Your manager reviews it.",
+    "open": "Request a correction",
+    "clockIn": "Corrected clock-in",
+    "clockOut": "Corrected clock-out",
+    "reason": "What happened?",
+    "reasonHint": "A short sentence helps your manager decide.",
+    "submit": "Send request",
+    "submitting": "Sending…",
+    "submittedTitle": "Request sent",
+    "submittedBody": "Your manager will review it. The outcome appears below.",
+    "another": "Send another request",
+    "mine": "My requests",
+    "empty": "No correction requests yet.",
+    "original": "Original",
+    "proposed": "Proposed",
+    "reviewerNote": "Reviewer note",
+    "withdraw": "Withdraw",
+    "status": {
+      "in_review": "In review",
+      "approved": "Approved",
+      "rejected": "Rejected",
+      "needs_info": "Needs more info"
+    },
+    "error": {
+      "title": "That request didn't send",
+      "body": "Nothing was saved. You can try again.",
+      "times": "Enter both the correct clock-in and clock-out.",
+      "reason": "Add a sentence explaining what happened."
+    }
+  },
+  "team": {
+    "title": "Team attendance",
+    "board": "Who's in",
+    "boardEmpty": "No one is expected today.",
+    "column": {
+      "person": "Person"
+    },
+    "summary": "{{present}} of {{expected}} in today",
+    "present": "In",
+    "late": "Late",
+    "onLeave": "On leave",
+    "notIn": "Not in yet",
+    "exceptions": "Needs attention",
+    "noExceptions": "Nothing needs attention today.",
+    "openQueue": "Review correction requests",
+    "allIn": "Everyone expected today has clocked in.",
+    "queue": "Correction requests",
+    "queueEmpty": "No requests waiting.",
+    "approve": "Approve",
+    "reject": "Reject",
+    "askInfo": "Ask for info",
+    "notePlaceholder": "Short note…",
+    "noteRequired": "Add a note first.",
+    "send": "Send"
+  },
+  "summary": {
+    "title": "This week",
+    "hours": "Hours",
+    "overtime": "Overtime",
+    "days_one": "1 day",
+    "days_other": "{{count}} days",
+    "elapsed_one": "1 day in",
+    "elapsed_other": "{{count}} days in",
+    "noTime": "—",
+    "expected": "{{expected}} scheduled so far"
+  },
+  "calendar": {
+    "title": "Month calendar",
+    "prevMonth": "Previous month",
+    "nextMonth": "Next month",
+    "legend": "Legend",
+    "dayLabel": "{{date}} — {{status}}",
+    "upcoming": "Upcoming"
+  }
+}

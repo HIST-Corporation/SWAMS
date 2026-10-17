@@ -1,0 +1,36 @@
+{
+  "title": "अडिट लग",
+  "subtitle": "कसले के परिवर्तन गर्यो, कहिले।",
+  "actorFilter": "कर्ता",
+  "actorPlaceholder": "नामले छान्नुहोस्…",
+  "actionFilter": "कार्य",
+  "allActions": "सबै कार्यहरू",
+  "prev": "अघिल्लो",
+  "next": "अर्को",
+  "pageOf": "पृष्ठ {{page}} / {{pages}}",
+  "showing": "{{total}} मध्ये {{from}}–{{to}} देखाइँदै",
+  "emptyTitle": "कुनै अडिट प्रविष्टि छैन",
+  "emptyBody": "यी फिल्टरसँग मिल्ने गतिविधि यहाँ देखिनेछ।",
+  "loadError": "अडिट लग लोड गर्न सकिएन।",
+  "entity": {
+    "leave": "बिदा",
+    "attendance": "उपस्थिति",
+    "team": "टोली",
+    "security": "सुरक्षा",
+    "settings": "सेटिङ"
+  },
+  "action": {
+    "leaveApproved": "बिदा अनुरोध स्वीकृत गर्यो।",
+    "leaveRejected": "बिदा अनुरोध अस्वीकृत गर्यो।",
+    "correctionApproved": "उपस्थिति सुधार स्वीकृत गर्यो।",
+    "userInvited": "नयाँ टोली सदस्य आमन्त्रित गर्यो।",
+    "roleChanged": "टोली सदस्यको भूमिका परिवर्तन गर्यो।",
+    "userDeactivated": "टोली खाता निष्क्रिय गर्यो।",
+    "passwordChanged": "खाताको पासवर्ड परिवर्तन गर्यो।",
+    "profileUpdated": "प्रोफाइल प्राथमिकता अद्यावधिक गर्यो।"
+  },
+  "when": {
+    "today": "आज, {{time}}",
+    "on": "{{date}}, {{time}}"
+  }
+}

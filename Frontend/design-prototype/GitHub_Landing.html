@@ -1,0 +1,2110 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <title>GitHub · Change is constant. GitHub keeps you ahead. · GitHub · GitHub</title>
+    <meta
+      name="description"
+      content="Tools and trends evolve, but collaboration endures. With GitHub, developers, agents, and code come together on one platform."
+    />
+    <meta name="theme-color" content="#0d1117" />
+    <!-- Fonts: Mona Sans VF (variable weight — body 400, H1 425, H2/H3 600). -->
+    <link rel="preconnect" href="https://cdn.jsdelivr.net" crossorigin />
+    <style>
+      @font-face {
+        font-family: 'Mona Sans VF';
+        font-style: normal;
+        font-display: swap;
+        font-weight: 200 900;
+        src: url('https://cdn.jsdelivr.net/npm/@fontsource-variable/mona-sans@5.3.0/files/mona-sans-latin-wght-normal.woff2')
+          format('woff2-variations');
+      }
+    </style>
+
+    <!-- Tailwind for layout utilities; colors/radii/shadows come from measured values. -->
+    <script src="https://cdn.tailwindcss.com/3.4.16"></script>
+    <script>
+      tailwind.config = {
+        theme: {
+          extend: {
+            fontFamily: {
+              sans: ["'Mona Sans VF'", "'Mona Sans'", '-apple-system', 'BlinkMacSystemFont', "'Segoe UI'", 'Helvetica', 'Arial', 'sans-serif'],
+              mono: ["'Mona Sans Mono'", 'ui-monospace', 'SFMono-Regular', 'Menlo', 'Consolas', "'Liberation Mono'", 'monospace'],
+            },
+            colors: {
+              canvas: '#0d1117',
+              ink: '#f0f6fc',
+              muted: '#a4aea6',
+              sky: '#a2daff',
+              brand: '#4493f8',
+              amber: '#d29922',
+              danger: '#f85149',
+              hairline: '#404651',
+              glassline: '#262c28',
+              footerbed: '#0f1511',
+            },
+            maxWidth: { frame: '1280px', col: '757.754px', narrow: '652.286px' },
+            borderRadius: { btn: '6px', panel: '8px', shell: '16px', slab: '24px', pill: '60px' },
+            boxShadow: {
+              card: 'rgb(61, 68, 77) 0px 0px 0px 1px, rgba(1, 4, 9, 0.4) 0px 6px 12px -3px, rgba(1, 4, 9, 0.4) 0px 6px 18px 0px',
+              edge: 'rgb(25, 31, 27) 0px -1px 0px 0px inset',
+            },
+          },
+        },
+      };
+    </script>
+    <style>
+      /* ------------------------------------------------------------------
+         Design tokens — verbatim from the extracted page.
+      ------------------------------------------------------------------ */
+      :root {
+        --tab-size-preference: 4;
+        --base-duration-0: 0s;
+        --base-duration-100: 0.1s;
+        --base-duration-1000: 1s;
+        --base-duration-200: 0.2s;
+        --base-duration-300: 0.3s;
+        --base-duration-400: 0.4s;
+        --base-duration-50: 50ms;
+        --base-duration-500: 0.5s;
+        --base-duration-600: 0.6s;
+        --base-duration-700: 0.7s;
+        --base-duration-800: 0.8s;
+        --base-duration-900: 0.9s;
+        --base-easing-ease: cubic-bezier(0.25, 0.1, 0.25, 1);
+        --base-easing-easeIn: cubic-bezier(0.7, 0.1, 0.75, 0.9);
+        --base-easing-easeInOut: cubic-bezier(0.6, 0, 0.2, 1);
+        --base-easing-easeOut: cubic-bezier(0.3, 0.8, 0.6, 1);
+        --base-easing-linear: cubic-bezier(0, 0, 1, 1);
+        --base-size-112: 7rem;
+        --base-size-12: 0.75rem;
+        --base-size-128: 8rem;
+        --base-size-16: 1rem;
+        --base-size-2: 0.125rem;
+        --base-size-20: 1.25rem;
+        --base-size-24: 1.5rem;
+        --base-size-28: 1.75rem;
+        --base-size-32: 2rem;
+        --base-size-36: 2.25rem;
+        --base-size-4: 0.25rem;
+        --base-size-40: 2.5rem;
+        --base-size-44: 2.75rem;
+        --base-size-48: 3rem;
+        --base-size-6: 0.375rem;
+        --base-size-64: 4rem;
+        --base-size-8: 0.5rem;
+        --base-size-80: 5rem;
+        --base-size-96: 6rem;
+        --base-size-negative-12: -0.75rem;
+        --base-size-negative-16: -1rem;
+        --base-size-negative-2: -0.125rem;
+        --base-size-negative-20: -1.25rem;
+        --base-size-negative-24: -1.5rem;
+        --base-size-negative-28: -1.75rem;
+        --base-size-negative-32: -2rem;
+        --base-size-negative-36: -2.25rem;
+        --base-size-negative-4: -0.25rem;
+        --base-size-negative-40: -2.5rem;
+        --base-size-negative-44: -2.75rem;
+      }
+
+      /* Base — body 14px/21px weight 400. */
+      html {
+        scroll-behavior: smooth;
+        tab-size: var(--tab-size-preference);
+        background: #0d1117;
+      }
+      body {
+        margin: 0;
+        background: #0d1117;
+        color: #f0f6fc;
+        font-family: 'Mona Sans VF', 'Mona Sans', -apple-system, BlinkMacSystemFont, 'Segoe UI',
+          Helvetica, Arial, sans-serif;
+        font-size: 14px;
+        line-height: 21px;
+        font-weight: 400;
+        -webkit-font-smoothing: antialiased;
+      }
+      ::selection {
+        background: #4493f8;
+        color: #ffffff;
+      }
+      :focus-visible {
+        outline: 2px solid #4493f8;
+        outline-offset: 2px;
+      }
+      img,
+      video {
+        display: block;
+        max-width: 100%;
+      }
+      /* Type: H1 64/425, H2 24/600, H3 22/600 — all #ffffff.
+         Section displays step through the page's 48 / 40 / 24 scale. */
+      .h1 {
+        font-size: 64px;
+        font-weight: 425;
+        line-height: 1.06;
+        letter-spacing: -0.02em;
+        color: #ffffff;
+        margin: 0;
+      }
+      .h2 {
+        font-size: 24px;
+        font-weight: 600;
+        line-height: 1.25;
+        color: #ffffff;
+        margin: 0;
+      }
+      .h3 {
+        font-size: 22px;
+        font-weight: 600;
+        line-height: 1.3;
+        color: #ffffff;
+        margin: 0;
+      }
+      .display {
+        font-size: 48px;
+        font-weight: 600;
+        line-height: 1.15;
+        letter-spacing: -0.015em;
+        color: #ffffff;
+        margin: 0;
+      }
+      @media (max-width: 1279px) {
+        .display {
+          font-size: 40px;
+        }
+      }
+      @media (max-width: 767px) {
+        .h1 {
+          font-size: 40px;
+        }
+        .display {
+          font-size: 24px;
+        }
+      }
+
+      /* ------------------------------------------------------------------
+         Component CSS — measured blocks, reused verbatim.
+      ------------------------------------------------------------------ */
+      .button-primary {
+        background: #00000003;
+        color: #ffffff;
+        border: 1px solid #262c28;
+        border-radius: 6px;
+        padding: 0px 12px;
+        font-size: 16px;
+        backdrop-filter: blur(20px);
+        -webkit-backdrop-filter: blur(20px);
+        font-family: inherit;
+        cursor: pointer;
+        display: inline-flex;
+        align-items: center;
+        justify-content: center;
+        gap: var(--base-size-8);
+        min-height: 40px;
+        text-decoration: none;
+        transition: border-color var(--base-duration-100) var(--base-easing-easeOut),
+          background-color var(--base-duration-100) var(--base-easing-easeOut);
+      }
+      .button-primary:hover {
+        border-color: #404651;
+        background: #0d111799;
+      }
+
+      /* Brand accent fill (#4493f8) for the sign-up CTA. */
+      .button-accent {
+        background: #4493f8;
+        color: #ffffff;
+        border: 1px solid #4493f8;
+        border-radius: 6px;
+        padding: 0px 12px;
+        font-size: 16px;
+        font-weight: 500;
+        font-family: inherit;
+        cursor: pointer;
+        display: inline-flex;
+        align-items: center;
+        justify-content: center;
+        gap: var(--base-size-8);
+        min-height: 40px;
+        text-decoration: none;
+        transition: filter var(--base-duration-100) var(--base-easing-easeOut);
+      }
+      .button-accent:hover {
+        filter: brightness(1.1);
+      }
+
+      /* Button style 2: transparent, radius 0, padding 8, 16px/500. */
+      .button-nav {
+        background: transparent;
+        color: #ffffff;
+        border: 0;
+        border-radius: 0px;
+        padding: 8px;
+        font-size: 16px;
+        font-weight: 500;
+        font-family: inherit;
+        cursor: pointer;
+        display: inline-flex;
+        align-items: center;
+        gap: var(--base-size-6);
+        text-decoration: none;
+        transition: color var(--base-duration-100) var(--base-easing-easeOut);
+      }
+      .button-nav:hover {
+        color: #a2daff;
+      }
+
+      .card {
+        background: #000000;
+        color: #ffffff;
+        border-radius: 8px;
+        font-size: 16px;
+        box-shadow:
+          rgb(61, 68, 77) 0px 0px 0px 1px,
+          rgba(1, 4, 9, 0.4) 0px 6px 12px -3px,
+          rgba(1, 4, 9, 0.4) 0px 6px 18px 0px;
+      }
+
+      .input {
+        color: #000000;
+        border-radius: 8px;
+        padding: 18px 12px 0px 18px;
+        font-size: 16px;
+        font-family: inherit;
+        background: #ffffff;
+        border: 1px solid transparent;
+        width: 100%;
+        min-height: 48px;
+      }
+
+      /* Links: #ffffff, no underline. */
+      a {
+        color: #ffffff;
+        text-decoration: none;
+      }
+      a:hover {
+        color: #a2daff;
+      }
+
+      /* Glassmorphism surfaces (blur 20px over the near-transparent fill). */
+      .glass {
+        background: #00000003;
+        backdrop-filter: blur(20px);
+        -webkit-backdrop-filter: blur(20px);
+      }
+      .glass-chrome {
+        background: #0d1117cc;
+        backdrop-filter: blur(20px);
+        -webkit-backdrop-filter: blur(20px);
+      }
+
+      /* Frame: content max-width 1280px, 24px gutters (spacing scale). */
+      .frame {
+        max-width: 1280px;
+        margin-inline: auto;
+        padding-inline: 24px;
+      }
+      /* ------------------------------------------------------------------
+         Named keyframe animations (as listed on the source page).
+      ------------------------------------------------------------------ */
+      @keyframes AppFrame-a11yLink-focus {
+        from {
+          transform: translateY(-100%);
+          opacity: 0;
+        }
+        to {
+          transform: translateY(0);
+          opacity: 1;
+        }
+      }
+      @keyframes tooltip-appear {
+        from {
+          opacity: 0;
+          transform: translateX(-50%) translateY(-4px);
+        }
+        to {
+          opacity: 1;
+          transform: translateX(-50%) translateY(0);
+        }
+      }
+      @keyframes fade-in {
+        from {
+          opacity: 0;
+        }
+        to {
+          opacity: 1;
+        }
+      }
+      @keyframes fade-out {
+        from {
+          opacity: 1;
+        }
+        to {
+          opacity: 0;
+        }
+      }
+      @keyframes fade-up {
+        from {
+          opacity: 0;
+          transform: translateY(16px);
+        }
+        to {
+          opacity: 1;
+          transform: translateY(0);
+        }
+      }
+      @keyframes fade-down {
+        from {
+          opacity: 0;
+          transform: translateY(-16px);
+        }
+        to {
+          opacity: 1;
+          transform: translateY(0);
+        }
+      }
+      @keyframes grow-x {
+        from {
+          transform: scaleX(0);
+        }
+        to {
+          transform: scaleX(1);
+        }
+      }
+      @keyframes shrink-x {
+        from {
+          transform: scaleX(1);
+        }
+        to {
+          transform: scaleX(0);
+        }
+      }
+      /* Skip link uses AppFrame-a11yLink-focus. */
+      .skip-link {
+        position: fixed;
+        top: 8px;
+        left: 8px;
+        z-index: 100;
+        transform: translateY(-300%);
+        background: #00000003;
+        border: 1px solid #262c28;
+        border-radius: 6px;
+        padding: 8px 12px;
+        font-size: 14px;
+        backdrop-filter: blur(20px);
+        -webkit-backdrop-filter: blur(20px);
+      }
+      .skip-link:focus {
+        transform: translateY(0);
+        animation: AppFrame-a11yLink-focus var(--base-duration-300) var(--base-easing-easeOut) both;
+      }
+
+      /* Scroll reveal: fade-up on entry. */
+      .reveal {
+        opacity: 0;
+      }
+      .reveal.is-visible {
+        animation: fade-up var(--base-duration-500) var(--base-easing-easeOut) both;
+      }
+      .anim-down {
+        animation: fade-down var(--base-duration-400) var(--base-easing-easeOut) both;
+      }
+      .anim-in {
+        animation: fade-in var(--base-duration-300) var(--base-easing-ease) both;
+      }
+      .anim-out {
+        animation: fade-out var(--base-duration-300) var(--base-easing-ease) both;
+      }
+
+      /* Tooltips: tooltip-appear on hover/focus. */
+      [data-tip] {
+        position: relative;
+      }
+      [data-tip]::after {
+        content: attr(data-tip);
+        position: absolute;
+        top: calc(100% + 4px);
+        left: 50%;
+        transform: translateX(-50%);
+        background: #0d1117;
+        color: #ffffff;
+        border: 1px solid #404651;
+        border-radius: 6px;
+        padding: 4px 8px;
+        font-size: 12px;
+        line-height: 16px;
+        white-space: nowrap;
+        opacity: 0;
+        pointer-events: none;
+        z-index: 40;
+      }
+      [data-tip]:hover::after,
+      [data-tip]:focus-visible::after {
+        animation: tooltip-appear var(--base-duration-100) var(--base-easing-easeOut) both;
+      }
+
+      /* Tab underline grows in (grow-x); tab panels cross-fade (fade-in). */
+      .tab {
+        position: relative;
+        display: block;
+        width: 100%;
+        text-align: left;
+        background: transparent;
+        border: 0;
+        border-radius: 8px;
+        padding: 12px;
+        font-family: inherit;
+        color: #ffffff;
+        cursor: pointer;
+        transition: background-color var(--base-duration-100) var(--base-easing-easeOut);
+      }
+      .tab:hover {
+        background: #ffffff0a;
+      }
+      .tab[aria-selected='true'] {
+        background: #ffffff0f;
+      }
+      .tab[aria-selected='true']::after {
+        content: '';
+        position: absolute;
+        left: 12px;
+        right: 12px;
+        bottom: 4px;
+        height: 2px;
+        background: #4493f8;
+        transform-origin: left;
+        animation: grow-x var(--base-duration-300) var(--base-easing-easeOut) both;
+      }
+      .pill {
+        position: relative;
+        background: transparent;
+        border: 0;
+        border-radius: 6px;
+        padding: 8px 12px;
+        font-family: inherit;
+        font-size: 16px;
+        font-weight: 500;
+        color: #a4aea6;
+        cursor: pointer;
+      }
+      .pill[aria-selected='true'] {
+        color: #ffffff;
+      }
+      .pill[aria-selected='true']::after {
+        content: '';
+        position: absolute;
+        left: 12px;
+        right: 12px;
+        bottom: 0;
+        height: 2px;
+        background: #4493f8;
+        transform-origin: left;
+        animation: grow-x var(--base-duration-300) var(--base-easing-easeOut) both;
+      }
+
+      /* Stat bars: the rising bar grows, the debt bar shrinks to nothing. */
+      .bar {
+        height: 8px;
+        border-radius: 60px;
+        background: #ffffff1f;
+        overflow: hidden;
+      }
+      .bar > i {
+        display: block;
+        height: 100%;
+        border-radius: 60px;
+        background: #4493f8;
+        transform-origin: left;
+      }
+      .bar-grow > i {
+        animation: grow-x var(--base-duration-800) var(--base-easing-easeOut) both;
+      }
+      .bar-shrink > i {
+        background: #f85149;
+        animation: shrink-x var(--base-duration-900) var(--base-easing-easeInOut) both;
+      }
+
+      .mono {
+        font-family: 'Mona Sans Mono', ui-monospace, SFMono-Regular, Menlo, Consolas, monospace;
+        tab-size: var(--tab-size-preference);
+      }
+
+      /* GitHub hero capsule: floating label + green sign-up button. */
+      .capsule-label {
+        position: absolute;
+        left: 18px;
+        top: 50%;
+        transform: translateY(-50%);
+        font-size: 14px;
+        line-height: 21px;
+        color: #8c959f;
+        pointer-events: none;
+        transition:
+          top 100ms cubic-bezier(0.16, 1, 0.3, 1),
+          font-size 100ms cubic-bezier(0.16, 1, 0.3, 1);
+      }
+      .capsule-input:focus + .capsule-label,
+      .capsule-input:not(:placeholder-shown) + .capsule-label {
+        top: 5px;
+        transform: none;
+        font-size: 12px;
+        line-height: 16px;
+      }
+      .button-green {
+        display: inline-flex;
+        align-items: center;
+        justify-content: center;
+        gap: 8px;
+        height: 40px;
+        padding: 0 20px;
+        border-radius: 6px;
+        border: 1px solid rgba(240, 246, 252, 0.1);
+        background: #238636;
+        color: #fff;
+        font-size: 14px;
+        font-weight: 600;
+        cursor: pointer;
+        white-space: nowrap;
+        transition: background 150ms cubic-bezier(0.16, 1, 0.3, 1);
+      }
+      .button-green:hover {
+        background: #2ea043;
+      }
+      .button-green:active {
+        background: #2c974b;
+      }
+
+      /* Signup steps: slide between steps like GitHub's signup flow. */
+      .step-enter {
+        animation: fade-up var(--base-duration-400) var(--base-easing-easeOut) both;
+      }
+      .progress-fill {
+        transition: flex-grow var(--base-duration-500) var(--base-easing-easeOut);
+      }
+
+      /* Reduced motion: everything paints in place. */
+      @media (prefers-reduced-motion: reduce) {
+        html {
+          scroll-behavior: auto;
+        }
+        *,
+        *::before,
+        *::after {
+          animation-duration: 0.01ms !important;
+          animation-iteration-count: 1 !important;
+          transition-duration: 0.01ms !important;
+        }
+        .reveal {
+          opacity: 1 !important;
+        }
+      }
+    </style>
+  </head>
+  <body>
+    <a class="skip-link" href="#main">Skip to content</a>
+    <div id="root"></div>
+    <noscript>
+      <p style="padding: 24px; font-size: 14px">
+        This page is a React single-page build — please enable JavaScript to view it.
+      </p>
+    </noscript>
+
+    <script
+      src="https://unpkg.com/react@18.3.1/umd/react.production.min.js"
+      crossorigin
+    ></script>
+    <script
+      src="https://unpkg.com/react-dom@18.3.1/umd/react-dom.production.min.js"
+      crossorigin
+    ></script>
+    <script src="https://unpkg.com/@babel/standalone@7.26.4/babel.min.js"></script>
+    <script type="text/babel" data-presets="react">
+      const { useState, useEffect, useRef, useCallback } = React;
+
+      /* Asset URLs (verified) — used directly, no local copies. */
+      const ASSETS = {
+        logo: 'https://images.ctfassets.net/8aevphvgewt8/2xNJHobFMxrvAwj534sNMo/753fcd3beb5fd223d1d2ed918b868a5f/figma.svg',
+        codeVideo: 'https://github.githubassets.com/assets/code-1_desktop-6d44c7cb53b4aebb.mp4',
+        copilotVideo:
+          'https://videos.ctfassets.net/8aevphvgewt8/490cvTcPE95XqUKGA4C2Kn/427a8803b029857c58167cce0e855191/github-copilot-agent-mode.mp4',
+        hero: 'https://images.ctfassets.net/8aevphvgewt8/3ip0mnsbUMonRTsbnnIkOh/a940b7a975a801c8829c113d9799873d/hero-961322485af6.webp',
+        plan: 'https://images.ctfassets.net/8aevphvgewt8/1uXZYDy7dMcH9QwxuAU06F/1cb167cc60d725b8cf7089faf9a4ed06/accordion-2-730955545f07.webp',
+        collaborate: 'https://images.ctfassets.net/8aevphvgewt8/3xzVZaJhqo3B62R8NeHjX2/e37c81e4f26e9dac2aff1f23a0243087/accordion-3-52ca331d22ea.webp',
+        secure: 'https://images.ctfassets.net/8aevphvgewt8/3cgNgdKFqflI27vyDh4Gpa/c459dc8690133e7663b8db2626cf2045/accordion-4-a26744b70ff7.webp',
+        automate: 'https://images.ctfassets.net/8aevphvgewt8/20DkYnWbPsbb8mdDnIs32f/a43850b7e0e8e45ec87761d1ba91e19b/accordion-2-c0a62cfc31a1.webp',
+        scale: 'https://images.ctfassets.net/8aevphvgewt8/39mo3IRGhK995HzuwZANhY/cabfd393551e0d2aae92bc105121ca9c/accordion-3-5d5d222f1830.webp',
+      };
+
+      /* Scroll reveal: adds .is-visible once, so fade-up runs on entry. */
+      function useReveal() {
+        const ref = useRef(null);
+        useEffect(() => {
+          const root = ref.current || document;
+          const nodes = root.querySelectorAll('.reveal:not(.is-visible)');
+          if (!('IntersectionObserver' in window)) {
+            nodes.forEach((n) => n.classList.add('is-visible'));
+            return undefined;
+          }
+          const io = new IntersectionObserver(
+            (entries) => {
+              entries.forEach((entry) => {
+                if (entry.isIntersecting) {
+                  entry.target.classList.add('is-visible');
+                  io.unobserve(entry.target);
+                }
+              });
+            },
+            { rootMargin: '0px 0px -10% 0px', threshold: 0.08 },
+          );
+          nodes.forEach((n) => io.observe(n));
+          return () => io.disconnect();
+        }, []);
+        return ref;
+      }
+
+      /* Email capture → GitHub's real sign-up flow; status alert fades in/out. */
+      function SignupForm({ idPrefix, compact }) {
+        const [status, setStatus] = useState('idle');
+        const timers = useRef([]);
+        useEffect(() => () => timers.current.forEach(clearTimeout), []);
+        const onSubmit = (event) => {
+          event.preventDefault();
+          setStatus('in');
+          timers.current.forEach(clearTimeout);
+          timers.current = [
+            setTimeout(() => setStatus('out'), 3600),
+            setTimeout(() => setStatus('idle'), 4000),
+          ];
+        };
+        return (
+          <div className={compact ? '' : 'w-full'}>
+            <form
+              className="glass flex flex-col gap-3 rounded-shell border border-glassline p-3 sm:flex-row sm:items-center"
+              onSubmit={onSubmit}
+            >
+              <div className="relative min-w-0 flex-1">
+                <input
+                  id={`${idPrefix}-email`}
+                  className="input capsule-input w-full"
+                  type="email"
+                  name="email"
+                  placeholder=" "
+                  autoComplete="email"
+                  required
+                  aria-label="Enter your email"
+                />
+                <label htmlFor={`${idPrefix}-email`} className="capsule-label">
+                  Enter your email
+                </label>
+              </div>
+              <button className="button-green shrink-0" type="submit">
+                Sign up for GitHub
+              </button>
+            </form>
+            <div aria-live="polite" className="min-h-[21px]">
+              {status !== 'idle' && (
+                <p
+                  className={`mt-2 inline-block rounded-btn border border-glassline bg-canvas px-3 py-1 text-[14px] leading-[21px] text-white ${
+                    status === 'in' ? 'anim-in' : 'anim-out'
+                  }`}
+                >
+                  Nice — check your inbox to finish signing up.
+                </p>
+              )}
+            </div>
+          </div>
+        );
+      }
+      /* Sticky glass header — fades down on load. */
+      /* The demo section — for now it is the sign-in page. Opens in a new tab. */
+      const DEMO_PAGE = 'GitHub_Demo.html';
+
+      const NAV = [
+        { label: 'Platform', href: '#future' },
+        { label: 'AI', href: '#accelerate' },
+        { label: 'Security', href: '#security' },
+        { label: 'Collaboration', href: '#together' },
+        { label: 'Customers', href: '#home' },
+        { label: 'Enterprise', href: '#scale' },
+      ];
+
+      function Icon({ path, size = 16 }) {
+        return (
+          <svg
+            aria-hidden="true"
+            width={size}
+            height={size}
+            viewBox="0 0 16 16"
+            fill="currentColor"
+          >
+            <path d={path} />
+          </svg>
+        );
+      }
+
+      const ICON = {
+        globe:
+          'M8 0a8 8 0 1 0 0 16A8 8 0 0 0 8 0ZM1.5 8a6.5 6.5 0 0 1 .6-2.7l2 1.1a10 10 0 0 0 0 3.2l-2 1.1A6.5 6.5 0 0 1 1.5 8Zm6.5 6.5c-.6 0-1.4-.6-2-1.5l1.8-1a4 4 0 0 0 0-2l-1.8-1c.6-.9 1.4-1.5 2-1.5a6.5 6.5 0 0 1 0 6Zm5.4-2.6-2-1.1a10 10 0 0 0 0-3.2l2-1.1A6.5 6.5 0 0 1 14.5 8a6.5 6.5 0 0 1-1 3.9Z',
+        moon: 'M8 1.5A6.5 6.5 0 1 0 14.5 8c0-.3 0-.6-.1-.9a4.5 4.5 0 0 1-5.5-5.5c-.3-.1-.6-.1-.9-.1Z',
+        menu: 'M2 4.5h12v1.5H2V4.5Zm0 4h12v1.5H2V8.5Zm0 4h12V14H2v-1.5Z',
+        close:
+          'm4.2 4.2.7-.7L8 6.4l3.1-3.1.7.7L8.7 7.1l3.1 3.1-.7.7L8 7.8l-3.1 3.1-.7-.7 3.1-3.1-3.1-3.1Z',
+        chevron: 'M4.2 5.5 8 9.3l3.8-3.8.9.9L8 11.1 3.3 6.4l.9-.9Z',
+        download:
+          'M2.5 12.5h11a.75.75 0 0 1 0 1.5h-11a.75.75 0 0 1 0-1.5ZM8 1.5l3.2 3.2-.9.9L8.75 4V10.5h-1.5V4L5.7 5.6l-.9-.9L8 1.5Z',
+      };
+
+      function Header() {
+        const [open, setOpen] = useState(false);
+        return (
+          <header className="glass-chrome anim-down sticky top-0 z-50 border-b border-glassline">
+            <div className="frame flex h-16 items-center gap-6">
+              <a href="#future" className="flex shrink-0 items-center gap-3" aria-label="GitHub home">
+                <img src={ASSETS.logo} alt="" className="h-7 w-auto" />
+                <span className="h3 hidden sm:inline">GitHub</span>
+              </a>
+
+              <nav aria-label="Primary" className="hidden flex-1 items-center gap-1 lg:flex">
+                {NAV.map((item) => (
+                  <a key={item.label} className="button-nav" href={item.href}>
+                    {item.label}
+                  </a>
+                ))}
+              </nav>
+
+              <div className="ml-auto flex items-center gap-2">
+                <button
+                  className="button-nav"
+                  type="button"
+                  data-tip="Language"
+                  aria-label="Select language"
+                >
+                  <Icon path={ICON.globe} />
+                </button>
+                <button
+                  className="button-nav hidden sm:inline-flex"
+                  type="button"
+                  data-tip="Appearance: dark"
+                  aria-label="Toggle appearance"
+                >
+                  <Icon path={ICON.moon} />
+                </button>
+                <a
+                  className="button-nav"
+                  href={DEMO_PAGE}
+                  target="_blank"
+                  rel="noopener noreferrer"
+                >
+                  Sign in
+                </a>
+                <a className="button-nav" href="#signup" onClick={() => setOpen(false)}>
+                  Sign up for free
+                </a>
+                <a
+                  className="button-primary"
+                  href={DEMO_PAGE}
+                  target="_blank"
+                  rel="noopener noreferrer"
+                >
+                  Try demo
+                </a>
+                <button
+                  className="button-nav lg:hidden"
+                  type="button"
+                  aria-expanded={open}
+                  aria-controls="mobile-nav"
+                  aria-label={open ? 'Close menu' : 'Open menu'}
+                  onClick={() => setOpen((v) => !v)}
+                >
+                  <Icon path={open ? ICON.close : ICON.menu} size={18} />
+                </button>
+              </div>
+            </div>
+
+            {open && (
+              <nav
+                id="mobile-nav"
+                aria-label="Primary mobile"
+                className="glass-chrome anim-down frame border-t border-glassline py-3 lg:hidden"
+              >
+                <ul className="grid gap-1">
+                  {NAV.map((item) => (
+                    <li key={item.label}>
+                      <a
+                        className="button-nav block"
+                        href={item.href}
+                        onClick={() => setOpen(false)}
+                      >
+                        {item.label}
+                      </a>
+                    </li>
+                  ))}
+                  <li className="mt-2 border-t border-glassline pt-2">
+                    <a
+                      className="button-nav block"
+                      href={DEMO_PAGE}
+                      target="_blank"
+                      rel="noopener noreferrer"
+                    >
+                      Sign in
+                    </a>
+                    <a className="button-nav block" href="#signup" onClick={() => setOpen(false)}>
+                      Sign up for free
+                    </a>
+                    <a
+                      className="button-primary mt-2"
+                      href={DEMO_PAGE}
+                      target="_blank"
+                      rel="noopener noreferrer"
+                    >
+                      Try demo
+                    </a>
+                  </li>
+                </ul>
+              </nav>
+            )}
+          </header>
+        );
+      }
+      /* Section 1 — gradient background, contains video. */
+      function FutureSection() {
+        return (
+          <section id="future" aria-labelledby="future-title" className="relative overflow-hidden scroll-mt-16">
+            {/* Background: gradient (+ accent glows) */}
+            <div
+              aria-hidden="true"
+              className="absolute inset-0"
+              style={{
+                background:
+                  'radial-gradient(900px 420px at 50% -10%, rgba(68,147,248,0.28), transparent 60%), radial-gradient(700px 380px at 85% 30%, rgba(162,218,255,0.12), transparent 65%), linear-gradient(180deg, #0d1117 0%, #000000 100%)',
+              }}
+            />
+            <div className="frame relative py-16 md:py-24">
+              <div className="mx-auto max-w-narrow text-center">
+                <h1 id="future-title" className="h1 reveal">
+                  The future of building happens together
+                </h1>
+                <p
+                  className="reveal mt-6 text-[18px] leading-[27px] text-[#ffffffd9]"
+                  style={{ animationDelay: '80ms' }}
+                >
+                  Tools and trends evolve, but collaboration endures. With GitHub, developers,
+                  agents, and code come together on one platform.
+                </p>
+                <div
+                  className="reveal mx-auto mt-8 w-full max-w-narrow"
+                  style={{ animationDelay: '160ms' }}
+                >
+                  <SignupForm idPrefix="hero" />
+                </div>
+                <div
+                  className="reveal mt-4 flex flex-wrap items-center justify-center gap-3"
+                  style={{ animationDelay: '240ms' }}
+                >
+                  <a className="button-green" href="#signup">
+                    Sign up for free
+                  </a>
+                  <a
+                    className="button-nav"
+                    href={DEMO_PAGE}
+                    target="_blank"
+                    rel="noopener noreferrer"
+                  >
+                    Try demo
+                  </a>
+                  <a className="button-nav" href="#accelerate">
+                    <Icon path={ICON.download} />
+                    Download GitHub Copilot app
+                  </a>
+                </div>
+              </div>
+
+              {/* Contains video: the code editor demo in the measured card. */}
+              <figure
+                className="card reveal mx-auto mt-12 w-full max-w-frame overflow-hidden p-0"
+                style={{ animationDelay: '320ms' }}
+              >
+                <video
+                  className="aspect-video w-full object-cover"
+                  autoPlay
+                  loop
+                  muted
+                  playsInline
+                  preload="metadata"
+                  aria-label="A demonstration animation of a code editor using GitHub Copilot Chat to refactor duplicated logic into a reusable function."
+                >
+                  <source src={ASSETS.codeVideo} type="video/mp4" />
+                </video>
+                <figcaption className="border-t border-hairline/50 px-6 py-3 text-[12px] leading-[16px] text-muted">
+                  GitHub Copilot Chat refactoring duplicated logic into a reusable function — a
+                  demonstration animation.
+                </figcaption>
+              </figure>
+            </div>
+          </section>
+        );
+      }
+      /* Shared tab explorer: underline grows (grow-x), panel fades in. */
+      function MediaTabs({ tabs, label }) {
+        const [active, setActive] = useState(0);
+        const current = tabs[active];
+        return (
+          <div className="grid gap-8 lg:grid-cols-2 lg:items-start">
+            <div role="tablist" aria-label={label} className="grid gap-2">
+              {tabs.map((tab, index) => (
+                <button
+                  key={tab.id}
+                  type="button"
+                  role="tab"
+                  id={`tab-${tab.id}`}
+                  aria-controls={`panel-${tab.id}`}
+                  aria-selected={active === index}
+                  className="tab"
+                  onClick={() => setActive(index)}
+                >
+                  <span className="h3 block pr-6">{tab.label}</span>
+                  {active === index && (
+                    <span className="anim-in mt-2 block text-[14px] leading-[21px] text-muted">
+                      {tab.body}
+                    </span>
+                  )}
+                </button>
+              ))}
+            </div>
+            <div
+              key={current.id}
+              role="tabpanel"
+              id={`panel-${current.id}`}
+              aria-labelledby={`tab-${current.id}`}
+              className="card anim-in overflow-hidden p-0"
+            >
+              {current.video ? (
+                <video
+                  className="aspect-video w-full object-cover"
+                  autoPlay
+                  loop
+                  muted
+                  playsInline
+                  preload="metadata"
+                  aria-label={current.alt}
+                >
+                  <source src={current.video} type="video/mp4" />
+                </video>
+              ) : (
+                <img
+                  className="aspect-video w-full object-cover"
+                  src={current.image}
+                  alt={current.alt}
+                />
+              )}
+            </div>
+          </div>
+        );
+      }
+      /* Section 2 — transparent; contains video + imagery. */
+      function AccelerateSection() {
+        const tabs = [
+          {
+            id: 'code',
+            label: 'Code',
+            body: 'Write, test, and fix code quickly with GitHub Copilot, from simple boilerplate to complex features.',
+            video: ASSETS.copilotVideo,
+            alt: "A Copilot chat window: the user switches from 'Ask' mode to 'Agent' mode, then asks Copilot to update the website to allow searching for running races by name. Copilot analyzes the codebase, explains the required edits for three files, generates them, and summarizes the changes.",
+          },
+          {
+            id: 'plan',
+            label: 'Plan',
+            body: 'Plan and track work with issues and projects that stay next to your code.',
+            image: ASSETS.plan,
+            alt: 'A planning board with issues grouped into columns.',
+          },
+          {
+            id: 'collaborate',
+            label: 'Collaborate',
+            body: 'Review changes together and keep every conversation in context.',
+            image: ASSETS.collaborate,
+            alt: 'A pull request discussion with review comments.',
+          },
+          {
+            id: 'automate',
+            label: 'Automate',
+            body: 'Automate any workflow with Actions — build, test, and deploy on every push.',
+            image: ASSETS.automate,
+            alt: 'A CI workflow run with green checks across jobs.',
+          },
+          {
+            id: 'secure',
+            label: 'Secure',
+            body: 'Find and fix vulnerabilities as you build, with security built into the platform.',
+            image: ASSETS.secure,
+            alt: 'A code scanning alert with a suggested fix.',
+          },
+        ];
+        const cards = [
+          {
+            title: 'Your AI partner everywhere.',
+            body: 'Copilot is ready to work with you at each step of the software development lifecycle.',
+            cta: 'Explore GitHub Copilot',
+            note: 'Duolingo boosts developer speed by 25% with GitHub Copilot',
+          },
+          {
+            title: 'Automate your path to production',
+            body: 'Ship faster with workflows that build, test, and deploy every change automatically.',
+            cta: 'Explore GitHub Actions',
+          },
+          {
+            title: 'Take your work with you',
+            body: 'Manage projects and assign tasks to Copilot, all from your mobile device.',
+            cta: 'Explore GitHub Mobile',
+          },
+          {
+            title: 'Extend your toolchain',
+            body: 'Extend your stack with apps, actions, and AI models.',
+            cta: 'Explore GitHub Marketplace',
+          },
+        ];
+        return (
+          <section
+            id="accelerate"
+            aria-labelledby="accelerate-title"
+            className="frame scroll-mt-16 py-16 md:py-24"
+          >
+            <div className="reveal mx-auto max-w-col text-center">
+              <h2 id="accelerate-title" className="display">
+                Accelerate your entire workflow
+              </h2>
+              <p className="mt-6 text-[18px] leading-[27px] text-[#ffffffd9]">
+                From your first line of code to final deployment, GitHub provides AI and automation
+                tools to help you build and ship better software faster.
+              </p>
+            </div>
+
+            <div className="reveal mt-12" style={{ animationDelay: '80ms' }}>
+              <MediaTabs tabs={tabs} label="Workflow stages" />
+            </div>
+
+            <ul className="mt-12 grid gap-6 sm:grid-cols-2 lg:grid-cols-4">
+              {cards.map((card, index) => (
+                <li
+                  key={card.title}
+                  className="card reveal flex flex-col gap-3 p-6"
+                  style={{ animationDelay: `${index * 80}ms` }}
+                >
+                  <h3 className="h2">{card.title}</h3>
+                  <p className="text-[14px] leading-[21px] text-muted">{card.body}</p>
+                  <a className="mt-auto text-[16px] font-medium" href="#accelerate">
+                    {card.cta} →
+                  </a>
+                  {card.note && (
+                    <p className="border-t border-hairline/50 pt-3 text-[12px] leading-[16px] text-muted">
+                      {card.note} ·{' '}
+                      <a className="text-sky" href="#home">
+                        Read customer story
+                      </a>
+                    </p>
+                  )}
+                </li>
+              ))}
+            </ul>
+          </section>
+        );
+      }
+      /* Section 3 — transparent; contains imagery. */
+      function SecuritySection() {
+        const cards = [
+          {
+            title: 'Apply fixes in seconds.',
+            body: 'Spend less time debugging and more time building features with Copilot Autofix.',
+            cta: 'Explore GitHub Advanced Security',
+            accent: '#4493f8',
+          },
+          {
+            title: 'Security debt, solved.',
+            body: 'Leverage security campaigns and Copilot Autofix to reduce application vulnerabilities.',
+            cta: 'Learn about GitHub Code Security',
+            accent: '#d29922',
+          },
+          {
+            title: 'Dependencies you can depend on.',
+            body: 'Update vulnerable dependencies with supported fixes for breaking changes.',
+            cta: 'Learn about Dependabot',
+            accent: '#d29922',
+          },
+          {
+            title: 'Your secrets, your business.',
+            body: 'Detect, prevent, and remediate leaked secrets across your organization.',
+            cta: 'Learn about GitHub Secret Protection',
+            accent: '#f85149',
+          },
+        ];
+        return (
+          <section
+            id="security"
+            aria-labelledby="security-title"
+            className="frame scroll-mt-16 py-16 md:py-24"
+          >
+            <div className="reveal mx-auto max-w-col text-center">
+              <h2 id="security-title" className="display">
+                Built-in application security where found means fixed
+              </h2>
+              <p className="mt-6 text-[18px] leading-[27px] text-[#ffffffd9]">
+                Use AI to find and fix vulnerabilities so your team can ship more secure software
+                faster.
+              </p>
+            </div>
+
+            <div className="mt-12 grid gap-12 lg:grid-cols-[1fr_757.754px] lg:items-start">
+              <ul className="grid gap-6 sm:grid-cols-2">
+                {cards.map((card, index) => (
+                  <li
+                    key={card.title}
+                    className="card reveal flex flex-col gap-3 p-6"
+                    style={{ animationDelay: `${index * 80}ms` }}
+                  >
+                    <span
+                      aria-hidden="true"
+                      className="h-2 w-12 rounded-pill"
+                      style={{ background: card.accent }}
+                    />
+                    <h3 className="h2">{card.title}</h3>
+                    <p className="text-[14px] leading-[21px] text-muted">{card.body}</p>
+                    <a className="mt-auto text-[16px] font-medium" href="#security">
+                      {card.cta} →
+                    </a>
+                  </li>
+                ))}
+              </ul>
+
+              <div className="grid gap-6">
+                <figure
+                  className="card reveal overflow-hidden p-0"
+                  style={{ animationDelay: '80ms' }}
+                >
+                  <img
+                    className="aspect-video w-full object-cover"
+                    src={ASSETS.secure}
+                    alt="A code scanning alert suggesting an autofix for a detected vulnerability."
+                  />
+                  <figcaption className="border-t border-hairline/50 px-6 py-3 text-[12px] leading-[16px] text-muted">
+                    Code scanning finds the issue in the diff — Autofix proposes the patch.
+                  </figcaption>
+                </figure>
+
+                <div className="grid gap-6 sm:grid-cols-2">
+                  <div
+                    className="card reveal flex flex-col gap-3 p-6"
+                    style={{ animationDelay: '160ms' }}
+                  >
+                    <p className="text-[40px] font-semibold leading-none text-sky">70%</p>
+                    <p className="text-[14px] leading-[21px] text-muted">
+                      MTTR reduction with Copilot Autofix
+                    </p>
+                    <div className="bar bar-grow mt-2" role="img" aria-label="70 percent">
+                      <i style={{ width: '70%' }} />
+                    </div>
+                  </div>
+                  <div
+                    className="card reveal flex flex-col gap-3 p-6"
+                    style={{ animationDelay: '240ms' }}
+                  >
+                    <p className="text-[40px] font-semibold leading-none text-danger">8.3M</p>
+                    <p className="text-[14px] leading-[21px] text-muted">
+                      secret leaks stopped in the past 12 months with push protection
+                    </p>
+                    <div
+                      className="bar bar-shrink mt-2"
+                      role="img"
+                      aria-label="Vulnerabilities shrinking to zero"
+                    >
+                      <i style={{ width: '100%' }} />
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </section>
+        );
+      }
+      /* Section 4 — transparent; contains imagery. */
+      function TogetherSection() {
+        const cards = [
+          {
+            title: 'Plan with clarity.',
+            body: 'Organize everything from high-level roadmaps to everyday tasks.',
+            cta: 'Explore GitHub Projects',
+          },
+          {
+            title: 'Keep track of your tasks',
+            body: 'Create issues and manage projects with tools that adapt to your code.',
+            cta: 'Explore GitHub Issues',
+          },
+          {
+            title: 'Share ideas and ask questions',
+            body: 'Create space for open-ended conversations alongside your project.',
+            cta: 'Explore GitHub Discussions',
+          },
+          {
+            title: 'Review code changes together',
+            body: 'Assign initial reviews to Copilot for greater speed and quality.',
+            cta: 'Explore code review',
+          },
+          {
+            title: 'Fund open source projects',
+            body: 'Become an open source partner and support the tools and libraries that power your work.',
+            cta: 'Explore GitHub Sponsors',
+          },
+        ];
+        return (
+          <section
+            id="together"
+            aria-labelledby="together-title"
+            className="frame scroll-mt-16 py-16 md:py-24"
+          >
+            <div className="reveal mx-auto max-w-col text-center">
+              <h2 id="together-title" className="display">
+                Work together, achieve more
+              </h2>
+              <p className="mt-6 text-[18px] leading-[27px] text-[#ffffffd9]">
+                From planning and discussion to code review, GitHub keeps your team’s conversation
+                and context next to your code.
+              </p>
+            </div>
+
+            <div className="mt-12 grid gap-6 lg:grid-cols-[1fr_652.286px]">
+              <figure
+                className="card reveal overflow-hidden p-0"
+                style={{ animationDelay: '80ms' }}
+              >
+                <img
+                  className="aspect-video w-full object-cover"
+                  src={ASSETS.hero}
+                  alt="Teammates reviewing a pull request together with inline discussion."
+                />
+              </figure>
+              <blockquote
+                className="card reveal flex flex-col justify-center gap-6 p-8"
+                style={{ animationDelay: '160ms' }}
+              >
+                <p className="text-[18px] leading-[27px] text-[#ffffffd9]">
+                  “It helps us onboard new software engineers and get them productive right away. We
+                  have all our source code, issues, and pull requests in one place... GitHub is a
+                  complete platform that frees us from menial tasks and enables us to do our best
+                  work.”
+                </p>
+                <footer className="text-[14px] leading-[21px] text-muted">
+                  <span className="font-semibold text-white">Fabian Faulhaber</span>
+                  <br />
+                  Application manager at Mercedes-Benz
+                </footer>
+              </blockquote>
+            </div>
+
+            <ul className="mt-6 grid gap-6 sm:grid-cols-2 lg:grid-cols-3">
+              {cards.map((card, index) => (
+                <li
+                  key={card.title}
+                  className="card reveal flex flex-col gap-3 p-6"
+                  style={{ animationDelay: `${index * 80}ms` }}
+                >
+                  <h3 className="h3">{card.title}</h3>
+                  <p className="text-[14px] leading-[21px] text-muted">{card.body}</p>
+                  <a className="mt-auto text-[16px] font-medium" href="#together">
+                    {card.cta} →
+                  </a>
+                </li>
+              ))}
+            </ul>
+          </section>
+        );
+      }
+      /* Section 5 — transparent; contains imagery. */
+      const SCALE_PANELS = [
+        {
+          id: 'industry',
+          label: 'By industry',
+          cards: [
+            {
+              eyebrow: 'Technology',
+              title: 'Figma streamlines development and strengthens security',
+              cta: 'Read customer story',
+              logo: true,
+            },
+            {
+              eyebrow: 'Automotive',
+              title: 'Mercedes-Benz standardizes source code and automates onboarding',
+              cta: 'Read customer story',
+            },
+            {
+              eyebrow: 'Financial services',
+              title: 'Mercado Libre cuts coding time by 50%',
+              cta: 'Read customer story',
+            },
+          ],
+        },
+        {
+          id: 'size',
+          label: 'By size',
+          cards: [
+            {
+              eyebrow: 'Startups',
+              title: 'Move fast from day one with everything in one platform',
+              cta: 'Explore startups',
+            },
+            {
+              eyebrow: 'Small and medium teams',
+              title: 'Standardize workflows without slowing anyone down',
+              cta: 'Explore teams',
+            },
+            {
+              eyebrow: 'Enterprises',
+              title: 'Govern thousands of repositories with confidence',
+              cta: 'Explore enterprise',
+            },
+          ],
+        },
+        {
+          id: 'usecase',
+          label: 'By use case',
+          cards: [
+            {
+              eyebrow: 'App Modernization',
+              title: 'Modernize applications with AI-assisted development',
+              cta: 'Explore app modernization',
+            },
+            {
+              eyebrow: 'DevSecOps',
+              title: 'Shift security left without shifting responsibility',
+              cta: 'Explore DevSecOps',
+            },
+            {
+              eyebrow: 'DevOps CI/CD',
+              title: 'Automate delivery from commit to production',
+              cta: 'Explore CI/CD',
+            },
+          ],
+        },
+      ];
+
+      function ScaleSection() {
+        const [active, setActive] = useState(0);
+        const panel = SCALE_PANELS[active];
+        return (
+          <section
+            id="scale"
+            aria-labelledby="scale-title"
+            className="frame scroll-mt-16 py-16 md:py-24"
+          >
+            <div className="reveal mx-auto max-w-col text-center">
+              <h2 id="scale-title" className="display">
+                From startups to enterprises, GitHub scales with teams of any size in any industry.
+              </h2>
+            </div>
+
+            <div
+              className="reveal mt-10 flex flex-wrap justify-center gap-2"
+              role="tablist"
+              aria-label="Customer segments"
+            >
+              {SCALE_PANELS.map((item, index) => (
+                <button
+                  key={item.id}
+                  type="button"
+                  role="tab"
+                  id={`scale-tab-${item.id}`}
+                  aria-controls={`scale-panel-${item.id}`}
+                  aria-selected={active === index}
+                  className="pill"
+                  onClick={() => setActive(index)}
+                >
+                  {item.label}
+                </button>
+              ))}
+            </div>
+
+            <div className="mt-10 grid gap-8 lg:grid-cols-[652.286px_1fr] lg:items-center">
+              <figure
+                className="card reveal overflow-hidden p-0"
+                style={{ animationDelay: '80ms' }}
+              >
+                <img
+                  className="aspect-video w-full object-cover"
+                  src={ASSETS.scale}
+                  alt="A dashboard view of organization-wide activity across repositories."
+                />
+              </figure>
+
+              <ul
+                key={panel.id}
+                id={`scale-panel-${panel.id}`}
+                role="tabpanel"
+                aria-labelledby={`scale-tab-${panel.id}`}
+                className="anim-in grid gap-6"
+              >
+                {panel.cards.map((card) => (
+                  <li key={card.title} className="card flex items-start gap-4 p-6">
+                    {card.logo && (
+                      <img
+                        src={ASSETS.logo}
+                        alt=""
+                        aria-hidden="true"
+                        className="mt-1 h-8 w-auto shrink-0"
+                      />
+                    )}
+                    <div>
+                      <p className="text-[12px] uppercase tracking-widest text-muted">
+                        {card.eyebrow}
+                      </p>
+                      <h3 className="h2 mt-1">{card.title}</h3>
+                      <a className="mt-3 inline-block text-[16px] font-medium" href="#home">
+                        {card.cta} →
+                      </a>
+                    </div>
+                  </li>
+                ))}
+                <li>
+                  <div className="flex flex-wrap gap-3">
+                    <a className="button-primary" href="#home">
+                      Explore customer stories
+                    </a>
+                    <a className="button-nav" href="#home">
+                      View all solutions
+                    </a>
+                  </div>
+                </li>
+              </ul>
+            </div>
+          </section>
+        );
+      }
+      /* Section 6 — transparent; the closing call to action. */
+      function HomeSection() {
+        return (
+          <section
+            id="home"
+            aria-labelledby="home-title"
+            className="frame scroll-mt-16 py-16 md:py-24"
+          >
+            <div className="reveal mx-auto max-w-narrow text-center">
+              <h2 id="home-title" className="display">
+                Millions of developers and businesses call GitHub home
+              </h2>
+              <p className="mt-6 text-[18px] leading-[27px] text-[#ffffffd9]">
+                Whether you’re scaling your development process or just learning how to code, GitHub
+                is where you belong. Join the world’s most widely adopted developer platform to
+                build the technologies that shape what’s next.
+              </p>
+              <div className="mx-auto mt-8 w-full max-w-narrow">
+                <SignupForm idPrefix="cta" />
+              </div>
+              <div className="mt-4 flex flex-wrap items-center justify-center gap-3">
+                <a className="button-green" href="#signup">
+                  Sign up for free
+                </a>
+                <a
+                  className="button-nav"
+                  href={DEMO_PAGE}
+                  target="_blank"
+                  rel="noopener noreferrer"
+                >
+                  Try demo
+                </a>
+                <a className="button-nav" href="#future">
+                  <Icon path={ICON.download} />
+                  Download GitHub Copilot app
+                </a>
+              </div>
+            </div>
+          </section>
+        );
+      }
+      /* Footer — background #0f1511 with the inset top edge shadow. */
+      const FOOTER_COLUMNS = [
+        {
+          heading: 'Platform',
+          links: ['Features', 'Enterprise', 'Copilot', 'AI', 'Security', 'Pricing', 'Team'],
+        },
+        {
+          heading: 'Resources',
+          links: [
+            'Roadmap',
+            'Compare GitHub',
+            'Ecosystem',
+            'Developer API',
+            'Partners',
+            'Education',
+            'GitHub CLI',
+            'GitHub Desktop',
+            'GitHub Mobile',
+            'GitHub Marketplace',
+            'MCP Registry',
+          ],
+        },
+        {
+          heading: 'Support',
+          links: [
+            'Docs',
+            'Community Forum',
+            'Professional Services',
+            'Premium Support',
+            'Skills',
+            'Status',
+            'Contact GitHub',
+            'What is Git?',
+            'Sitemap',
+          ],
+        },
+        {
+          heading: 'Company',
+          links: [
+            'About',
+            'Why GitHub',
+            'Customer Stories',
+            'Blog',
+            'The ReadME Project',
+            'Careers',
+            'Inclusion',
+            'Social Impact',
+            'Shop',
+          ],
+        },
+      ];
+      function FooterNewsletter() {
+        const [sent, setSent] = useState(false);
+        return (
+          <form
+            className="glass relative max-w-[420px] rounded-shell border border-glassline p-3"
+            onSubmit={(event) => {
+              event.preventDefault();
+              setSent(true);
+            }}
+          >
+            <label
+              htmlFor="footer-email"
+              className="pointer-events-none absolute left-[18px] top-[5px] text-[12px] leading-[16px] text-black/70"
+            >
+              Enter your email
+            </label>
+            <div className="flex items-center gap-3">
+              <input
+                id="footer-email"
+                className="input min-w-0 flex-1"
+                type="email"
+                name="email"
+                autoComplete="email"
+                required
+                aria-label="Enter your email"
+              />
+              <button className="button-primary shrink-0" type="submit">
+                Subscribe
+              </button>
+            </div>
+            <p aria-live="polite" className="mt-2 min-h-[21px] text-[12px] leading-[16px] text-muted">
+              {sent ? 'Thanks for subscribing!' : ''}
+            </p>
+          </form>
+        );
+      }
+
+      const SOCIAL = ['LinkedIn', 'Instagram', 'YouTube', 'X', 'TikTok', 'Twitch', 'GitHub'];
+
+      function Footer() {
+        return (
+          <footer
+            className="bg-footerbed shadow-edge"
+            aria-label="Site-wide Links"
+            style={{ boxShadow: 'rgb(25, 31, 27) 0px -1px 0px 0px inset' }}
+          >
+            <div className="frame py-16">
+              <div className="grid gap-12 lg:grid-cols-[420px_1fr]">
+                <div>
+                  <h2 className="text-[16px] font-semibold text-white">The developer newsletter</h2>
+                  <p className="mt-2 text-[14px] leading-[21px] text-muted">
+                    Get tips, technical guides, and best practices. Twice a month. Right in your
+                    inbox.
+                  </p>
+                  <div className="mt-4">
+                    <FooterNewsletter />
+                  </div>
+                </div>
+
+                <nav className="grid gap-8 sm:grid-cols-2 lg:grid-cols-4" aria-label="Footer">
+                  {FOOTER_COLUMNS.map((column) => (
+                    <div key={column.heading}>
+                      <h2 className="text-[16px] font-semibold text-white">{column.heading}</h2>
+                      <ul className="mt-3 grid gap-2">
+                        {column.links.map((link) => (
+                          <li key={link}>
+                            <a className="text-[14px] leading-[21px] text-muted hover:text-sky" href="#future">
+                              {link}
+                            </a>
+                          </li>
+                        ))}
+                      </ul>
+                    </div>
+                  ))}
+                </nav>
+              </div>
+
+              <div className="mt-12 flex flex-col gap-4 border-t border-hairline/40 pt-8 lg:flex-row lg:items-center">
+                <ul className="flex flex-wrap items-center gap-x-6 gap-y-2 text-[14px] leading-[21px] text-muted">
+                  <li>© 2026 GitHub, Inc.</li>
+                  <li>
+                    <a href="#future">Terms</a>
+                  </li>
+                  <li>
+                    <a href="#future">Privacy</a>
+                  </li>
+                  <li>
+                    <a href="#future">Manage cookies</a>
+                  </li>
+                  <li>
+                    <a href="#future">Do not share my personal information</a>
+                  </li>
+                </ul>
+                <ul className="flex flex-wrap items-center gap-x-6 gap-y-2 text-[14px] leading-[21px] lg:ml-auto">
+                  {SOCIAL.map((name) => (
+                    <li key={name}>
+                      <a href="#future" data-tip={`GitHub on ${name}`}>
+                        {name}
+                      </a>
+                    </li>
+                  ))}
+                </ul>
+                <button className="button-nav border border-glassline" type="button" data-tip="Change language">
+                  English
+                </button>
+              </div>
+            </div>
+          </footer>
+        );
+      }
+      /* Signup section — multi-step flow: Account → Platform → Company → Team. */
+      const SIGNUP_STEPS = [
+        {
+          id: 'account',
+          title: 'Tell us about yourself',
+          subtitle: 'First, create your GitHub login.',
+          fields: [
+            {
+              name: 'fullName',
+              label: 'Full name',
+              type: 'text',
+              placeholder: 'Ada Lovelace',
+              autoComplete: 'name',
+            },
+            {
+              name: 'username',
+              label: 'Username',
+              type: 'text',
+              placeholder: 'adalovelace',
+              autoComplete: 'username',
+            },
+            {
+              name: 'email',
+              label: 'Email',
+              type: 'email',
+              placeholder: 'you@example.com',
+              autoComplete: 'email',
+            },
+            {
+              name: 'password',
+              label: 'Password',
+              type: 'password',
+              placeholder: 'At least 8 characters',
+              autoComplete: 'new-password',
+            },
+          ],
+        },
+        {
+          id: 'platform',
+          title: 'Your platform',
+          subtitle: 'What are you building on GitHub?',
+          radios: [
+            {
+              label: 'Open source',
+              hint: 'Build in public with the open source community.',
+            },
+            {
+              label: 'Business',
+              hint: 'Ship software for a company or startup.',
+            },
+            {
+              label: 'Personal',
+              hint: 'Learn, experiment, and run side projects.',
+            },
+          ],
+          fields: [
+            {
+              name: 'platformName',
+              label: 'Platform / product name',
+              type: 'text',
+              placeholder: 'Acme Cloud',
+            },
+            {
+              name: 'industry',
+              label: 'Industry',
+              type: 'select',
+              options: [
+                'Technology',
+                'Financial services',
+                'Healthcare',
+                'Manufacturing',
+                'Government',
+                'Education',
+                'Other',
+              ],
+            },
+          ],
+        },
+        {
+          id: 'company',
+          title: 'Your company',
+          subtitle: 'Where do you work?',
+          fields: [
+            { name: 'companyName', label: 'Company name', type: 'text', placeholder: 'Acme Inc.' },
+            {
+              name: 'companySize',
+              label: 'Company size',
+              type: 'select',
+              options: ['1–10', '11–50', '51–200', '201–1000', '1001+'],
+            },
+            {
+              name: 'country',
+              label: 'Country / region',
+              type: 'select',
+              options: [
+                'United States',
+                'United Kingdom',
+                'Germany',
+                'India',
+                'Japan',
+                'Brazil',
+                'Other',
+              ],
+            },
+          ],
+        },
+        {
+          id: 'team',
+          title: 'Your teams',
+          subtitle: 'Who will you work with day to day?',
+          fields: [
+            {
+              name: 'teamName',
+              label: 'Team name',
+              type: 'text',
+              placeholder: 'Platform engineering',
+            },
+            {
+              name: 'teamSize',
+              label: 'Developers on the team',
+              type: 'select',
+              options: ['1–10', '11–50', '51–200', '200+'],
+            },
+            {
+              name: 'role',
+              label: 'Your role',
+              type: 'select',
+              options: [
+                'Engineer',
+                'Engineering manager',
+                'DevOps / SRE',
+                'Security',
+                'Product',
+                'Other',
+              ],
+            },
+            {
+              name: 'useCase',
+              label: 'Primary use case',
+              type: 'select',
+              options: [
+                'CI/CD',
+                'Application security',
+                'AI-assisted development',
+                'Project planning',
+                'All of the above',
+              ],
+            },
+          ],
+        },
+      ];
+      function SignupSection() {
+        const [step, setStep] = useState(0);
+        const [done, setDone] = useState(false);
+        const [values, setValues] = useState({ purpose: 'Business' });
+        const data = SIGNUP_STEPS[step];
+        const update = (name) => (event) =>
+          setValues((v) => ({ ...v, [name]: event.target.value }));
+        const onSubmit = (event) => {
+          event.preventDefault();
+          if (step < SIGNUP_STEPS.length - 1) {
+            setStep(step + 1);
+          } else {
+            setDone(true);
+          }
+        };
+        return (
+          <section
+            id="signup"
+            aria-labelledby="signup-title"
+            className="relative scroll-mt-16 overflow-hidden border-t border-hairline/40"
+          >
+            <div
+              aria-hidden="true"
+              className="absolute inset-0"
+              style={{
+                background:
+                  'radial-gradient(700px 320px at 50% 0%, rgba(68,147,248,0.12), transparent 60%), #0d1117',
+              }}
+            />
+            <div className="frame relative py-16 md:py-24">
+              <div className="reveal mx-auto max-w-narrow text-center">
+                <h2 id="signup-title" className="display">
+                  Sign up for free
+                </h2>
+                <p className="mt-6 text-[18px] leading-[27px] text-[#ffffffd9]">
+                  Tell us about your platform, company, and teams, and we’ll tailor GitHub to fit
+                  how you build.
+                </p>
+              </div>
+
+              <div
+                className="reveal mx-auto mt-10 w-full max-w-col"
+                style={{ animationDelay: '80ms' }}
+              >
+                {/* Step progress */}
+                <ol className="flex gap-3" aria-label="Sign up progress">
+                  {SIGNUP_STEPS.map((item, index) => (
+                    <li key={item.id} className="flex-1">
+                      <div
+                        className={`h-1 rounded-pill ${
+                          index <= step || done ? 'bg-[#4493f8]' : 'bg-hairline/60'
+                        } progress-fill`}
+                        style={{ flexGrow: 1 }}
+                      />
+                      <span
+                        className={`mt-2 block text-[12px] leading-[16px] ${
+                          index <= step || done ? 'text-white' : 'text-muted'
+                        }`}
+                      >
+                        {item.title}
+                      </span>
+                    </li>
+                  ))}
+                </ol>
+
+                <div className="card mx-auto mt-8 max-w-narrow rounded-shell p-6 md:p-8">
+                  {done ? (
+                    <div className="step-enter py-6 text-center" role="status">
+                      <svg
+                        aria-hidden="true"
+                        width="48"
+                        height="48"
+                        viewBox="0 0 16 16"
+                        fill="#3fb950"
+                        className="mx-auto"
+                      >
+                        <path d="M8 16A8 8 0 1 1 8 0a8 8 0 0 1 0 16Zm3.78-9.72a.751.751 0 0 0-.018-1.042.751.751 0 0 0-1.042-.018L6.75 9.19 5.28 7.72a.751.751 0 0 0-1.042.018.751.751 0 0 0-.018 1.042l2 2a.75.75 0 0 0 1.06 0Z" />
+                      </svg>
+                      <h3 className="h2 mt-4">
+                        Welcome aboard{values.fullName ? `, ${values.fullName}` : ''}!
+                      </h3>
+                      <p className="mt-2 text-muted">
+                        Your account{values.platformName ? ` for ${values.platformName}` : ''} is
+                        ready. We sent a confirmation to {values.email || 'your inbox'}.
+                      </p>
+                      <div className="mt-6 flex flex-wrap justify-center gap-3">
+                        <a className="button-green" href="#future">
+                          Explore GitHub
+                        </a>
+                        <a
+                          className="button-nav"
+                          href={DEMO_PAGE}
+                          target="_blank"
+                          rel="noopener noreferrer"
+                        >
+                          Try demo
+                        </a>
+                      </div>
+                    </div>
+                  ) : (
+                    <form
+                      key={data.id}
+                      className="step-enter grid gap-5"
+                      aria-label={data.title}
+                      onSubmit={onSubmit}
+                    >
+                      <div>
+                        <p className="text-[12px] uppercase tracking-widest text-muted">
+                          Step {step + 1} of {SIGNUP_STEPS.length}
+                        </p>
+                        <h3 className="h2 mt-1">{data.title}</h3>
+                        <p className="mt-1 text-muted">{data.subtitle}</p>
+                      </div>
+                      {data.radios && (
+                        <fieldset>
+                          <legend className="text-[14px] font-semibold text-white">
+                            What will you use GitHub for?
+                          </legend>
+                          <div className="mt-2 grid gap-2 sm:grid-cols-3">
+                            {data.radios.map((radio) => {
+                              const active = values.purpose === radio.label;
+                              return (
+                                <label
+                                  key={radio.label}
+                                  className={`cursor-pointer rounded-btn border p-3 transition-colors duration-150 ${
+                                    active
+                                      ? 'border-[#4493f8] bg-[#4493f8]/10'
+                                      : 'border-hairline/60 hover:border-muted'
+                                  }`}
+                                >
+                                  <input
+                                    type="radio"
+                                    name="purpose"
+                                    value={radio.label}
+                                    checked={active}
+                                    onChange={update('purpose')}
+                                    className="sr-only"
+                                  />
+                                  <span className="block text-[14px] font-semibold text-white">
+                                    {radio.label}
+                                  </span>
+                                  <span className="mt-1 block text-[12px] leading-[16px] text-muted">
+                                    {radio.hint}
+                                  </span>
+                                </label>
+                              );
+                            })}
+                          </div>
+                        </fieldset>
+                      )}
+
+                      <div className="grid gap-5 sm:grid-cols-2">
+                        {data.fields.map((field) => (
+                          <div key={field.name}>
+                            <label
+                              htmlFor={`su-${field.name}`}
+                              className="mb-1 block text-[14px] font-semibold text-white"
+                            >
+                              {field.label}
+                            </label>
+                            {field.type === 'select' ? (
+                              <select
+                                id={`su-${field.name}`}
+                                name={field.name}
+                                className="input w-full [color-scheme:dark]"
+                                required
+                                value={values[field.name] || ''}
+                                onChange={update(field.name)}
+                              >
+                                <option value="" disabled>
+                                  Select…
+                                </option>
+                                {field.options.map((option) => (
+                                  <option key={option} value={option}>
+                                    {option}
+                                  </option>
+                                ))}
+                              </select>
+                            ) : (
+                              <input
+                                id={`su-${field.name}`}
+                                name={field.name}
+                                type={field.type}
+                                placeholder={field.placeholder}
+                                autoComplete={field.autoComplete}
+                                className="input w-full"
+                                required
+                                value={values[field.name] || ''}
+                                onChange={update(field.name)}
+                              />
+                            )}
+                          </div>
+                        ))}
+                      </div>
+
+                      {step === SIGNUP_STEPS.length - 1 && (
+                        <label className="flex items-start gap-2 text-[14px] leading-[21px] text-muted">
+                          <input
+                            type="checkbox"
+                            required
+                            className="mt-1 h-4 w-4 accent-[#238636]"
+                          />
+                          <span>
+                            I agree to the{' '}
+                            <a className="text-sky" href="#future">
+                              Terms of Service
+                            </a>{' '}
+                            and{' '}
+                            <a className="text-sky" href="#future">
+                              Privacy Statement
+                            </a>
+                            .
+                          </span>
+                        </label>
+                      )}
+
+                      <div className="mt-2 flex items-center justify-between gap-3">
+                        {step > 0 ? (
+                          <button
+                            type="button"
+                            className="button-nav"
+                            onClick={() => setStep(step - 1)}
+                          >
+                            Back
+                          </button>
+                        ) : (
+                          <span aria-hidden="true" />
+                        )}
+                        <button type="submit" className="button-green">
+                          {step < SIGNUP_STEPS.length - 1 ? 'Continue' : 'Create account'}
+                        </button>
+                      </div>
+                    </form>
+                  )}
+                </div>
+
+                <p className="mt-6 text-center text-[14px] leading-[21px] text-muted">
+                  Already have an account?{' '}
+                  <a
+                    className="text-sky"
+                    href={DEMO_PAGE}
+                    target="_blank"
+                    rel="noopener noreferrer"
+                  >
+                    Sign in
+                  </a>
+                </p>
+              </div>
+            </div>
+          </section>
+        );
+      }
+
+      function App() {
+        const ref = useReveal();
+        return (
+          <div ref={ref}>
+            <Header />
+            <main id="main">
+              <FutureSection />
+              <AccelerateSection />
+              <SecuritySection />
+              <TogetherSection />
+              <ScaleSection />
+              <HomeSection />
+              <SignupSection />
+            </main>
+            <Footer />
+          </div>
+        );
+      }
+
+      ReactDOM.createRoot(document.getElementById('root')).render(<App />);
+    </script>
+  </body>
+</html>
