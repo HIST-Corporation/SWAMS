@@ -68,6 +68,19 @@ export default defineConfig({
   server: {
     port: 5173,
     strictPort: false,
+    proxy: {
+      // Local dev against the real Express API (Backend/src/server.js :4000).
+      // Same-origin proxy keeps the httpOnly refresh cookie working without
+      // CORS workarounds. Remove this block to go back to MSW mock-first.
+      '/api': {
+        target: 'http://localhost:4000',
+        changeOrigin: true,
+      },
+      '/health': {
+        target: 'http://localhost:4000',
+        changeOrigin: true,
+      },
+    },
   },
   build: {
     sourcemap: false,

@@ -29,6 +29,7 @@ import notificationRoutes from './modules/notifications/routes.js';
 import dashboardRoutes from './modules/dashboard/routes.js';
 import reportRoutes from './modules/reports/routes.js';
 import auditRoutes from './modules/audit/routes.js';
+import payrollRoutes from './modules/payroll/routes.js';
 import platformRoutes from './modules/platform/routes.js';
 import healthRoutes from './modules/health/routes.js';
 
@@ -89,6 +90,7 @@ export function buildApp() {
   app.use(`${env.API_PREFIX}`, dashboardRoutes); // /presence, /org/*, /events/*, /staff/board
   app.use(`${env.API_PREFIX}/reports`, reportRoutes);
   app.use(`${env.API_PREFIX}/audit`, auditRoutes);
+  app.use(`${env.API_PREFIX}/payroll`, payrollRoutes);
 
   app.use(notFoundMiddleware);
   app.use(errorMiddleware);

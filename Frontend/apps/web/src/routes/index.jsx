@@ -28,6 +28,7 @@ const item = (id) => NAV_ITEMS.find((navItem) => navItem.id === id);
 const dashboardItem = item('dashboard');
 const attendanceItem = item('attendance');
 const leaveItem = item('leave');
+const payrollItem = item('payroll');
 const settingsItem = item('settings');
 const auditItem = item('audit');
 const reportsItem = item('reports');
@@ -189,6 +190,19 @@ export const routes = [
             Component: () => (
               <RequirePermission item={leaveItem}>
                 <LeavePage />
+              </RequirePermission>
+            ),
+          };
+        },
+      },
+      {
+        path: 'payroll',
+        lazy: async () => {
+          const { PayrollPage } = await import('../features/payroll/pages/PayrollPage.jsx');
+          return {
+            Component: () => (
+              <RequirePermission item={payrollItem}>
+                <PayrollPage />
               </RequirePermission>
             ),
           };

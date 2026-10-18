@@ -11,6 +11,8 @@ export const PERMISSIONS = Object.freeze([
   'leave.create',
   'leave.approve',
   'leave.configure',
+  'payroll.view',
+  'payroll.manage',
   'tasks.read',
   'tasks.write',
   'tasks.manage',

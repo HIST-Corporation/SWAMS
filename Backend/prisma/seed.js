@@ -287,6 +287,9 @@ async function main() {
     });
   }
 
+  // ---------- Payroll seed (demo org) ----------
+  await seedPayroll();
+
   const seedNotifications = [
     { userId: 'u_sarah', kind: 'leave', key: 'leaveRequested', params: { name: 'Anita Thapa' }, link: '/leave', read: false, minutesAgo: 35 },
     { userId: 'u_sarah', kind: 'attendance', key: 'correctionNeedsReview', params: {}, link: '/attendance/corrections', read: false, minutesAgo: 95 },
@@ -342,6 +345,86 @@ async function main() {
 
 
   console.log(`Seeded ${ROSTER.length} users, ${SITES.length} sites, org "${org.name}".`);
+}
+
+/** Payroll seed for the demo org — mirrors the payroll mock fixtures. */
+async function seedPayroll() {
+  const orgId = ORG_ID;
+
+  const periods = [
+    { id: 'pp_2026_08', orgId, label: 'August 2026', start: '2026-08-01', end: '2026-08-31', payDate: '2026-09-07', status: 'closed' },
+    { id: 'pp_2026_09', orgId, label: 'September 2026', start: '2026-09-01', end: '2026-09-30', payDate: '2026-10-07', status: 'published' },
+    { id: 'pp_2026_10', orgId, label: 'October 2026', start: '2026-10-01', end: '2026-10-31', payDate: '2026-11-07', status: 'open' },
+  ];
+  for (const p of periods) {
+    const exists = await prisma.payPeriod.findUnique({ where: { id: p.id } });
+    if (!exists) await prisma.payPeriod.create({ data: p });
+  }
+
+  const components = [
+    { id: 'c_basic', orgId, code: 'basic', nameKey: 'basic', kind: 'earning', basis: 'fixed', rate: 0 },
+    { id: 'c_hra', orgId, code: 'hra', nameKey: 'hra', kind: 'earning', basis: 'fixed', rate: 0 },
+    { id: 'c_festival', orgId, code: 'festival', nameKey: 'festival', kind: 'earning', basis: 'fixed', rate: 0 },
+    { id: 'c_pf_employee', orgId, code: 'pfEmployee', nameKey: 'pfEmployee', kind: 'deduction', basis: 'fixed', rate: 0 },
+    { id: 'c_pf_employer', orgId, code: 'pfEmployer', nameKey: 'pfEmployer', kind: 'employer', basis: 'fixed', rate: 0 },
+    { id: 'c_cit', orgId, code: 'cit', nameKey: 'cit', kind: 'deduction', basis: 'fixed', rate: 0 },
+    { id: 'c_income_tax', orgId, code: 'incomeTax', nameKey: 'incomeTax', kind: 'deduction', basis: 'fixed', rate: 0 },
+  ];
+  for (const c of components) {
+    const exists = await prisma.payrollComponent.findUnique({ where: { orgId_code: { orgId, code: c.code } } });
+    if (!exists) await prisma.payrollComponent.create({ data: c });
+  }
+
+  const structure = await prisma.salaryStructure.upsert({
+    where: { id: 'st_standard' },
+    update: {},
+    create: { id: 'st_standard', orgId, name: 'Standard', description: 'Standard salary structure', effectiveFrom: '2026-01-01', componentIds: ['c_basic', 'c_hra', 'c_festival', 'c_pf_employee', 'c_pf_employer', 'c_cit', 'c_income_tax'], sample: true },
+  });
+
+  const staff = ['u_priya', 'u_james', 'u_prakash', 'u_tina', 'u_sunita', 'u_raj', 'u_bibek', 'u_aarati', 'u_nabin', 'u_kiran', 'u_anisha'];
+  for (const employeeId of staff) {
+    const exists = await prisma.compensation.findFirst({ where: { orgId, employeeId } });
+    if (!exists) {
+      await prisma.compensation.create({ data: { orgId, employeeId, structureId: structure.id, basic: 90000, payGroup: 'monthly', effectiveFrom: '2026-01-01' } });
+    }
+  }
+
+  const run = await prisma.payrollRun.upsert({
+    where: { id: 'run_2026_10' },
+    update: {},
+    create: { id: 'run_2026_10', orgId, periodId: 'pp_2026_10', stage: 'review', periodStatus: 'open', totals: { gross: 1090000, deductions: 141700, net: 948300, employerContributions: 133000 } },
+  });
+  await prisma.runException.createMany({
+    data: [
+      { orgId, runId: run.id, employeeId: 'u_prakash', code: 'missing_bank_account', message: 'Bank account number is missing for this employee.' },
+      { orgId, runId: run.id, employeeId: 'u_sunita', code: 'unpaid_absence_unapproved', message: 'Unpaid absence (2 days) needs manager approval before the run advances.' },
+    ],
+    skipDuplicates: true,
+  });
+
+  await prisma.payslip.createMany({
+    data: [
+      { orgId, employeeId: 'u_priya', periodId: 'pp_2026_09', runId: null, status: 'published', earnings: [{ code: 'basic', amount: 90000 }, { code: 'hra', amount: 20000 }], deductions: [{ code: 'pfEmployee', amount: 10800 }, { code: 'incomeTax', amount: 5000 }], employer: [{ code: 'pfEmployer', amount: 10800 }], gross: 110000, deductionsAmt: 15800, net: 94200, employerContributions: 10800 },
+    ],
+    skipDuplicates: true,
+  });
+
+  await prisma.loan.upsert({
+    where: { id: 'loan_1' },
+    update: {},
+    create: { orgId, employeeId: 'u_prakash', principal: 200000, installment: 10000, outstanding: 160000, nextDue: '2026-11-05', status: 'active' },
+  });
+  await prisma.reimbursement.upsert({
+    where: { id: 'reimb_1' },
+    update: {},
+    create: { orgId, employeeId: 'u_priya', category: 'medical', amount: 3000, spentOn: '2026-09-10', note: 'Doctor consultation', status: 'pending' },
+  });
+
+  await prisma.payrollSetting.upsert({
+    where: { orgId },
+    update: {},
+    create: { orgId, frequency: 'monthly', payDay: 7, fiscalYearStart: '07-16', currency: 'NPR', requireApproval: true, autoLock: true, sample: true },
+  });
 }
 
 main()

@@ -1,29 +1,35 @@
 import { scopeFor } from '@swams/permissions';
 
 /**
- * Which Home composition a session gets (six-role model, Section: dashboards):
+ * Which Home composition a session gets (six-role model, Section: dashboards).
  *
- *   org      organization-wide board — executive (owner), HR, department
- *            manager. Shows the KPI row, org trend, department bars, workforce
- *            panel, insights and the benchmark, all from `GET /org/dashboard`.
- *   team     team-scoped board — team lead / supervisor. Personal widgets plus
+ *   owner      executive aggregates — headcount, on-site rate, approvals inbox
+ *              from `GET /dashboard/owner`.
+ *   hr         HR action queue — pending leave/corrections, exceptions,
+ *              from `GET /dashboard/hr`.
+ *   manager    department capacity vs load, risks, team approvals
+ *              from `GET /dashboard/manager`.
+ *   team-lead  team workload, blockers, corrections queue
+ *              from `GET /dashboard/team-lead`.
+ *   team       team-scoped board — team lead / supervisor. Personal widgets plus
  *            the team presence strip and the corrections queue they can act
- *            on. NEVER the org-wide panels: a supervisor sees their team, not
- *            the company (contract request 30 scopes the data server-side).
- *   personal staff board — own hours, leave, tasks, punch.
+ *            on. NEVER the org-wide panels.
+ *   personal   staff board — own hours, leave, tasks, punch.
  *
- * Built on the principal's data scope (`scopeFor`) so the mapping lives in one
- * place: organization and department scopes share the org composition today
- * (the department filter is a backend concern), team gets the team lens, and
- * anything else — including the platform scope, which never signs into the
- * workforce app — falls back to the personal board.
+ * Built on the principal's role so each responsibility gets its own structure.
+ * Falls back to the personal board for any unrecognised role.
  *
  * @param {{ role?: string, scope?: string } | null} principal
- * @returns {'org'|'team'|'personal'}
+ * @returns {'owner'|'hr'|'manager'|'team-lead'|'team'|'personal'}
  */
 export function dashboardView(principal) {
+  if (!principal) return 'personal';
+  const role = principal.role;
+  if (role === 'owner') return 'owner';
+  if (role === 'hr') return 'hr';
+  if (role === 'manager') return 'manager';
+  if (role === 'team_lead') return 'team-lead';
   const scope = scopeFor(principal);
-  if (scope === 'organization' || scope === 'department') return 'org';
   if (scope === 'team') return 'team';
   return 'personal';
 }

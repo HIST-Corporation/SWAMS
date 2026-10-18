@@ -1,10 +1,14 @@
 import { useQuery } from '@tanstack/react-query';
 import {
+  fetchHrDashboard,
   fetchLeaveBalance,
+  fetchManagerDashboard,
   fetchOrgDashboard,
   fetchOrgOverview,
+  fetchOwnerDashboard,
   fetchPresence,
   fetchStaffBoard,
+  fetchTeamLeadDashboard,
   fetchTodayTasks,
   fetchUpcoming,
 } from '../api.js';
@@ -109,6 +113,70 @@ export function useUpcoming({ enabled = true } = {}) {
     error: query.error,
     refetch: query.refetch,
     rows: query.data?.rows ?? [],
+  };
+}
+
+/** HR action queue — pending leave/corrections, exceptions (role: hr). */
+export function useHrDashboard({ enabled = true } = {}) {
+  const query = useQuery({
+    queryKey: dashboardKeys.hrDashboard(),
+    queryFn: fetchHrDashboard,
+    enabled,
+    staleTime: 60_000,
+  });
+  return {
+    isLoading: query.isLoading,
+    error: query.error,
+    refetch: query.refetch,
+    board: query.data ?? null,
+  };
+}
+
+/** Department capacity vs load, risks, approvals (role: manager). */
+export function useManagerDashboard({ enabled = true } = {}) {
+  const query = useQuery({
+    queryKey: dashboardKeys.managerDashboard(),
+    queryFn: fetchManagerDashboard,
+    enabled,
+    staleTime: 60_000,
+  });
+  return {
+    isLoading: query.isLoading,
+    error: query.error,
+    refetch: query.refetch,
+    board: query.data ?? null,
+  };
+}
+
+/** Team workload, blockers, corrections queue (role: team_lead). */
+export function useTeamLeadDashboard({ enabled = true } = {}) {
+  const query = useQuery({
+    queryKey: dashboardKeys.teamLeadDashboard(),
+    queryFn: fetchTeamLeadDashboard,
+    enabled,
+    staleTime: 60_000,
+  });
+  return {
+    isLoading: query.isLoading,
+    error: query.error,
+    refetch: query.refetch,
+    board: query.data ?? null,
+  };
+}
+
+/** Org-wide aggregates, headcount, approvals inbox (role: owner). */
+export function useOwnerDashboard({ enabled = true } = {}) {
+  const query = useQuery({
+    queryKey: dashboardKeys.ownerDashboard(),
+    queryFn: fetchOwnerDashboard,
+    enabled,
+    staleTime: 60_000,
+  });
+  return {
+    isLoading: query.isLoading,
+    error: query.error,
+    refetch: query.refetch,
+    board: query.data ?? null,
   };
 }
 

@@ -83,6 +83,132 @@ export const UPCOMING = {
 /** The eight daily attendance rates behind the trend chart, oldest first. */
 const TREND_RATES = [84, 87, 88, 86, 91, 85, 88, 89.4];
 
+/** HR action queue fixtures (`GET /dashboard/hr`) — pending leave/corrections. */
+export const HR_DASHBOARD = {
+  asOf: isoDaysAgo(0),
+  scope: 'organization',
+  actionQueue: {
+    pendingLeave: [
+      {
+        id: 'hr_lv_1',
+        kind: 'leave',
+        title: 'Admin Demo — leave request',
+        status: 'pending',
+        requester: { id: 'u_admin', name: 'Admin Demo', initials: 'AD' },
+        createdAt: '2026-10-17T07:22:05.870Z',
+      },
+      {
+        id: 'hr_lv_2',
+        kind: 'leave',
+        title: 'Priya Sharma — leave request',
+        status: 'pending',
+        requester: { id: 'u_priya', name: 'Priya Sharma', initials: 'PS' },
+        createdAt: '2026-10-17T06:47:49.940Z',
+      },
+    ],
+    pendingCorrections: [
+      {
+        id: 'hr_cr_1',
+        kind: 'correction',
+        title: 'Attendance correction — Priya Sharma',
+        status: 'in_review',
+        requester: { id: 'u_priya', name: 'Priya Sharma', initials: 'PS' },
+        createdAt: '2026-10-17T07:22:05.787Z',
+      },
+    ],
+  },
+  presence: {
+    onLeaveToday: [
+      { id: 'hr_lv_3', name: 'Anita Thapa', initials: 'AT' },
+    ],
+  },
+  recentActivity: [
+    { id: 'hr_act_1', action: 'leaveRequested', actor: 'System', createdAt: '2026-10-17T07:22:05.874Z' },
+    { id: 'hr_act_2', action: 'correctionRequested', actor: 'System', createdAt: '2026-10-17T07:22:05.789Z' },
+  ],
+};
+
+/** Department dashboard fixtures (`GET /dashboard/manager`) — capacity vs load. */
+export const MANAGER_DASHBOARD = {
+  asOf: isoDaysAgo(0),
+  scope: 'department',
+  department: {
+    id: 'dept_eng',
+    headcount: 11,
+    present: 4,
+    late: 1,
+    onLeave: 2,
+    absent: 4,
+    rate: 45.5,
+  },
+  approvals: {
+    pendingLeave: [
+      {
+        id: 'mgr_lv_1',
+        requester: { id: 'u_priya', name: 'Priya Sharma', initials: 'PS' },
+        createdAt: '2026-10-17T06:47:49.940Z',
+      },
+    ],
+    pendingCorrections: [
+      {
+        id: 'mgr_cr_1',
+        requester: { id: 'u_priya', name: 'Priya Sharma', initials: 'PS' },
+        createdAt: '2026-10-17T07:22:05.787Z',
+      },
+    ],
+  },
+  risks: [],
+};
+
+/** Team lead dashboard fixtures (`GET /dashboard/team-lead`) — workload & blockers. */
+export const TEAM_LEAD_DASHBOARD = {
+  asOf: isoDaysAgo(0),
+  scope: 'team',
+  team: {
+    headcount: 6,
+    present: 3,
+    absent: 2,
+    onLeave: 1,
+  },
+  workload: [
+    { id: 'tl_t_1', title: 'Review the punch-policy PR', priority: 'high', lane: 'review', assigneeId: 'u_priya', reviewerId: 'u_anita', due: isoDaysAgo(0) },
+    { id: 'tl_t_2', title: 'Leave page nav breaks at 360px', priority: 'high', lane: 'todo', assigneeId: 'u_tina', reviewerId: null, due: isoDaysAgo(0) },
+    { id: 'tl_t_3', title: 'Token drift audit: chip tints', priority: 'medium', lane: 'in_progress', assigneeId: 'u_sunita', reviewerId: null, due: isoDaysAgo(-2) },
+  ],
+  corrections: [
+    {
+      id: 'tl_cr_1',
+      requester: { id: 'u_priya', name: 'Priya Sharma', initials: 'PS' },
+      status: 'in_review',
+      createdAt: '2026-10-17T07:22:05.787Z',
+    },
+  ],
+  blockers: [
+    { id: 'tl_b_1', title: 'Release 2.4.1 waiting on QA sign-off', lane: 'blocked', assigneeId: 'u_ramesh' },
+  ],
+};
+
+/** Owner dashboard fixtures (`GET /dashboard/owner`) — org aggregates. */
+export const OWNER_DASHBOARD = {
+  asOf: isoDaysAgo(0),
+  scope: 'organization',
+  org: {
+    headcount: 142,
+    onSite: 127,
+    pendingLeave: 2,
+    pendingCorrections: 3,
+    rate: 89.4,
+  },
+  departments: [
+    { id: 'dept_eng', name: 'Engineering', headcount: 52 },
+    { id: 'dept_design', name: 'Design', headcount: 24 },
+    { id: 'dept_hr', name: 'HR', headcount: 12 },
+    { id: 'dept_marketing', name: 'Marketing', headcount: 31 },
+    { id: 'dept_finance', name: 'Finance', headcount: 23 },
+  ],
+  approvals: { pendingLeave: 2, pendingCorrections: 3 },
+};
+
 /**
  * Org dashboard (`GET /org/dashboard`, contract request 25) — the whole-company
  * board behind the reviewer's composed Home.

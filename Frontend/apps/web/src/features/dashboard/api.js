@@ -68,3 +68,23 @@ export async function fetchOrgDashboard() {
 export async function fetchStaffBoard() {
   return (await api.get('/staff/board')).data;
 }
+
+/** HR action queue — pending leave/corrections, exceptions (role: hr). */
+export async function fetchHrDashboard() {
+  return (await api.get('/dashboard/hr')).data;
+}
+
+/** Department capacity vs load, risks, approvals (role: manager). */
+export async function fetchManagerDashboard() {
+  return (await api.get('/dashboard/manager')).data;
+}
+
+/** Team workload, blockers, corrections queue (role: team_lead). */
+export async function fetchTeamLeadDashboard() {
+  return (await api.get('/dashboard/team-lead')).data;
+}
+
+/** Org-wide aggregates, headcount, approvals inbox (role: owner). */
+export async function fetchOwnerDashboard() {
+  return (await api.get('/dashboard/owner')).data;
+}

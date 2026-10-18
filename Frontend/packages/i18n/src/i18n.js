@@ -10,6 +10,7 @@ import enMeetings from '../locales/en/meetings.json';
 import enTeam from '../locales/en/team.json';
 import enVideo from '../locales/en/video.json';
 import enLeave from '../locales/en/leave.json';
+import enPayroll from '../locales/en/payroll.json';
 import enMarketing from '../locales/en/marketing.json';
 import enNotifications from '../locales/en/notifications.json';
 import enSettings from '../locales/en/settings.json';
@@ -27,6 +28,7 @@ import neMeetings from '../locales/ne/meetings.json';
 import neTeam from '../locales/ne/team.json';
 import neVideo from '../locales/ne/video.json';
 import neLeave from '../locales/ne/leave.json';
+import nePayroll from '../locales/ne/payroll.json';
 import neMarketing from '../locales/ne/marketing.json';
 import neNotifications from '../locales/ne/notifications.json';
 import neSettings from '../locales/ne/settings.json';
@@ -51,6 +53,7 @@ export const resources = {
     team: enTeam,
     video: enVideo,
     leave: enLeave,
+    payroll: enPayroll,
     marketing: enMarketing,
     notifications: enNotifications,
     settings: enSettings,
@@ -70,6 +73,7 @@ export const resources = {
     team: neTeam,
     video: neVideo,
     leave: neLeave,
+    payroll: nePayroll,
     marketing: neMarketing,
     notifications: neNotifications,
     settings: neSettings,
@@ -102,6 +106,7 @@ export function initI18n(options = {}) {
         'team',
         'video',
         'leave',
+        'payroll',
         'marketing',
         'notifications',
         'settings',

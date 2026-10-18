@@ -50,11 +50,30 @@ describe('visibleGroups', () => {
     const groups = visibleGroups(NAV_ITEMS, hr, entitlements);
     // `reports` + `analytics` (insights) + `settings` + `audit` (admin)
     // shipped: HR holds reports.read, analytics.read, settings.manage and
-    // audit.read, so both groups appear.
-    expect(groups.map((g) => g.id)).toEqual(['overview', 'work', 'people', 'insights', 'admin']);
+    // audit.read, so both groups appear. Payroll (R3.8) adds its own
+    // top-level group — HR holds payroll.view and payroll.manage.
+    expect(groups.map((g) => g.id)).toEqual([
+      'overview',
+      'work',
+      'people',
+      'payroll',
+      'insights',
+      'admin',
+    ]);
     expect(groups[0].items.map((i) => i.id)).toEqual(['dashboard', 'attendance']);
-    expect(groups[3].items.map((i) => i.id)).toEqual(['reports', 'analytics']);
-    expect(groups[4].items.map((i) => i.id)).toEqual(['settings', 'audit']);
+    expect(groups[3].items.map((i) => i.id)).toEqual(['payroll']);
+    expect(groups[4].items.map((i) => i.id)).toEqual(['reports', 'analytics']);
+    expect(groups[5].items.map((i) => i.id)).toEqual(['settings', 'audit']);
+  });
+
+  it('shows payroll to a view-only session and hides it without payroll.view', () => {
+    const groups = visibleGroups(NAV_ITEMS, staff, entitlements);
+    // staff holds payroll.view (self-service) — the group is present, but the
+    // admin group stays hidden (no settings.manage).
+    expect(groups.map((g) => g.id)).toContain('payroll');
+    expect(groups.map((g) => g.id)).not.toContain('admin');
+    const withoutPayroll = visibleGroups(NAV_ITEMS, { id: 'u9', role: 'nobody' }, entitlements);
+    expect(withoutPayroll.map((g) => g.id)).not.toContain('payroll');
   });
 
   it('hides the admin group from a role without settings.manage', () => {

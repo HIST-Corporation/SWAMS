@@ -8,8 +8,9 @@
 import { Router } from 'express';
 import { asyncHandler } from '../../common/async-handler.js';
 import { prisma } from '../../db/prisma.js';
-import { AppError } from '../../common/errors.js';
+import { AppError, unauthorized, forbidden } from '../../common/errors.js';
 import { scopeFor } from '../../middleware/scope.js';
+import { requireRole } from '../../middleware/auth.js';
 import { nepalToday, nepalTime, nepalDaysAgo } from '../../common/time.js';
 
 const router = Router();
@@ -230,6 +231,268 @@ router.get(
         audience: m.audience ?? 'All',
         tone: 'indigo',
       })),
+    });
+  }),
+);
+
+/** ========================================================================
+ *  Role-specific dashboards — each role gets the structure relevant to its
+ *  responsibilities. Staff section is untouched (/staff/board stays as-is).
+ * ======================================================================== */
+
+/** GET /dashboard/hr — HR action queue: leave/corrections pending, exceptions. */
+router.get(
+  '/dashboard/hr',
+  requireRole('hr'),
+  asyncHandler(async (req, res) => {
+    const { orgId } = req.principal;
+    const today = nepalToday();
+    const [pendingLeave, pendingCorrections, onLeaveToday, recentActivity] =
+      await Promise.all([
+        prisma.leaveRequest.findMany({
+          where: { orgId, status: 'pending' },
+          include: { requester: { select: { id: true, name: true, initials: true, departmentId: true } } },
+          orderBy: { createdAt: 'desc' },
+          take: 10,
+        }),
+        prisma.attendanceCorrection.findMany({
+          where: { orgId, status: 'in_review' },
+          include: { requester: { select: { id: true, name: true, initials: true } } },
+          orderBy: { createdAt: 'desc' },
+          take: 10,
+        }),
+        prisma.leaveRequest.findMany({
+          where: { orgId, status: 'approved', from: { lte: today }, to: { gte: today } },
+          include: { requester: { select: { id: true, name: true, initials: true } } },
+          orderBy: { requester: { name: 'asc' } },
+        }),
+        prisma.auditLog.findMany({
+          where: { orgId },
+          orderBy: { createdAt: 'desc' },
+          take: 10,
+        }),
+      ]);
+    return res.json({
+      asOf: today,
+      scope: 'organization',
+      actionQueue: {
+        pendingLeave: pendingLeave.map((l) => ({
+          id: l.id,
+          kind: 'leave',
+          title: l.requester.name + ' — leave request',
+          status: l.status,
+          requester: { id: l.requester.id, name: l.requester.name, initials: l.requester.initials },
+          createdAt: l.createdAt,
+        })),
+        pendingCorrections: pendingCorrections.map((c) => ({
+          id: c.id,
+          kind: 'correction',
+          title: 'Attendance correction — ' + c.requester.name,
+          status: c.status,
+          requester: { id: c.requester.id, name: c.requester.name, initials: c.requester.initials },
+          createdAt: c.createdAt,
+        })),
+      },
+      presence: {
+        onLeaveToday: onLeaveToday.map((l) => ({
+          id: l.id,
+          name: l.requester.name,
+          initials: l.requester.initials,
+        })),
+      },
+      recentActivity: recentActivity.map((a) => ({
+        id: a.id,
+        action: a.action,
+        actor: a.actorName ?? 'System',
+        createdAt: a.createdAt,
+      })),
+    });
+  }),
+);
+
+/** GET /dashboard/manager — Department capacity vs load, risks, approvals. */
+router.get(
+  '/dashboard/manager',
+  requireRole('manager'),
+  asyncHandler(async (req, res) => {
+    const { orgId, departmentId } = req.principal;
+    const today = nepalToday();
+    if (!departmentId) {
+      throw new AppError('out_of_scope', 'Manager has no department assigned.', { httpStatus: 403 });
+    }
+    const [deptMembers, todaysSessions, pendingLeave, pendingCorrections] =
+      await Promise.all([
+        prisma.user.findMany({
+          where: { orgId, departmentId, active: true },
+          select: { id: true, name: true, initials: true, role: true },
+        }),
+        prisma.attendanceSession.findMany({ where: { orgId, date: today } }),
+        prisma.leaveRequest.findMany({
+          where: { orgId, status: 'pending' },
+          include: { requester: { select: { id: true, name: true, initials: true, departmentId: true } } },
+          orderBy: { createdAt: 'desc' },
+          take: 10,
+        }),
+        prisma.attendanceCorrection.findMany({
+          where: { orgId, status: 'in_review' },
+          include: { requester: { select: { id: true, name: true, initials: true } } },
+          orderBy: { createdAt: 'desc' },
+          take: 10,
+        }),
+      ]);
+    const memberIds = new Set(deptMembers.map((m) => m.id));
+    const deptSessions = todaysSessions.filter((s) => memberIds.has(s.userId));
+    const present = deptSessions.filter((s) => s.clockIn && !s.clockOut).length;
+    const late = deptSessions.filter((s) => s.status === 'late').length;
+    const onLeave = pendingLeave.filter((l) => memberIds.has(l.requesterId)).length;
+    return res.json({
+      asOf: today,
+      scope: 'department',
+      department: {
+        id: departmentId,
+        headcount: deptMembers.length,
+        present,
+        late,
+        onLeave,
+        absent: Math.max(0, deptMembers.length - present - late - onLeave),
+        rate: deptMembers.length > 0 ? Math.round(((present + late) / deptMembers.length) * 1000) / 10 : 0,
+      },
+      approvals: {
+        pendingLeave: pendingLeave.filter((l) => memberIds.has(l.requesterId)).map((l) => ({
+          id: l.id,
+          requester: { id: l.requester.id, name: l.requester.name, initials: l.requester.initials },
+          createdAt: l.createdAt,
+        })),
+        pendingCorrections: pendingCorrections.filter((c) => memberIds.has(c.requesterId)).map((c) => ({
+          id: c.id,
+          requester: { id: c.requester.id, name: c.requester.name, initials: c.requester.initials },
+          createdAt: c.createdAt,
+        })),
+      },
+      risks: [],
+    });
+  }),
+);
+
+/** GET /dashboard/team-lead — Team workload, blockers, corrections queue. */
+router.get(
+  '/dashboard/team-lead',
+  requireRole('team_lead'),
+  asyncHandler(async (req, res) => {
+    const { orgId, teamIds } = req.principal;
+    const today = nepalToday();
+    if (!teamIds?.length) {
+      throw new AppError('out_of_scope', 'Team lead has no team assigned.', { httpStatus: 403 });
+    }
+    // Team members first: the task query below needs their ids.
+    const teamMembers = await prisma.user.findMany({
+      where: {
+        orgId,
+        active: true,
+        memberTeams: { some: { id: { in: teamIds } } },
+      },
+      select: { id: true, name: true, initials: true, role: true, departmentId: true },
+    });
+    const memberIds = teamMembers.map((m) => m.id);
+    const memberIdSet = new Set(memberIds);
+    const [todaysSessions, pendingCorrections, tasks] = await Promise.all([
+      prisma.attendanceSession.findMany({ where: { orgId, date: today } }),
+      prisma.attendanceCorrection.findMany({
+        where: { orgId, status: 'in_review' },
+        include: { requester: { select: { id: true, name: true, initials: true } } },
+        orderBy: { createdAt: 'desc' },
+      }),
+      prisma.task.findMany({
+        where: {
+          orgId,
+          OR: [{ assigneeId: { in: memberIds } }, { reviewerId: { in: memberIds } }],
+          closedAt: null,
+        },
+        orderBy: { updatedAt: 'desc' },
+        take: 20,
+      }),
+    ]);
+    const present = todaysSessions.filter((s) => memberIdSet.has(s.userId) && s.clockIn && !s.clockOut).length;
+    const onLeaveCorrections = pendingCorrections.filter((c) => memberIdSet.has(c.requesterId));
+    return res.json({
+      asOf: today,
+      scope: 'team',
+      team: {
+        headcount: teamMembers.length,
+        present,
+        absent: teamMembers.length - present,
+        onLeave: onLeaveCorrections.length,
+      },
+      workload: tasks.map((t) => ({
+        id: t.id,
+        title: t.title,
+        priority: t.priority,
+        lane: t.lane,
+        assigneeId: t.assigneeId,
+        reviewerId: t.reviewerId,
+        due: t.due,
+      })),
+      corrections: onLeaveCorrections.map((c) => ({
+        id: c.id,
+        requester: { id: c.requester.id, name: c.requester.name, initials: c.requester.initials },
+        status: c.status,
+        createdAt: c.createdAt,
+      })),
+      blockers: tasks.filter((t) => t.lane === 'review' || t.lane === 'revision').map((t) => ({
+        id: t.id,
+        title: t.title,
+        lane: t.lane,
+        assigneeId: t.assigneeId,
+      })),
+    });
+  }),
+);
+
+/** GET /dashboard/owner — Org-wide aggregates, headcount, approvals inbox. */
+router.get(
+  '/dashboard/owner',
+  requireRole('owner'),
+  asyncHandler(async (req, res) => {
+    const { orgId } = req.principal;
+    const today = nepalToday();
+    const [headcount, sessions, pendingLeave, pendingCorrections] =
+      await Promise.all([
+        prisma.user.count({ where: { orgId, active: true } }),
+        prisma.attendanceSession.findMany({ where: { orgId, date: today } }),
+        prisma.leaveRequest.count({ where: { orgId, status: 'pending' } }),
+        prisma.attendanceCorrection.count({ where: { orgId, status: 'in_review' } }),
+      ]);
+    const onSite = sessions.filter((s) => s.clockIn && !s.clockOut).length;
+    // Org headcount by department — the owner panel's "by department" list.
+    const [departments, headcounts] = await Promise.all([
+      prisma.department.findMany({
+        where: { orgId },
+        select: { id: true, name: true },
+        orderBy: { name: 'asc' },
+      }),
+      prisma.user.groupBy({
+        by: ['departmentId'],
+        where: { orgId, active: true },
+        _count: { _all: true },
+      }),
+    ]);
+    const countByDept = new Map(headcounts.map((row) => [row.departmentId, row._count._all]));
+    return res.json({
+      asOf: today,
+      scope: 'organization',
+      org: {
+        headcount,
+        onSite,
+        pendingLeave,
+        pendingCorrections,
+        rate: headcount > 0 ? Math.round((onSite / headcount) * 1000) / 10 : 0,
+      },
+      departments: departments.map((dept) => ({
+        id: dept.id,
+        name: dept.name,
+        headcount: countByDept.get(dept.id) ?? 0,
+      })),
+      approvals: { pendingLeave, pendingCorrections },
     });
   }),
 );

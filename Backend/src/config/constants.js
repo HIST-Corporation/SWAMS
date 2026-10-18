@@ -34,6 +34,8 @@ export const PERMISSIONS = Object.freeze([
   'ai.use',
   'meetings.manage',
   'messages.moderate',
+  'payroll.view',
+  'payroll.manage',
 ]);
 
 /** Data scopes — backend enforces on every request (contract request 30). */
@@ -96,6 +98,8 @@ export const ROLE_PERMISSIONS = Object.freeze({
     'audit.read',
     'meetings.manage',
     'messages.moderate',
+    'payroll.view',
+    'payroll.manage',
   ],
   owner: [
     'attendance.read',
@@ -119,6 +123,8 @@ export const ROLE_PERMISSIONS = Object.freeze({
     'ai.use',
     'meetings.manage',
     'messages.moderate',
+    'payroll.view',
+    'payroll.manage',
   ],
   super_admin: ['users.manage', 'roles.manage', 'billing.manage', 'audit.read'],
 });
@@ -149,6 +155,15 @@ export const ERROR_CODES = Object.freeze([
   'out_of_scope',
   'invalid_notification',
   'rate_limited',
+  'scope_denied',
+  'invalid_transition',
+  'exceptions_open',
+  'note_required',
+  'confirm_required',
+  'earning_required',
+  'name_required',
+  'effective_from_required',
+  'invalid_scope',
   'internal',
 ]);
 

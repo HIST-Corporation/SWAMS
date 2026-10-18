@@ -1,0 +1,267 @@
+{
+  "title": "Payroll & salary",
+  "subtitle": "Salary structures, pay processing, payslips and claims.",
+  "readOnly": "You can read this workspace; only HR processes payroll.",
+  "selfScope": "You're seeing your own pay records. Org-wide payroll stays with HR.",
+  "tabs": {
+    "processing": "Processing",
+    "structures": "Structures",
+    "employees": "Employees",
+    "payslips": "Payslips",
+    "claims": "Claims",
+    "reports": "Reports",
+    "settings": "Settings",
+    "myPay": "My pay",
+    "myClaims": "My claims"
+  },
+  "period": {
+    "label": "Pay period",
+    "payDate": "Pay day {{date}}",
+    "status": {
+      "open": "Open",
+      "published": "Published",
+      "closed": "Closed"
+    },
+    "empty": "No pay periods yet."
+  },
+  "workflow": {
+    "title": "Pay run — {{period}}",
+    "steps": ["Draft", "Inputs", "Review", "Approval", "Finalize", "Publish"],
+    "updatedAt": "Updated {{when}}",
+    "empty": "No pay run for this period yet."
+  },
+  "totals": {
+    "heading": "Run totals",
+    "gross": "Gross earnings",
+    "deductions": "Total deductions",
+    "net": "Net pay",
+    "employer": "Employer contributions",
+    "headcount": "People paid"
+  },
+  "exceptions": {
+    "heading": "Blocking exceptions",
+    "none": "Nothing blocks this run.",
+    "resolve": "Resolve",
+    "resolved": "Resolved"
+  },
+  "approvals": {
+    "heading": "Approval",
+    "note": "Approval note",
+    "notePlaceholder": "Why is this run approved?",
+    "noteRequired": "An approval note is required.",
+    "current": "Awaiting approval",
+    "done": "Approved by {{name}} — {{when}}",
+    "publishConfirm": "Publish this run?",
+    "publishBody": "Publishing locks the period and issues payslips for {{count}} people. This cannot be undone.",
+    "confirm": "Publish",
+    "cancel": "Cancel"
+  },
+  "actions": {
+    "collect": "Collect inputs",
+    "startReview": "Start review",
+    "sendApproval": "Send for approval",
+    "approve": "Approve run",
+    "publish": "Publish payslips",
+    "published": "Published"
+  },
+  "audit": {
+    "heading": "Recent activity",
+    "empty": "No activity for this period yet."
+  },
+  "structures": {
+    "title": "Salary structures",
+    "hint": "A structure groups earning and deduction components applied to an assignment.",
+    "new": "New structure",
+    "edit": "Edit",
+    "save": "Save structure",
+    "cancel": "Cancel",
+    "empty": "No salary structures yet.",
+    "name": "Structure name",
+    "description": "Description",
+    "effectiveFrom": "Effective from",
+    "components": "Components",
+    "appliedTo": "{{count}} people",
+    "kinds": {
+      "earning": "Earning",
+      "deduction": "Deduction",
+      "employer": "Employer"
+    },
+    "basis": {
+      "fixed": "Fixed amount",
+      "percent": "{{percent}}% of basic"
+    },
+    "names": {
+      "basic": "Basic",
+      "hra": "House rent allowance",
+      "festival": "Festival bonus",
+      "pfEmployee": "Provident fund (employee)",
+      "pfEmployer": "Provident fund (employer)",
+      "cit": "Citizen investment",
+      "incomeTax": "Income tax"
+    },
+    "sampleNote": "Component rates are sample configuration — set your verified PF/CIT/SSF/IRD rates before real payroll.",
+    "errors": {
+      "name": "Enter a structure name.",
+      "effectiveFrom": "Enter an effective date.",
+      "earning": "Keep at least one earning component."
+    },
+    "saved": "Structure saved."
+  },
+  "compensation": {
+    "title": "Employee compensation",
+    "hint": "Assignments, salaries and dated salary history.",
+    "employee": "Employee",
+    "structure": "Structure",
+    "basic": "Basic salary",
+    "payGroup": "Pay group",
+    "effectiveFrom": "Effective from",
+    "history": "Salary history",
+    "historyEmpty": "No recorded salary changes.",
+    "change": {
+      "from": "From",
+      "to": "To",
+      "reason": "Reason",
+      "approvedBy": "Approved by"
+    },
+    "empty": "No assignments yet.",
+    "selfTitle": "My compensation",
+    "selfHint": "Your current assignment and dated salary history."
+  },
+  "payslips": {
+    "title": "Payslips",
+    "open": "Open",
+    "preview": "Payslip preview",
+    "status": {
+      "draft": "Draft",
+      "published": "Published"
+    },
+    "gross": "Gross",
+    "deductions": "Deductions",
+    "net": "Net pay",
+    "empty": "No payslips yet.",
+    "myEmpty": "No payslips yet — your first one appears after the next publish.",
+    "earnings": "Earnings",
+    "deductionLines": "Deductions",
+    "ytd": "Net paid year to date",
+    "pdfNote": "PDF download arrives with the payslip contract; print this preview meanwhile.",
+    "close": "Close preview"
+  },
+  "claims": {
+    "loans": {
+      "title": "Loans",
+      "hint": "Salary advances and loans with repayment schedules.",
+      "request": "Request a loan",
+      "principal": "Loan amount",
+      "installment": "Monthly installment",
+      "outstanding": "Outstanding",
+      "nextDue": "Next due",
+      "schedule": "Repayment schedule",
+      "status": {
+        "active": "Active",
+        "pending": "Pending approval",
+        "settled": "Settled",
+        "rejected": "Rejected"
+      },
+      "approve": "Approve",
+      "reject": "Reject",
+      "empty": "No loans on record.",
+      "submitted": "Loan request submitted for approval.",
+      "errors": {
+        "principal": "Enter an amount above zero.",
+        "installment": "Installment cannot exceed the loan amount."
+      },
+      "paid": "Paid",
+      "due": "Due"
+    },
+    "reimbursements": {
+      "title": "Reimbursements",
+      "submit": "Submit a claim",
+      "category": "Category",
+      "amount": "Amount",
+      "spentOn": "Spent on",
+      "note": "Note",
+      "status": {
+        "pending": "Pending",
+        "approved": "Approved",
+        "rejected": "Rejected"
+      },
+      "approve": "Approve",
+      "reject": "Reject",
+      "empty": "No claims yet.",
+      "submitted": "Claim submitted.",
+      "decided": "Claim updated.",
+      "errors": {
+        "amount": "Enter an amount above zero.",
+        "spentOn": "Pick the spend date."
+      },
+      "categories": {
+        "travel": "Travel",
+        "medical": "Medical",
+        "equipment": "Equipment",
+        "internet": "Internet",
+        "other": "Other"
+      }
+    }
+  },
+  "reports": {
+    "title": "Payroll reports",
+    "hint": "One report per period, exportable as CSV.",
+    "type": "Report",
+    "types": {
+      "register": "Payroll register",
+      "deductions": "Deductions",
+      "overtime": "Overtime",
+      "loans": "Loan balances",
+      "reimbursements": "Reimbursements"
+    },
+    "download": "Download CSV",
+    "downloaded": "Report downloaded.",
+    "empty": "No rows for this period.",
+    "cols": {
+      "employee": "Employee",
+      "period": "Period",
+      "gross": "Gross",
+      "deductions": "Deductions",
+      "net": "Net pay",
+      "overtimeHours": "Overtime hours",
+      "overtimePay": "Overtime pay",
+      "principal": "Principal",
+      "outstanding": "Outstanding",
+      "nextDue": "Next due",
+      "category": "Category",
+      "amount": "Amount",
+      "status": "Status"
+    }
+  },
+  "settings": {
+    "title": "Payroll settings",
+    "hint": "Pay groups set when people are paid; policy controls how claims are approved.",
+    "payGroups": "Pay groups",
+    "frequency": "Pay frequency",
+    "frequencies": {
+      "monthly": "Monthly",
+      "biweekly": "Bi-weekly",
+      "weekly": "Weekly"
+    },
+    "payDay": "Pay day of month",
+    "fiscalYear": "Fiscal year starts",
+    "currency": "Currency",
+    "workflowPolicy": "Workflow policy",
+    "requireApproval": "Loans and claims need HR approval",
+    "autoLock": "Lock inputs when a run is published",
+    "save": "Save settings",
+    "saved": "Settings saved.",
+    "saveFailed": "Couldn't save the settings. Try again.",
+    "errors": {
+      "payDay": "Pay day must be between 1 and 31."
+    }
+  },
+  "errors": {
+    "load": "Couldn't load payroll data. Try again.",
+    "action": "That action didn't go through. Try again."
+  },
+  "empty": {
+    "self": "No pay records for this session yet.",
+    "org": "No payroll records yet — set up a structure first."
+  }
+}

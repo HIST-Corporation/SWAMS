@@ -23,6 +23,10 @@ export const ROLE_BUNDLES = Object.freeze({
     'attendance.write',
     'leave.read',
     'leave.create',
+    // Self-service payroll: an employee sees their own compensation and
+    // payslips. The payroll screens scope to self for anyone without
+    // `payroll.manage` — org-wide salaries never render for a staff session.
+    'payroll.view',
     'tasks.read',
     'tasks.write',
     'team.read',
@@ -37,6 +41,7 @@ export const ROLE_BUNDLES = Object.freeze({
     'leave.read',
     'leave.create',
     'leave.approve',
+    'payroll.view',
     'tasks.read',
     'tasks.write',
     'tasks.manage',
@@ -52,6 +57,7 @@ export const ROLE_BUNDLES = Object.freeze({
     'leave.read',
     'leave.create',
     'leave.approve',
+    'payroll.view',
     'tasks.read',
     'tasks.write',
     'tasks.manage',
@@ -71,6 +77,11 @@ export const ROLE_BUNDLES = Object.freeze({
       'leave.create',
       'leave.approve',
       'leave.configure',
+      // Payroll: HR runs the whole workspace — structures, processing,
+      // deductions, payslips and payroll settings. `payroll.manage` is the
+      // only route to org-wide salary data.
+      'payroll.view',
+      'payroll.manage',
       'tasks.read',
       'tasks.write',
       'tasks.manage',
@@ -100,6 +111,9 @@ export const ROLE_BUNDLES = Object.freeze({
     'team.read',
     'reports.read',
     'analytics.read',
+    // The executive lens reads org-wide payroll totals and reports but does
+    // not process payroll — operations stay with HR (separation of authority).
+    'payroll.view',
     'meetings.manage',
     'settings.manage',
     'billing.manage',

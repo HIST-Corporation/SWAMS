@@ -1,7 +1,7 @@
 import { http, HttpResponse } from 'msw';
 import { authState, isAuthorized } from '../../auth/mocks/authState.js';
 import { FIXTURES } from '../../../mocks/fixtures.js';
-import { LEAVE_BALANCE, ORG_DASHBOARD, ORG_OVERVIEW, PRESENCE, UPCOMING } from './fixtures.js';
+import { HR_DASHBOARD, LEAVE_BALANCE, MANAGER_DASHBOARD, OWNER_DASHBOARD, ORG_DASHBOARD, ORG_OVERVIEW, PRESENCE, TEAM_LEAD_DASHBOARD, UPCOMING } from './fixtures.js';
 import { STAFF_BOARDS } from './staffBoards.js';
 
 const API = `${import.meta.env.VITE_API_URL ?? ''}/api/v1`;
@@ -52,6 +52,30 @@ export const dashboardHandlers = [
   http.get(`${API}/org/dashboard`, ({ request }) => {
     if (!isAuthorized(request)) return error(401, 'unauthenticated', 'Sign in to continue.');
     return HttpResponse.json(ORG_DASHBOARD);
+  }),
+
+  /** HR action queue — pending leave/corrections, exceptions (role: hr). */
+  http.get(`${API}/dashboard/hr`, ({ request }) => {
+    if (!isAuthorized(request)) return error(401, 'unauthenticated', 'Sign in to continue.');
+    return HttpResponse.json(HR_DASHBOARD);
+  }),
+
+  /** Department capacity vs load, risks, approvals (role: manager). */
+  http.get(`${API}/dashboard/manager`, ({ request }) => {
+    if (!isAuthorized(request)) return error(401, 'unauthenticated', 'Sign in to continue.');
+    return HttpResponse.json(MANAGER_DASHBOARD);
+  }),
+
+  /** Team workload, blockers, corrections queue (role: team_lead). */
+  http.get(`${API}/dashboard/team-lead`, ({ request }) => {
+    if (!isAuthorized(request)) return error(401, 'unauthenticated', 'Sign in to continue.');
+    return HttpResponse.json(TEAM_LEAD_DASHBOARD);
+  }),
+
+  /** Org-wide aggregates, headcount, approvals inbox (role: owner). */
+  http.get(`${API}/dashboard/owner`, ({ request }) => {
+    if (!isAuthorized(request)) return error(401, 'unauthenticated', 'Sign in to continue.');
+    return HttpResponse.json(OWNER_DASHBOARD);
   }),
 
   /**

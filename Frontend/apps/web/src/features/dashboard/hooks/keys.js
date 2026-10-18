@@ -9,4 +9,8 @@ export const dashboardKeys = {
   upcoming: () => ['dashboard', 'events', 'upcoming'],
   /** The signed-in persona's board (request 26) — one cache entry per role. */
   staffBoard: (role) => ['dashboard', 'staff', 'board', role ?? 'unknown'],
+  hrDashboard: () => ['dashboard', 'hr'],
+  managerDashboard: () => ['dashboard', 'manager'],
+  teamLeadDashboard: () => ['dashboard', 'team-lead'],
+  ownerDashboard: () => ['dashboard', 'owner'],
 };

@@ -18,6 +18,7 @@ import {
   TrendingUp,
   Users,
   Video,
+  Wallet,
 } from 'lucide-react';
 
 /**
@@ -44,4 +45,5 @@ export const ICONS = {
   CreditCard,
   ScrollText,
   Menu,
+  Wallet,
 };

@@ -43,10 +43,15 @@ export const conflict = (message = 'Conflict') => new AppError('conflict', messa
 
 /**
  * Normalize unknown throws into AppError (never leak stacks in prod).
+ * Body-parser JSON syntax errors become a 400 (invalid_json) instead of a
+ * misleading 500 — the request never reached a route handler.
  * @param {unknown} err
  */
 export function toAppError(err) {
   if (err instanceof AppError) return err;
+  if (err && typeof err === 'object' && 'type' in err && err.type === 'entity.parse.failed') {
+    return new AppError('invalid_json', 'Request body is not valid JSON.', { httpStatus: 400 });
+  }
   if (err && typeof err === 'object' && 'code' in err) {
     const e = /** @type {{ code?: string, message?: string }} */ (err);
     return new AppError('internal', e.message || 'Internal server error', { httpStatus: 500 });

@@ -50,6 +50,18 @@ model Org {
   punches         Punch[]
   taskRevisions   TaskRevision[]
 
+  // ---------- Payroll ----------
+  payPeriods      PayPeriod[]
+  payrollRuns     PayrollRun[]
+  runExceptions   RunException[]
+  salaryStructures SalaryStructure[]
+  payrollComponents PayrollComponent[]
+  compensations   Compensation[]
+  payslips        Payslip[]
+  loans           Loan[]
+  reimbursements  Reimbursement[]
+  payrollSetting  PayrollSetting?
+
   requiresLocation Boolean @default(true)
   allowOverride    Boolean @default(false)
 
@@ -157,6 +169,14 @@ model User {
   auditActors   AuditLog[] @relation("AuditActor")
   preferences   UserPreferences?
   entitlements  UserEntitlement[]
+
+  // ---------- Payroll ----------
+  compensations   Compensation[]   @relation("CompensationEmployee")
+  payslips        Payslip[]        @relation("PayslipEmployee")
+  loans           Loan[]           @relation("LoanEmployee")
+  reimbursements  Reimbursement[]  @relation("ReimbursementEmployee")
+  runApprovals    RunApproval[]    @relation("RunApprovalActor")
+  runHistory      RunHistory[]     @relation("RunHistoryActor")
 
   @@unique([orgId, email])
   @@map("users")
@@ -436,6 +456,208 @@ model Notification {
 
   @@index([orgId, userId, read])
   @@map("notifications")
+}
+
+// ---------- Payroll ----------
+
+model PayPeriod {
+  id        String   @id @default(cuid())
+  orgId     String
+  org       Org      @relation(fields: [orgId], references: [id], onDelete: Cascade)
+  label     String
+  start     String
+  end       String
+  payDate   String?
+  status    String   @default("open")
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+  runs      PayrollRun[]
+  @@index([orgId, status])
+  @@map("pay_periods")
+}
+
+model PayrollRun {
+  id             String   @id @default(cuid())
+  orgId          String
+  org            Org      @relation(fields: [orgId], references: [id], onDelete: Cascade)
+  periodId       String
+  period         PayPeriod  @relation(fields: [periodId], references: [id], onDelete: Cascade)
+  stage          String   @default("draft")
+  periodStatus   String   @default("open")
+  totals         Json     @default("{}")
+  updatedAt      DateTime @default(now())
+  publishedAt    DateTime?
+  exceptions     RunException[]
+  approvals      RunApproval[]
+  history        RunHistory[]
+  @@index([orgId, periodId])
+  @@map("payroll_runs")
+}
+
+model RunException {
+  id        String   @id @default(cuid())
+  orgId     String
+  org       Org      @relation(fields: [orgId], references: [id], onDelete: Cascade)
+  runId     String
+  run       PayrollRun @relation(fields: [runId], references: [id], onDelete: Cascade)
+  employeeId String
+  code      String
+  message   String
+  resolvedAt DateTime?
+  createdAt DateTime @default(now())
+  @@index([orgId, runId])
+  @@map("run_exceptions")
+}
+
+model RunApproval {
+  id        String   @id @default(cuid())
+  orgId     String
+  runId     String
+  payrollRun PayrollRun @relation(fields: [runId], references: [id], onDelete: Cascade)
+  actorId   String
+  actor     User?    @relation("RunApprovalActor", fields: [actorId], references: [id], onDelete: SetNull)
+  note      String
+  createdAt DateTime @default(now())
+  @@map("run_approvals")
+}
+
+model RunHistory {
+  id        String   @id @default(cuid())
+  orgId     String
+  runId     String
+  payrollRun PayrollRun @relation(fields: [runId], references: [id], onDelete: Cascade)
+  actorId   String?
+  actor     User?    @relation("RunHistoryActor", fields: [actorId], references: [id], onDelete: SetNull)
+  stage     String
+  note      String?
+  createdAt DateTime @default(now())
+  @@map("run_history")
+}
+
+model SalaryStructure {
+  id           String   @id @default(cuid())
+  orgId        String
+  org          Org      @relation(fields: [orgId], references: [id], onDelete: Cascade)
+  name         String
+  description  String   @default("")
+  effectiveFrom String
+  componentIds Json     @default("[]")
+  compensations Compensation[]
+  sample       Boolean  @default(false)
+  createdAt    DateTime @default(now())
+  @@index([orgId])
+  @@map("salary_structures")
+}
+
+model PayrollComponent {
+  id        String   @id @default(cuid())
+  orgId     String
+  org       Org      @relation(fields: [orgId], references: [id], onDelete: Cascade)
+  code      String
+  nameKey   String
+  kind      String
+  basis     String
+  rate      Int      @default(0)
+  createdAt DateTime @default(now())
+  @@unique([orgId, code])
+  @@map("payroll_components")
+}
+
+model Compensation {
+  id        String   @id @default(cuid())
+  orgId     String
+  org       Org      @relation(fields: [orgId], references: [id], onDelete: Cascade)
+  employeeId String
+  employee  User?    @relation("CompensationEmployee", fields: [employeeId], references: [id], onDelete: SetNull)
+  structureId String?
+  structure SalaryStructure? @relation(fields: [structureId], references: [id], onDelete: SetNull)
+  basic     Int      @default(0)
+  payGroup  String   @default("monthly")
+  effectiveFrom String
+  createdAt DateTime @default(now())
+  @@index([orgId, employeeId])
+  @@map("compensations")
+}
+
+model SalaryHistory {
+  id        String   @id @default(cuid())
+  orgId     String
+  employeeId String
+  from      String
+  to        String?
+  reason    String?
+  approvedBy String?
+  createdAt DateTime @default(now())
+  @@map("salary_history")
+}
+
+model Payslip {
+  id                    String   @id @default(cuid())
+  orgId                 String
+  org                   Org       @relation(fields: [orgId], references: [id], onDelete: Cascade)
+  employeeId            String
+  employee              User?    @relation("PayslipEmployee", fields: [employeeId], references: [id], onDelete: SetNull)
+  periodId              String
+  runId                 String?
+  status                String   @default("draft")
+  earnings              Json     @default("[]")
+  deductions            Json     @default("[]")
+  employer              Json     @default("[]")
+  gross                 Int      @default(0)
+  deductionsAmt         Int      @default(0)
+  net                   Int      @default(0)
+  employerContributions Int      @default(0)
+  paidAt                DateTime?
+  createdAt             DateTime @default(now())
+  @@index([orgId, employeeId, periodId])
+  @@map("payslips")
+}
+
+model Loan {
+  id        String   @id @default(cuid())
+  orgId     String
+  org       Org      @relation(fields: [orgId], references: [id], onDelete: Cascade)
+  employeeId String
+  employee  User?    @relation("LoanEmployee", fields: [employeeId], references: [id], onDelete: SetNull)
+  principal Int      @default(0)
+  installment Int   @default(0)
+  outstanding Int   @default(0)
+  nextDue   String?
+  status    String   @default("active")
+  createdAt DateTime @default(now())
+  @@index([orgId, employeeId])
+  @@map("loans")
+}
+
+model Reimbursement {
+  id        String   @id @default(cuid())
+  orgId     String
+  org       Org      @relation(fields: [orgId], references: [id], onDelete: Cascade)
+  employeeId String
+  employee  User?    @relation("ReimbursementEmployee", fields: [employeeId], references: [id], onDelete: SetNull)
+  category  String
+  amount    Int      @default(0)
+  spentOn   String?
+  note      String?
+  status    String   @default("pending")
+  createdAt DateTime @default(now())
+  @@index([orgId, employeeId])
+  @@map("reimbursements")
+}
+
+model PayrollSetting {
+  id              String   @id @default(cuid())
+  orgId           String   @unique
+  org             Org      @relation(fields: [orgId], references: [id], onDelete: Cascade)
+  frequency       String   @default("monthly")
+  payDay          Int      @default(7)
+  fiscalYearStart String   @default("07-16")
+  currency        String   @default("NPR")
+  requireApproval Boolean  @default(true)
+  autoLock        Boolean  @default(true)
+  sample          Boolean  @default(true)
+  createdAt       DateTime @default(now())
+  @@map("payroll_settings")
 }
 
 // ---------- Audit / platform / system ----------

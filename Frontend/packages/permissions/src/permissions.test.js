@@ -51,6 +51,22 @@ describe('can()', () => {
     expect(can(owner, 'billing.manage')).toBe(true);
   });
 
+  // Payroll authority (module spec): HR processes, everyone else either reads
+  // org-wide totals (owner) or their own payslips (staff). `payroll.manage`
+  // is the only path to org-wide salary data.
+  it('payroll: HR manages, the owner reads, staff see self-service only', () => {
+    expect(can(hr, 'payroll.view')).toBe(true);
+    expect(can(hr, 'payroll.manage')).toBe(true);
+    expect(can(owner, 'payroll.view')).toBe(true);
+    expect(can(owner, 'payroll.manage')).toBe(false);
+    expect(can(staff, 'payroll.view')).toBe(true);
+    expect(can(staff, 'payroll.manage')).toBe(false);
+    expect(can(teamLead, 'payroll.manage')).toBe(false);
+    expect(can(manager, 'payroll.manage')).toBe(false);
+    // Platform administration holds no business data (console only).
+    expect(can(superAdmin, 'payroll.view')).toBe(false);
+  });
+
   // The six-role model's core guarantee: executive authority and platform
   // administration are separate axes. Neither implies the other.
   it('the executive (owner) does not receive people-admin or technical-admin permissions', () => {

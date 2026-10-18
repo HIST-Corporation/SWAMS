@@ -39,6 +39,7 @@ const HR = 'sarah@swams.com';
 const STAFF = 'priya@swams.com';
 const TEAM_LEAD = 'anita@swams.com';
 const MANAGER = 'ramesh@swams.com';
+const OWNER = 'aarav@swams.com';
 
 test('HR GET /api/v1/org/dashboard → 200, organization scope', async () => {
   const token = await tokenFor(HR);
@@ -106,4 +107,69 @@ test('staff GET /api/v1/staff/board → 200 own-queue shape', async () => {
   const res = await api.get('/api/v1/staff/board').set('Authorization', `Bearer ${token}`);
   assert.equal(res.status, 200);
   assert.ok(Array.isArray(res.body.queue));
+});
+
+/**
+ * Role dashboards (rows: role dashboards) — each admin role composes its own
+ * board, so the shapes are locked here as the client panels read them.
+ */
+test('HR GET /api/v1/dashboard/hr → 200, action-queue shape', async () => {
+  const token = await tokenFor(HR);
+  const res = await api.get('/api/v1/dashboard/hr').set('Authorization', `Bearer ${token}`);
+  assert.equal(res.status, 200);
+  assert.equal(res.body.scope, 'organization');
+  assert.ok(Array.isArray(res.body.actionQueue.pendingLeave));
+  assert.ok(Array.isArray(res.body.actionQueue.pendingCorrections));
+  assert.ok(Array.isArray(res.body.presence.onLeaveToday));
+});
+
+test('manager GET /api/v1/dashboard/manager → 200, department shape', async () => {
+  const token = await tokenFor(MANAGER);
+  const res = await api.get('/api/v1/dashboard/manager').set('Authorization', `Bearer ${token}`);
+  assert.equal(res.status, 200);
+  assert.equal(res.body.scope, 'department');
+  assert.equal(typeof res.body.department.headcount, 'number');
+  assert.equal(typeof res.body.department.rate, 'number');
+  assert.ok(Array.isArray(res.body.approvals.pendingLeave));
+  assert.ok(Array.isArray(res.body.approvals.pendingCorrections));
+});
+
+test('team_lead GET /api/v1/dashboard/team-lead → 200, team shape', async () => {
+  const token = await tokenFor(TEAM_LEAD);
+  const res = await api.get('/api/v1/dashboard/team-lead').set('Authorization', `Bearer ${token}`);
+  assert.equal(res.status, 200);
+  assert.equal(res.body.scope, 'team');
+  assert.equal(typeof res.body.team.headcount, 'number');
+  assert.ok(Array.isArray(res.body.workload));
+  assert.ok(Array.isArray(res.body.blockers));
+});
+
+test('owner GET /api/v1/dashboard/owner → 200, org shape with departments', async () => {
+  const token = await tokenFor(OWNER);
+  const res = await api.get('/api/v1/dashboard/owner').set('Authorization', `Bearer ${token}`);
+  assert.equal(res.status, 200);
+  assert.equal(res.body.scope, 'organization');
+  assert.equal(typeof res.body.org.headcount, 'number');
+  assert.equal(typeof res.body.org.rate, 'number');
+  assert.ok(Array.isArray(res.body.departments));
+  assert.equal(typeof res.body.approvals.pendingLeave, 'number');
+  assert.equal(typeof res.body.approvals.pendingCorrections, 'number');
+});
+
+test('role dashboards are role-gated → 403 for the wrong role', async () => {
+  const hrToken = await tokenFor(HR);
+  const staffToken = await tokenFor(STAFF);
+  const paths = [
+    '/api/v1/dashboard/hr',
+    '/api/v1/dashboard/manager',
+    '/api/v1/dashboard/team-lead',
+    '/api/v1/dashboard/owner',
+  ];
+  for (const path of paths) {
+    const res = await api.get(path).set('Authorization', `Bearer ${staffToken}`);
+    assert.equal(res.status, 403, `staff must not read ${path}`);
+    assert.equal(res.body.code, 'forbidden', path);
+  }
+  const res = await api.get('/api/v1/dashboard/owner').set('Authorization', `Bearer ${hrToken}`);
+  assert.equal(res.status, 403, 'HR must not read the owner board');
 });

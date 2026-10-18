@@ -15,7 +15,13 @@ import { logger } from '../common/logger.js';
  */
 // eslint-disable-next-line no-unused-vars
 export function errorMiddleware(err, req, res, _next) {
-  const appError = err instanceof AppError ? err : new AppError('internal', 'Internal server error', { httpStatus: 500 });
+  // express.json() syntax errors arrive here directly (never wrapped in
+  // AppError): answer 400 invalid_json instead of a misleading 500.
+  const bodyParseError =
+    err && typeof err === 'object' && 'type' in err && err.type === 'entity.parse.failed'
+      ? new AppError('invalid_json', 'Request body is not valid JSON.', { httpStatus: 400 })
+      : null;
+  const appError = bodyParseError ?? (err instanceof AppError ? err : new AppError('internal', 'Internal server error', { httpStatus: 500 }));
   const status = appError.httpStatus ?? 500;
   const requestId = req.requestId || req.headers['x-request-id'] || null;
 

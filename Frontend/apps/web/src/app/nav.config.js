@@ -150,6 +150,19 @@ export const NAV_ITEMS = [
     enabled: true,
     requires: { permission: 'team.read' },
   },
+  // Payroll (R3.8): one top-level workspace. `payroll.view` opens it for
+  // everyone who holds it — for a view-only session the page itself narrows
+  // to self-service (payroll.manage is the gate to org-wide data, §4.1).
+  {
+    id: 'payroll',
+    group: 'payroll',
+    labelKey: 'nav.payroll',
+    icon: 'Wallet',
+    path: '/payroll',
+    release: 'R3.8',
+    enabled: true,
+    requires: { permission: 'payroll.view' },
+  },
   // Insights
   {
     id: 'reports',
