@@ -67,7 +67,9 @@
     "badge": "Preview",
     "body": "This screen shows sample content — the live feature isn't connected yet.",
     "callBadge": "Sample call",
-    "callBody": "Participants and chat are demo data and no call is placed. Microphone, camera and screen share are this browser's own devices, streamed nowhere — the provider adapter and the meeting token are still to come."
+    "callBody": "Participants and chat are demo data and no call is placed. Microphone, camera and screen share are this browser's own devices, streamed nowhere — the provider adapter and the meeting token are still to come.",
+    "payrollBadge": "Sample payroll",
+    "payrollBody": "Every figure here — salaries, structures, statutory rates and payslips — is demo configuration for the sample org, not verified tax advice or a connected payroll provider."
   },
   "details": "Details",
   "requestId": "Request ID: {{id}}",

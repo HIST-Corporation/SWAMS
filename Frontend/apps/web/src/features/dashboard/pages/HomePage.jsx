@@ -1,7 +1,7 @@
 import { useTranslation } from 'react-i18next';
 import { Link } from 'react-router-dom';
 import { Download, Fingerprint } from 'lucide-react';
-import { Button, Card, CardTitle, PageHeader, PreviewNotice } from '@swams/ui';
+import { Button, Card, CardTitle, ErrorState, PageHeader, PreviewNotice, Skeleton } from '@swams/ui';
 import { formatDateAd, nepalParts } from '@swams/i18n';
 import { PunchCard } from '../../attendance/index.js';
 import { useSession } from '../../../hooks/useSession.js';
@@ -21,11 +21,17 @@ import { TodayTasks } from '../components/TodayTasks.jsx';
 import { UpcomingEvents } from '../components/UpcomingEvents.jsx';
 import { WeekChart } from '../components/WeekChart.jsx';
 import { WorkforcePanel } from '../components/WorkforcePanel.jsx';
-import { useOrgDashboard } from '../hooks/useDashboard.js';
+import {
+  useHrDashboard,
+  useManagerDashboard,
+  useOrgDashboard,
+  useOwnerDashboard,
+  useTeamLeadDashboard,
+} from '../hooks/useDashboard.js';
 import { buildOrgSnapshotCsv } from '../utils/orgSnapshot.js';
 
 /**
- * Home — a straight port of the owner's prototype (`SWAMS_Unified.html`,
+ * Home — role-specific dashboard panels per role (owner, hr, manager, team-lead, team, staff).
  * `#page-dashboard`), with two variants:
  *
  *   reviewer (manager / HR)   the prototype's composed board:
@@ -65,15 +71,19 @@ export function HomePage() {
   const { t, i18n } = useTranslation();
   const { t: td } = useTranslation('dashboard');
   const { entitlements, principal, user } = useSession();
-  // Three compositions (six-role model): org (executive/HR/manager), team
-  // (supervisor), personal (staff) — see utils/scope.js for the mapping.
+  // Six compositions (six-role model): owner, hr, manager, team-lead, team,
+  // personal — see utils/scope.js for the mapping.
   const view = dashboardView(principal);
-  const isOrg = view === 'org';
-  const canReview = isOrg;
+  const isOwner = view === 'owner';
+  const isHr = view === 'hr';
+  const isManager = view === 'manager';
+  const isTeamLead = view === 'team-lead';
+  const isOrgView = isOwner || isHr || isManager;
+  const canReview = isOrgView;
   const isTeam = view === 'team';
   const has = (key) => entitlements.includes(key);
   const locale = i18n.language === 'ne' ? 'ne-NP' : 'en-GB';
-  const { board } = useOrgDashboard({ enabled: isOrg });
+  const { board } = useOrgDashboard({ enabled: isOrgView });
 
   const now = new Date();
   const { hours } = nepalParts(now);
@@ -147,11 +157,15 @@ export function HomePage() {
               renders nothing without a staff session. */}
           {!canReview ? <StaffBoard /> : null}
 
-          {canReview ? (
-            <div className="grid items-stretch gap-5 lg:grid-cols-2">
-              <OrgTrendChart />
-              <DepartmentBars />
-            </div>
+          {/* Role-scoped panels — each role renders its own dashboard structure. */}
+          {isOwner ? (
+            <OwnerPanel />
+          ) : isHr ? (
+            <HrPanel />
+          ) : isManager ? (
+            <ManagerPanel />
+          ) : isTeamLead ? (
+            <TeamLeadPanel />
           ) : (
             <div className="grid items-stretch gap-5 lg:grid-cols-2">
               <WeekChart />
@@ -163,8 +177,16 @@ export function HomePage() {
         {canReview ? <WorkforcePanel /> : null}
       </div>
 
-      {canReview ? (
+      {/* Owner carries the full org analytics stack — charts, insights,
+          meetings and the benchmark; manager gets the department charts; HR's
+          action queue above is the whole board. */}
+      {isOwner ? (
         <>
+          <div className="grid items-stretch gap-5 lg:grid-cols-2">
+            <OrgTrendChart />
+            <DepartmentBars />
+          </div>
+
           <div className="grid items-stretch gap-5 lg:grid-cols-2">
             <OrgInsights />
             <TodayMeetings />
@@ -172,6 +194,11 @@ export function HomePage() {
 
           <BenchmarkTable />
         </>
+      ) : isManager ? (
+        <div className="grid items-stretch gap-5 lg:grid-cols-2">
+          <OrgTrendChart />
+          <DepartmentBars />
+        </div>
       ) : null}
 
       <div className="grid items-stretch gap-5 lg:grid-cols-2">
@@ -179,15 +206,13 @@ export function HomePage() {
         <TasksCard enabled={has('tasks')} />
       </div>
 
-      {/* "Team now" closes a staff or team-lead Home (§9.9): the roster's
-          presence strip, the one place the demo team is named person by person. */}
-      {!canReview ? <TeamNow /> : null}
+      {/* "Team now" — staff, team-lead and team views show the roster presence strip. */}
+      {!isOrgView ? <TeamNow /> : null}
 
-      {/* A supervisor's actionable queue: corrections they can approve, with
-          their own "needs info" items — the team lens of "Needs you". */}
-      {isTeam ? <NeedsYou /> : null}
+      {/* Corrections/approvals queue for team-lead and team scopes. */}
+      {(isTeam || isTeamLead) ? <NeedsYou /> : null}
 
-      {canReview ? (
+      {isOrgView ? (
         <div className="grid items-stretch gap-5 lg:grid-cols-2">
           <ComingUpCard />
           <NeedsYou />
@@ -224,5 +249,174 @@ function TasksCard({ enabled }) {
       <CardTitle>{t('tasks.title')}</CardTitle>
       <TodayTasks enabled bare />
     </Card>
+  );
+}
+
+/** HR dashboard panel — action queue + on-leave today (owns its query). */
+function HrPanel() {
+  const { t } = useTranslation('dashboard');
+  const { isLoading, error, refetch, board } = useHrDashboard();
+
+  if (isLoading) return <PanelSkeleton />;
+  if (error) return <ErrorState message={error.message} requestId={error.requestId} onRetry={refetch} />;
+  if (!board) return null;
+
+  return (
+    <div className="grid gap-4">
+      <div className="grid gap-4 lg:grid-cols-3">
+        <StatCard title={t('hr.pendingLeave')} value={board.actionQueue.pendingLeave.length} caption={t('hr.approvals')} />
+        <StatCard title={t('hr.pendingCorrections')} value={board.actionQueue.pendingCorrections.length} caption={t('hr.review')} />
+        <StatCard title={t('hr.onLeaveToday')} value={board.presence.onLeaveToday.length} caption={t('hr.away')} />
+      </div>
+      <div className="grid gap-4 lg:grid-cols-2">
+        <div className="rounded-card border-border bg-surface-raised p-4">
+          <div className="font-display text-[11px] font-semibold uppercase tracking-wide text-text-faint mb-3">{t('hr.approveLeave')}</div>
+          {board.actionQueue.pendingLeave.map((item) => (
+            <PanelRow label={item.title} value={new Date(item.createdAt).toLocaleDateString()} />
+          ))}
+        </div>
+        <div className="rounded-card border-border bg-surface-raised p-4">
+          <div className="font-display text-[11px] font-semibold uppercase tracking-wide text-text-faint mb-3">{t('hr.reviewCorrections')}</div>
+          {board.actionQueue.pendingCorrections.map((item) => (
+            <PanelRow label={item.title} value={new Date(item.createdAt).toLocaleDateString()} />
+          ))}
+        </div>
+      </div>
+    </div>
+  );
+}
+
+/** Manager dashboard panel — department capacity vs load (owns its query). */
+function ManagerPanel() {
+  const { t } = useTranslation('dashboard');
+  const { isLoading, error, refetch, board } = useManagerDashboard();
+
+  if (isLoading) return <PanelSkeleton />;
+  if (error) return <ErrorState message={error.message} requestId={error.requestId} onRetry={refetch} />;
+  if (!board) return null;
+
+  const d = board.department;
+  return (
+    <div className="grid gap-4">
+      <div className="grid gap-4 lg:grid-cols-3">
+        <StatCard title={t('mgr.headcount')} value={d.headcount} caption={t('mgr.team')} />
+        <StatCard title={t('mgr.present')} value={d.present} caption={t('mgr.onSite')} />
+        <StatCard title={t('mgr.rate')} value={d.rate + '%'} caption={t('mgr.attendanceRate')} />
+      </div>
+      <div className="grid gap-4 lg:grid-cols-2">
+        <div className="rounded-card border-border bg-surface-raised p-4">
+          <div className="font-display text-[11px] font-semibold uppercase tracking-wide text-text-faint mb-3">{t('mgr.approvals')}</div>
+          <div className="mt-1 text-xs text-text-muted">{t('mgr.pendingLeave', { count: board.approvals.pendingLeave.length })}</div>
+          <div className="mt-1 text-xs text-text-muted">{t('mgr.pendingCorrections', { count: board.approvals.pendingCorrections.length })}</div>
+        </div>
+        <div className="rounded-card border-border bg-surface-raised p-4">
+          <div className="font-display text-[11px] font-semibold uppercase tracking-wide text-text-faint mb-3">{t('mgr.absentOnLeave')}</div>
+          <div className="mt-1 text-xs text-text-muted">{t('mgr.absent', { count: d.absent })}</div>
+          <div className="mt-1 text-xs text-text-muted">{t('mgr.onLeave', { count: d.onLeave })}</div>
+          <div className="mt-1 text-xs text-text-muted">{t('mgr.late', { count: d.late })}</div>
+        </div>
+      </div>
+    </div>
+  );
+}
+
+/** Team lead dashboard panel — workload + blockers + corrections (owns its query). */
+function TeamLeadPanel() {
+  const { t } = useTranslation('dashboard');
+  const { isLoading, error, refetch, board } = useTeamLeadDashboard();
+
+  if (isLoading) return <PanelSkeleton />;
+  if (error) return <ErrorState message={error.message} requestId={error.requestId} onRetry={refetch} />;
+  if (!board) return null;
+
+  return (
+    <div className="grid gap-4">
+      <div className="grid gap-4 lg:grid-cols-3">
+        <StatCard title={t('tl.headcount')} value={board.team.headcount} caption={t('tl.team')} />
+        <StatCard title={t('tl.present')} value={board.team.present} caption={t('tl.onSite')} />
+        <StatCard title={t('tl.blockers')} value={board.blockers.length} caption={t('tl.unblock')} />
+      </div>
+      <div className="grid gap-4 lg:grid-cols-2">
+        <div className="rounded-card border-border bg-surface-raised p-4">
+          <div className="font-display text-[11px] font-semibold uppercase tracking-wide text-text-faint mb-3">{t('tl.workload')}</div>
+          {board.workload.map((task) => (
+            <PanelRow label={task.title} value={task.priority} />
+          ))}
+        </div>
+        <div className="rounded-card border-border bg-surface-raised p-4">
+          <div className="font-display text-[11px] font-semibold uppercase tracking-wide text-text-faint mb-3">{t('tl.blockedCards')}</div>
+          {board.blockers.map((b) => (
+            <PanelRow label={b.title} value={b.lane} />
+          ))}
+        </div>
+      </div>
+    </div>
+  );
+}
+
+/** Owner dashboard panel — org aggregates (owns its query). */
+function OwnerPanel() {
+  const { t } = useTranslation('dashboard');
+  const { isLoading, error, refetch, board } = useOwnerDashboard();
+
+  if (isLoading) return <PanelSkeleton />;
+  if (error) return <ErrorState message={error.message} requestId={error.requestId} onRetry={refetch} />;
+  if (!board) return null;
+
+  const o = board.org;
+  return (
+    <div className="grid gap-4">
+      <div className="grid gap-4 lg:grid-cols-4">
+        <StatCard title={t('own.headcount')} value={o.headcount} caption={t('own.staff')} />
+        <StatCard title={t('own.onSite')} value={o.onSite} caption={t('own.present')} />
+        <StatCard title={t('own.rate')} value={o.rate + '%'} caption={t('own.attendanceRate')} />
+        <StatCard title={t('own.pending')} value={o.pendingLeave + o.pendingCorrections} caption={t('own.approvals')} />
+      </div>
+      <div className="grid gap-4 lg:grid-cols-2">
+        <div className="rounded-card border-border bg-surface-raised p-4">
+          <div className="font-display text-[11px] font-semibold uppercase tracking-wide text-text-faint mb-3">{t('own.byDepartment')}</div>
+          {(board.departments ?? []).map((dept) => (
+            <PanelRow label={dept.name} value={dept.headcount} />
+          ))}
+        </div>
+        <div className="rounded-card border-border bg-surface-raised p-4">
+          <div className="font-display text-[11px] font-semibold uppercase tracking-wide text-text-faint mb-3">{t('own.approvalsInbox')}</div>
+          <div className="mt-1 text-xs text-text-muted">{t('own.pendingLeave', { count: board.approvals.pendingLeave })}</div>
+          <div className="mt-1 text-xs text-text-muted">{t('own.pendingCorrections', { count: board.approvals.pendingCorrections })}</div>
+        </div>
+      </div>
+    </div>
+  );
+}
+
+/** One row in a role panel's list: label over value, hairline separator. */
+function PanelRow({ label, value }) {
+  return (
+    <div className="flex items-center justify-between gap-4 py-3">
+      <span className="text-text-muted text-xs">{label}</span>
+      <span className="tabular font-medium text-text">{value}</span>
+    </div>
+  );
+}
+
+/** Role-scoped mini-card: title + value + caption. */
+function StatCard({ title, value, caption }) {
+  return (
+    <div className="rounded-card border-border bg-surface-raised p-5">
+      <div className="font-display text-[11px] font-semibold uppercase tracking-wide text-text-faint">{title}</div>
+      <div className="mt-3 font-display text-2xl leading-none font-bold tracking-tight text-text">{value}</div>
+      <div className="mt-1 text-sm text-text-muted">{caption}</div>
+    </div>
+  );
+}
+
+/** Loading state for the role panels — matches KpiRow's skeleton. */
+function PanelSkeleton() {
+  return (
+    <div className="grid gap-4 sm:grid-cols-2" aria-busy="true">
+      {Array.from({ length: 4 }, (_, i) => (
+        <Skeleton key={i} block className="h-36 rounded-card" />
+      ))}
+    </div>
   );
 }
