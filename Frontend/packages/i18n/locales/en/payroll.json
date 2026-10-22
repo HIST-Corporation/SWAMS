@@ -1,5 +1,5 @@
 {
-  "title": "Payroll & salary",
+  "title": "My Salary",
   "subtitle": "Salary structures, pay processing, payslips and claims.",
   "readOnly": "You can read this workspace; only HR processes payroll.",
   "selfScope": "You're seeing your own pay records. Org-wide payroll stays with HR.",
@@ -12,7 +12,8 @@
     "reports": "Reports",
     "settings": "Settings",
     "myPay": "My pay",
-    "myClaims": "My claims"
+    "myClaims": "My claims",
+    "mySalary": "My Salary"
   },
   "period": {
     "label": "Pay period",
@@ -262,6 +263,72 @@
   },
   "empty": {
     "self": "No pay records for this session yet.",
-    "org": "No payroll records yet — set up a structure first."
+    "org": "No payroll records yet — set up a structure first.",
+    "mySalary": "No salary records yet — your first payslip will appear after the next publish."
+  },
+  "mySalary": {
+    "title": "My Salary",
+    "subtitle": "Your own pay details — simple and read-only.",
+    "overview": "Salary Overview",
+    "gross": "Gross earnings",
+    "deductions": "Total deductions",
+    "net": "Net pay",
+    "beforeDeductions": "Before taxes and deductions",
+    "taxAndDeductions": "Tax and other deductions",
+    "takeHome": "Take-home pay",
+    "noChange": "No change",
+    "history": "Salary History",
+    "thisPeriod": "This Pay Period",
+    "thisMonth": "This Month",
+    "statusPublished": "Published",
+    "period": "Period",
+    "payDate": "Pay Date",
+    "breakdown": "Salary Breakdown",
+    "itemized": "Itemized view of your earnings and deductions",
+    "earnings": "Earnings",
+    "basicSalary": "Basic Salary",
+    "allowances": "Allowances",
+    "totalEarnings": "Total Earnings",
+    "totalDeductions": "Total Deductions",
+    "tax": "Tax",
+    "providentFund": "Provident Fund",
+    "loanRepayment": "Loan Repayment",
+    "upcoming": "Upcoming Salary",
+    "nextPayDate": "Next Pay Date",
+    "expectedNet": "Expected Net Pay",
+    "soon": "Coming soon",
+    "viewPayslip": "View Payslip",
+    "download": "Download",
+    "payslip": "Payslip",
+    "view": "View",
+    "zero": "0",
+    "currencySymbol": "₹",
+    "noPayslips": "No payslips yet — your first one appears after the next publish.",
+    "noPayslipsDesc": "Your first payslip will appear here after the next payroll publish.",
+    "search": {
+      "label": "Search payslips",
+      "placeholder": "Search by employee name, period or amount…",
+      "clear": "Clear filters",
+      "placeholderPeriod": "Search by period, month or date…"
+    },
+    "filter": {
+      "period": "Pay period",
+      "status": "Status",
+      "allPeriods": "All periods",
+      "allStatuses": "All statuses"
+    },
+    "status": {
+      "published": "Published",
+      "draft": "Draft",
+      "pending": "Pending"
+    },
+    "results": {
+      "found": "{{count}} payslip{{s}} found",
+      "none": "No payslips match your search or filters."
+    }
+  },
+  "admin": {
+    "role": "HR / Admin",
+    "placeholder": "HR payroll workspace — full payroll management."
   }
 }
