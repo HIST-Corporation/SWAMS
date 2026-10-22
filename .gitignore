@@ -1,5 +1,7 @@
 # macOS
 .DS_Store
+# AppleDouble metadata (created on non-HFS/external volumes; breaks node-gyp-build)
+._*
 
 # Dependencies
 node_modules/

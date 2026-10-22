@@ -7,6 +7,7 @@
  * Ids are FIXED strings (not cuids) so fixtures across apps agree.
  * Run: pnpm db:seed  (idempotent — upserts on stable keys)
  */
+import 'dotenv/config';
 import { PrismaClient } from '@prisma/client';
 import argon2 from 'argon2';
 
